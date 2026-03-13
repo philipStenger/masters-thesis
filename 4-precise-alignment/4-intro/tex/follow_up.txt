@@ -1,0 +1,3 @@
+Should the introduction mention the specific robot platform (UCVision Rover) by name, for consistency with the SLAM chapter?
+Are there \label{} values already defined in the other sections that I should match the \cref{} targets to?
+Is the SfM-to-3DGS pipeline described here accurate — specifically, is the SfM point cloud the direct input to ICP, or is it the 3DGS-rendered point cloud?

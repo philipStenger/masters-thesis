@@ -1,8 +1,10 @@
 \section{Robot Localisation in Vineyard and Orchard Robotics}
+\label{sec:vineyard-robotics}
 
 Unlike structured industrial settings, agricultural environments are "semi-structured" environments characterised by homogeneous structures, seasonal variability, and dynamic occlusion \cite{hroobBenchmarkVisual3D2021}. Moreover, the reliance on Global Navigation Satellite Systems (GNSS) often falls short in orchards as dense canopies can attenuate satellite signals or induce multipath errors, making standard GNSS insufficient for centimetre-level precision tasks \cite{tangFruitTreeMappingSystem2024}. Therefore, research has focused on developing technologies that use semantic understanding, geometric constraints, and multi-sensor fusion to operate reliably in these GNSS-denied environments \cite{tangFruitTreeMappingSystem2024}.
 
 \subsection{Environmental Constraints and Challenges}
+\label{subsec:env-constraints}
 Semi-structured agricultural environments create unique constraints that pose a challenge for generic SLAM algorithms designed for structured urban environments. 
 
 \paragraph{Perceptual Aliasing and Geometric Repetitiveness}
@@ -15,6 +17,7 @@ Many SLAM systems make an assumption of a static world, however orchards and vin
 Furthermore, the uneven terrain can cause camera shake and wheel slippage that introduces high-frequency noise into odometry estimates \cite{zhangKeyTechnologiesIntelligent2026}.
 
 \subsection{LiDAR SLAM}
+\label{subsec:lidar-slam-background}
 
 LiDAR SLAM is often favoured due to its illumination invariance, but standard scan-matching algorithms like ICP often fail in symmetric vineyard rows due to the aforementioned perceptual aliasing along the longitudinal axis. 
 
@@ -33,4 +36,5 @@ Progress in the field is accelerated by open-source datasets tailored to agricul
 \end{itemize}
 
 \subsection{Conclusion}
+\label{subsec:vineyard-robotics-conclusion}
 The development of SLAM for orchards and vineyards has evolved from the application of generic algorithms to the design of domain-specific architectures. Current research prioritises semantic SLAM to filter dynamic agricultural noise and object-level mapping (e.g., Tree-SLAM) to resolve geometric ambiguity. Furthermore, the integration of multi-sensor fusion (e.g., April-LIO-SAM) has proven essential for achieving the centimetre-level accuracy required for precision tasks. Future work is increasingly driven by long-term autonomy, leveraging datasets like BLT to enable robots that can adapt to the seasonal biological evolution of the crop \cite{tangFruitTreeMappingSystem2024} \cite{polvaraBacchusLongTermBLT2024}.

@@ -1,0 +1,19 @@
+The precise alignment section should introduce the 2nd phase of localisation presented in this masters thesis. So far, we have achieved robust SLAM in vineyard environments, but in order to get the degree of alignment and accuracy that we need for vineyard pruning, we need a further refinement step. 
+To give a bit of context, when the robot goes into the vineyard to prune, it has a high-fidelity 3D gaussian splatting model of the vine that it is going to prune. 
+This 3D gaussian splat model was made offline from data recorded previously. 
+The 3D gaussian splat is within the global Local ENU reference frame. I will need to justify how this position can effectively be used as the "ground truth" position of the vine, due to the accuracy of the structure from motion and gaussian splatting process. 
+
+Now, the robot navigates to the specific vine using SLAM as its source of localisation and mapping. (the exact navigation theory is out of the scope of this thesis). 
+
+It should be known that all of the path planning, and cut point detection happens on the 3DGS model. Therefore, in order for the robotic arm to prune the real world vine, we need to align the robots internal perception in the pruning simulation of where it is relative to the 3DGS model in the simulation, with the real pose of the robot with respect to the real vine. This means that when the robot in the simulation goes to cut the vine, everything lines up with real life. 
+
+So, heres what happens:
+
+1. robot arrives infront of the real vine. 
+2. robot scans the vine, using some form of pointcloud mapping. In this thesis, we have investigated two methods:
+2a. stereo camera depth pointclouds
+2b. dense lidar maps 
+3. these pointclouds are then sent through a data-processing pipeline that cleans up the pointcloud and gets it ready for ICP.
+4. I perform ICP with the pointcloud created from the structure from motion step of the 3DGS process. 
+5. I get the relative transform between the pointcloud from the real vine and the 3DGS model. 
+5. I use this transformation to update the robots internal perception of where it is relative to the vine, aligning the real world vine with the 3DGS vine model, and allowing the robot arm path planner to plan its routes for pruning and select good pruning cutpoints. 

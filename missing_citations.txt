@@ -1,0 +1,55 @@
+Missing citations from precise_alignment_literature_review.md
+=============================================================
+(not found in MastersThesis.bib as of 2026-03-13)
+
+[3]  "3D multi-temporal reconstruction of proximal sensing data for vineyard monitoring"
+     (SS-GLR algorithm; RealSense + Orbbec cameras; 17 dates)
+     URL: https://www.researchgate.net/publication/394562122
+
+[5]  "Fruit detection and 3D location using optical sensors and computer vision"
+     (TDX doctoral thesis)
+     URL: https://www.tdx.cat/bitstream/10803/669110/7/Tjgm1de1.pdf
+
+[10] Noboru Noguchi — ResearchGate author profile page (NOT a citable paper)
+     NOTE: Replace with a specific Noguchi publication or remove.
+
+[14] "Identifying vineyards from LiDAR data"
+     (drone-based DJI Zenmuse L1 + plane-based LiDAR)
+     URL: https://www.researchgate.net/publication/398823995
+
+[34] Liu et al. (2017). "Efficient Global 2D-3D Matching for Camera Localization in a Large-Scale 3D Map." ICCV 2017.
+     URL: https://vision.unipv.it/CV/materiale2017-18/thirdchoice/Liu_Efficient_Global_2D-3D_ICCV_2017_paper.pdf
+
+[35] "A Real-Time Global Re-Localization Framework for a 3D LiDAR-Based Navigation System"
+     URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC11478482/
+
+[38] "OpenNavMap: Structure-Free Topometric Mapping via Large-Scale Collaborative Localization"
+     URL: https://arxiv.org/html/2601.12291v1
+
+[40] Klodt, M. et al. (2015). "Field phenotyping of grapevine growth using dense stereo reconstruction."
+     BMC Bioinformatics, 16, 143.
+
+[41] Parr, B. et al. (2022). "Analysis of Depth Cameras for Proximal Sensing of Grapes."
+     Sensors, 22(11), 4271.
+
+[43] Chakraborty, M. et al. (2019). "Evaluation of Mobile 3D Light Detection and Ranging Based Canopy Mapping System for Tree Fruit Crops."
+     Computers and Electronics in Agriculture, 158, 284-293.
+
+[44] Petrovic, F. et al. (2022). "Vine Canopy Reconstruction and Assessment with Terrestrial Lidar and Aerial Imaging."
+     Remote Sensing, 14(19), 4819.
+
+[45] Mellado, N., Aiger, D. & Mitra, N. J. (2014). "Super 4PCS: Fast Global Pointcloud Registration via Smart Indexing."
+     Computer Graphics Forum, 33(5), 205-215.
+
+[46] Yang, J., Li, H., Campbell, D. & Jia, Y. (2015). "Go-ICP: A Globally Optimal Solution to 3D ICP Point-Set Registration."
+     IEEE Trans. Pattern Analysis and Machine Intelligence, 38(11), 2241-2254.
+
+[47] Elbaz, G., Avraham, T. & Fischer, A. (2017). "3D Point Cloud Registration for Localization Using a Deep Neural Network Auto-Encoder."
+     Proc. IEEE/CVF CVPR, 4631-4640.
+
+[48] Si, H., Yin, B. & Liu, F. (2022). "A Review of Point Cloud Registration Algorithms for Laser Scanners."
+     Applied Sciences, 12(24), 12917.
+
+[50] Akhihiero, O. & Gross, J. N. (2025). "Pointcloud Registration for Relocalization."
+     arXiv preprint arXiv:2501.XXXXX
+     NOTE: Placeholder arXiv ID — real identifier needed.

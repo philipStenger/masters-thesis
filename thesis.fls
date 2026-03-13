@@ -169,10 +169,10 @@ INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\s
 INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
+INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr9.tfm
 OUTPUT thesis.toc
 INPUT .\acknowledgements.tex
 INPUT .\acknowledgements.tex
-INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr9.tfm
 OUTPUT acknowledgements.aux
 INPUT .\acknowledgements.tex
 INPUT .\acknowledgements.tex

@@ -73,15 +73,17 @@
 \contentsline {section}{\numberline {3.6}Summary}{44}{}%
 \contentsline {chapter}{\numberline {\uppercase {Chapter\ 4}}\uppercase {precise-alignment}}{45}{}%
 \contentsline {section}{\numberline {4.1}Introduction}{45}{}%
-\contentsline {section}{\numberline {4.2}Related Work}{45}{}%
-\contentsline {subsection}{\numberline {4.2.1}Stereo Depth Imaging}{45}{}%
-\contentsline {subsection}{\numberline {4.2.2}Dense LiDAR}{45}{}%
-\contentsline {subsection}{\numberline {4.2.3}ICP}{45}{}%
-\contentsline {section}{\numberline {4.3}Proposed Methods}{45}{}%
-\contentsline {section}{\numberline {4.4}Results}{45}{}%
-\contentsline {section}{\numberline {4.5}Discussion}{45}{}%
-\contentsline {section}{\numberline {4.6}Summary}{45}{}%
-\contentsline {chapter}{\numberline {\uppercase {Chapter\ 5}}\uppercase {Conclusion}}{47}{}%
-\contentsline {section}{\numberline {5.1}Future Work}{47}{}%
-\contentsline {chapter}{\numberline {\uppercase {Chapter\ 6}}\uppercase {References}}{49}{}%
-\contentsline {chapter}{\uppercase {Supplementary Figures}}{55}{}%
+\contentsline {subsection}{\numberline {4.1.1}System Context}{45}{}%
+\contentsline {subsection}{\numberline {4.1.2}Approach Overview}{46}{}%
+\contentsline {section}{\numberline {4.2}Related Work}{46}{}%
+\contentsline {subsection}{\numberline {4.2.1}Stereo Depth Imaging}{47}{}%
+\contentsline {subsection}{\numberline {4.2.2}Dense LiDAR Mapping}{48}{}%
+\contentsline {subsection}{\numberline {4.2.3}Point Cloud Registration}{49}{}%
+\contentsline {section}{\numberline {4.3}Proposed Methods}{51}{}%
+\contentsline {section}{\numberline {4.4}Results}{51}{}%
+\contentsline {section}{\numberline {4.5}Discussion}{51}{}%
+\contentsline {section}{\numberline {4.6}Summary}{51}{}%
+\contentsline {chapter}{\numberline {\uppercase {Chapter\ 5}}\uppercase {Conclusion}}{53}{}%
+\contentsline {section}{\numberline {5.1}Future Work}{53}{}%
+\contentsline {chapter}{\numberline {\uppercase {Chapter\ 6}}\uppercase {References}}{55}{}%
+\contentsline {chapter}{\uppercase {Supplementary Figures}}{63}{}%

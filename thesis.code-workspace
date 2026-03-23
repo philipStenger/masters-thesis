@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../pruning_vision_pipeline-master"
+		}
+	],
+	"settings": {
+		"chat.tools.terminal.autoApprove": {
+			"pdflatex": true,
+			"bibtex": true,
+			"Get-Item": true,
+			"Test-Path": true
+		}
+	}
+}

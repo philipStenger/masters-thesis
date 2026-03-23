@@ -1,4 +1,6 @@
-\documentclass{electhesis}
+\documentclass[oneside,openany]{electhesis}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{eleccite}
@@ -10,7 +12,9 @@
 \usepackage{float}
 \usepackage{cleveref}
 \usepackage[margin=1in, bindingoffset=0mm]{geometry}
+\raggedbottom
 \methesis
+\setcounter{tocdepth}{2}
 
 \renewcommand{\citeetal}{et~al}
 \newcommand{\citet}[1]{\citeauthor{#1} \citeshell{\citeyear{#1}}}
@@ -37,8 +41,6 @@
 \include{notation}
 
 \mainmatter
-\include{introduction}
-
 \include{1-intro/introduction}
 
 \include{2-background/background}

@@ -11,7 +11,7 @@ A primary objective of this project is the automation of vineyard pruning. In th
 
 For the robot to execute a pre-computed pruning plan, it must bridge the gap between its real-time physical state and the coordinate system of the offline model. This necessitates a robust SLAM framework capable of solving three distinct sub-problems:
 \begin{enumerate}
-    \item \textbf{Global Relocalization:} Navigating the platform back to the specific plant or row identified in the modeling phase.
+    \item \textbf{Global Relocalisation:} Navigating the platform back to the specific plant or row identified in the modeling phase.
     \item \textbf{Strategic Positioning:} Aligning the mobile base within the physical workspace constraints of the robotic arm to ensure all required cutpoints are reachable.
     \item \textbf{Sim-to-Real Registration:} Achieving millimeter-level alignment between the robot’s onboard perception and the 3D model. This ensures that the simulated path-planner’s coordinates map precisely to the physical vine structures in real life.
 \end{enumerate}

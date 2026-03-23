@@ -1,0 +1,640 @@
+WRITING IMPLEMENTATION PLAN
+============================
+Task:        Write the Chapter 4 Precise Alignment methodology section
+Target file: 4-precise-alignment/4-methodology/tex/4-methodology.tex
+Created:     2026-03-18
+
+---
+
+1. TASK SUMMARY
+   This plan covers writing the full methodology section for Chapter 4 (Precise
+   Alignment). The section must describe the complete relocalisation pipeline:
+   a system that refines a SLAM-derived initial pose estimate via ICP
+   registration of a sensor-captured point cloud against a 3DGS-rendered
+   reference. Two sensing modalities (stereo vision and LiDAR) are presented as
+   independent processing pipelines that share a common ICP registration back-end.
+   The TF correction mechanism and pipeline execution model are also covered.
+   All custom libraries (point cloud processing, GS-localisation, dense-mapper)
+   are the author's own work. The section does not include experiment design or
+   results — those belong in subsequent sections.
+
+2. LOCATION IN THESIS
+   Chapter:  4 — Precise Alignment
+   Section:  4.3 — Proposed Methods (existing \section with \label{sec:precise-alignment-methodology})
+   Insert:   Replace the existing stub content ("Split into Stereo Camera..."
+             placeholder text) with the full section.
+   Follows:  \cref{sec:precise-alignment-related-work} (Related Work)
+   Precedes: \cref{sec:precise-alignment-results} (Results)
+   Approximate length: 8–12 pages (no hard limit; err on the side of thoroughness)
+
+3. SECTION STRUCTURE
+
+   \section{Proposed Methods}
+   \label{sec:precise-alignment-methodology}
+
+     \subsection{System Overview}
+     \label{subsec:pa-system-overview}
+       — High-level description of the relocalisation pipeline.
+       — Two independent modalities: stereo and LiDAR.
+       — Shared registration back-end.
+       — Connection to SLAM system from \cref{chap:SLAM}.
+       — % TODO: insert system-level pipeline/dataflow figure here
+
+     \subsection{Reference Model: 3D Gaussian Splatting}
+     \label{subsec:pa-reference-model}
+       — The 3DGS model as the localisation target (refer to \cref{subsec:system-context} for construction).
+       — GPU-accelerated rendering into target point clouds via taichi-splatting.
+       — Model loaded once at initialisation; rendered per-viewpoint at registration time.
+       — Near/far depth filtering of rendered point clouds.
+
+     \subsection{Stereo Vision Pipeline}
+     \label{subsec:pa-stereo-pipeline}
+
+       \subsubsection{Depth Estimation}
+       \label{subsubsec:pa-depth-estimation}
+         — FoundationStereo applied to ZED stereo images (refer to \cref{subsec:stereo-depth} for model background).
+         — Configuration: downscale factor, z_far clipping, radius outlier removal.
+         — Disparity-to-depth conversion equation.
+         — Output: dense coloured point cloud in camera frame.
+
+       \subsubsection{Dual-Camera Point Cloud Fusion}
+       \label{subsubsec:pa-dual-camera}
+         — Optional front+back ZED configuration.
+         — Extrinsic transform computation: T_back_to_front = T_front_to_ref^{-1} * T_back_to_ref.
+         — Merging into unified observation before segmentation.
+
+       \subsubsection{Trunk Segmentation}
+       \label{subsubsec:pa-trunk-segmentation}
+         — Custom pipeline developed for this work.
+         — Three sequential stages:
+           (a) Morphological closing (voxel-based)
+           (b) DBSCAN clustering (retain dominant cluster)
+           (c) Voxel density filtering
+         — Input point cap for computational bounding.
+         — Parameters table or inline values with justification.
+
+     \subsection{LiDAR Pipeline}
+     \label{subsec:pa-lidar-pipeline}
+
+       \subsubsection{Dense Scan Accumulation}
+       \label{subsubsec:pa-dense-accumulation}
+         — Custom dense-mapper ROS 2 node developed for this work.
+         — Accumulates Livox LiDAR scans over a commanded interval.
+         — Output: dense accumulated point cloud.
+
+       \subsubsection{Ground Segmentation}
+       \label{subsubsec:pa-ground-segmentation}
+         — Patchwork++ ground plane estimation and removal.
+         — Key parameters: sensor height, distance threshold, seed threshold,
+           fitting iterations, processing range bounds, RNR, RVPF.
+         — Output: non-ground point cloud.
+
+       \subsubsection{Point Cloud Processing}
+       \label{subsubsec:pa-lidar-processing}
+         — Custom filtering pipeline developed for this work.
+         — Five sequential stages:
+           (a) Statistical outlier removal
+           (b) Angular filtering (exclude rear-facing points)
+           (c) Radial outlier removal
+           (d) Normal-based filtering
+           (e) Normal-based smoothing
+         — Parameters with justification.
+
+     \subsection{ICP Registration Against the 3DGS Model}
+     \label{subsec:pa-icp-registration}
+       — Shared registration procedure used by both modalities.
+       — Custom ICP registration module developed for this work.
+       — Step-by-step procedure:
+         (a) Initial pose → 4×4 homogeneous transformation.
+         (b) Candidate viewpoint sampling around initial pose.
+             % TODO: describe how candidate viewpoints are sampled (perturbation strategy)
+         (c) 3DGS model rendered at each candidate → target point cloud.
+         (d) Voxel grid downsampling of source and target.
+         (e) ICP registration via Open3D tensor-based implementation (open3d.t).
+         (f) Best alignment selected across candidates.
+       — ICP objective function (reference \cref{eq:icp} from related work, or re-state).
+       — Convergence criteria: max_iterations, max_correspondence_distance,
+         relative_fitness, relative_rmse.
+       — Modality-specific differences:
+         — LiDAR: Cauchy robust loss function (k = 0.15).
+           % TODO: clarify rationale for Cauchy kernel on LiDAR but not stereo
+         — Stereo: standard point-to-point objective (no robust kernel).
+       — Output: RegistrationResult (transformation, fitness, RMSE, correspondences).
+
+     \subsection{Coordinate Frames and Pose Correction}
+     \label{subsec:pa-pose-correction}
+       — Coordinate frame hierarchy: local_enu → map → odom → base_link → sensor_frame.
+       — Initial pose estimate from SLAM system (\cref{sec:slam-methodology}).
+       — TF correction mechanism:
+         — Correction frame inserted into TF tree.
+         — Original vs. corrected chain (diagram).
+           % TODO: insert TF tree diagram showing original vs. corrected chain
+         — Mathematical formulation:
+           T_correction_base = T_{base→sensor}^{-1} · T_correction_sensor · T_{base→sensor}
+         — Published as static transform; non-disruptive to SLAM publishers.
+         — Automatic or manual trigger modes.
+
+     \subsection{Pipeline Execution Model}
+     \label{subsec:pa-execution-model}
+       — Brief description (1–2 paragraphs).
+       — Command pattern: each stage encapsulated as an AsyncCommand.
+       — Asynchronous task queue; sequential command execution.
+       — Thread-pool offloading to preserve ROS 2 event loop responsiveness.
+       — Semaphore-based concurrency control (GPU memory management).
+       — Independent job processing per sensor observation.
+
+4. ARGUMENT AND LOGICAL FLOW
+
+   Opening: The section opens with a system overview that frames the two-stage
+   localisation strategy — SLAM provides a coarse initial pose, and this
+   pipeline refines it via ICP against a 3DGS reference model. The overview
+   establishes that two independent sensor modalities are evaluated and that
+   they share a common registration back-end. The transition from
+   \cref{sec:precise-alignment-related-work} is natural: the related work
+   surveyed the algorithmic foundations (stereo depth, LiDAR mapping, ICP
+   variants), and this section now describes how those techniques are
+   instantiated in the proposed system.
+
+   Progression: After the overview, the reference model subsection establishes
+   the localisation target — the 3DGS-rendered point cloud — which both
+   pipelines align against. This is presented first because it is shared by
+   both modalities.
+
+   The stereo pipeline is presented next (depth estimation → dual-camera fusion
+   → trunk segmentation), followed by the LiDAR pipeline (scan accumulation →
+   ground segmentation → point cloud processing). Each pipeline is described
+   input-to-output with parameters and design rationale.
+
+   The shared ICP registration subsection then unifies the two pipelines,
+   describing the common registration procedure and noting the modality-specific
+   differences (robust kernel for LiDAR).
+
+   The coordinate frames and TF correction subsection explains how the ICP
+   result is applied to the robot's pose in the ROS 2 transform tree —
+   completing the loop from "sensor observation" to "corrected localisation".
+
+   The section closes with a brief description of the pipeline execution model,
+   which explains the software architecture that enables real-time processing.
+
+   Closing: The final paragraph of the execution model subsection (or a short
+   closing paragraph for the section) should transition to the results section,
+   noting that the following section evaluates the performance of both
+   modalities across vineyard test cases.
+
+5. KEY CONTENT POINTS
+
+   [1]  The relocalisation pipeline refines an initial pose from the SLAM system
+        proposed in \cref{chap:SLAM} using ICP against a 3DGS-rendered reference.
+
+   [2]  Two independent sensor modalities are supported: stereo vision (ZED
+        cameras) and dense LiDAR (Livox sensor).
+
+   [3]  The 3DGS model is pre-built offline from SfM photogrammetry (described
+        in \cref{subsec:system-context}). At registration time, it is rendered
+        into point clouds at candidate viewpoints using GPU-accelerated
+        rendering.
+
+   [4]  FoundationStereo is used for stereo depth estimation. It produces dense
+        disparity maps converted to coloured 3D point clouds. Configuration:
+        downscale factor 0.7, z_far 1.0 m.
+
+   [5]  Dual-camera mode merges front and back ZED point clouds via known
+        extrinsic transforms before segmentation, increasing the angular
+        coverage of the observation.
+
+   [6]  The trunk segmentation pipeline (developed for this work) isolates vine
+        trunk structure from noise using morphological closing, DBSCAN
+        clustering, and voxel density filtering.
+
+   [7]  The dense-mapper node (developed for this work) accumulates Livox LiDAR
+        scans over a commanded interval to produce a dense point cloud.
+
+   [8]  Patchwork++ removes the ground plane from the accumulated LiDAR cloud.
+
+   [9]  The LiDAR processing pipeline (developed for this work) applies five
+        sequential filtering stages: statistical outlier removal, angular
+        filtering, radial outlier removal, normal-based filtering, and
+        normal-based smoothing.
+
+   [10] The ICP registration module (developed for this work) samples candidate
+        viewpoints around the initial pose, renders the 3DGS model at each,
+        runs ICP (Open3D tensor-based), and selects the best alignment.
+
+   [11] LiDAR ICP uses a Cauchy robust kernel (k = 0.15) to mitigate outlier
+        correspondences.
+        [TODO: clarify rationale for using robust kernel on LiDAR but not stereo]
+
+   [12] The TF correction system inserts a correction frame into the ROS 2 TF
+        tree, projecting the sensor-frame ICP correction into the base_link
+        frame without modifying the SLAM system's own transforms.
+
+   [13] The pipeline follows a command pattern with asynchronous task queuing,
+        thread-pool offloading, and semaphore-based GPU concurrency control.
+
+   [14] [TODO: describe candidate viewpoint sampling strategy]
+
+6. CITATIONS REQUIRED
+
+   Citations are needed at the following points. Where an existing BibTeX key
+   is known, it is listed. All others are flagged as missing.
+
+   — ICP algorithm (Besl & McKay): \cite{beslMethodRegistration3D1992a}
+     → In the ICP registration subsection when stating the ICP formulation.
+
+   — FoundationStereo:
+     [TODO: add BibTeX entry for FoundationStereo — already flagged as
+     \cite{TODO-FoundationStereo} in the related work section]
+
+   — Patchwork++:
+     [TODO: add BibTeX entry for Patchwork++ (Lee et al., 2022)]
+
+   — DBSCAN (Ester et al., 1996):
+     [TODO: add BibTeX entry for DBSCAN]
+
+   — Open3D (Zhou et al., 2018):
+     [TODO: add BibTeX entry for Open3D]
+
+   — ROS 2: \cite{macenskiRobotOperatingSystem2022}
+     → In the TF correction and pipeline execution model subsections.
+
+   — Cauchy robust loss function:
+     [TODO: identify appropriate citation for Cauchy/Lorentzian robust kernel
+     in ICP context, or describe inline without citation]
+
+   — Generalised ICP / robust ICP context: \cite{segalGeneralizedICP2009}
+     → Optional reference in ICP subsection when discussing robust formulations.
+
+   — KISS-ICP: \cite{vizzoKISSICPDefensePointtoPoint2023}
+     → Optional reference if discussing the design philosophy of using a lean
+     point-to-point formulation.
+
+7. FIGURES, TABLES, AND EQUATIONS
+
+   FIGURES:
+
+   [F1] System-level pipeline dataflow diagram.
+        — Shows: sensor input → preprocessing → ICP → pose correction.
+        — Both stereo and LiDAR paths shown in parallel, converging at
+          the shared ICP stage.
+        — Status: NEEDS CREATION.
+        — Location: after the system overview paragraph in \cref{subsec:pa-system-overview}.
+        — Suggested label: \label{fig:pa-pipeline-overview}
+
+   [F2] TF tree diagram (original vs. corrected chain).
+        — Shows: the frame hierarchy before and after correction insertion.
+        — Status: NEEDS CREATION.
+        — Location: in \cref{subsec:pa-pose-correction}.
+        — Suggested label: \label{fig:pa-tf-correction}
+
+   TABLES:
+
+   [T1] Stereo pipeline parameters table.
+        — Columns: Parameter | Value | Description / Justification
+        — Covers: FoundationStereo downscale factor, z_far, morphological
+          closing radius/voxel size, DBSCAN eps/min_samples, voxel density
+          filter voxel size/min count, input point cap.
+        — Location: end of \cref{subsec:pa-stereo-pipeline} or split across
+          subsubsections.
+        — Suggested label: \label{tab:pa-stereo-params}
+        — [TODO: verify all parameter values and add justifications]
+
+   [T2] LiDAR pipeline parameters table.
+        — Columns: Parameter | Value | Description / Justification
+        — Covers: Patchwork++ parameters (sensor height, distance threshold,
+          seed threshold, iterations, range bounds), statistical outlier
+          removal (nb_neighbors, std_ratio), angular filtering range, radial
+          outlier removal (nb_points, radius), normal-based filtering
+          (nb_neighbors, angle_threshold), normal-based smoothing
+          (nb_neighbors, angle_threshold).
+        — Location: end of \cref{subsec:pa-lidar-pipeline} or split across
+          subsubsections.
+        — Suggested label: \label{tab:pa-lidar-params}
+        — [TODO: verify all parameter values and add justifications]
+
+   [T3] ICP registration parameters table.
+        — Columns: Parameter | Value | Description
+        — Covers: num_samples (candidates), near/far depth bounds, voxel_size,
+          max_iterations, max_correspondence_distance, relative_fitness,
+          relative_rmse, ICP backend, robust kernel (LiDAR only).
+        — Location: in \cref{subsec:pa-icp-registration}.
+        — Suggested label: \label{tab:pa-icp-params}
+        — [TODO: verify all parameter values]
+
+   EQUATIONS:
+
+   [E1] Disparity-to-depth conversion.
+        Z = (f · B) / d
+        — Reference \cref{subsec:stereo-depth} where this already appears, or
+          re-state briefly in context. Prefer a forward reference to avoid
+          duplication: "The depth Z is recovered from the disparity d via the
+          standard pinhole relation (see \cref{subsec:stereo-depth})."
+
+   [E2] Dual-camera extrinsic composition.
+        T_{back→front} = T_{front→ref}^{-1} · T_{back→ref}
+        — In \cref{subsubsec:pa-dual-camera}.
+
+   [E3] ICP objective function.
+        E(R, t) = Σ ||R·p_i + t - q_i||^2
+        — Reference \cref{eq:icp} from the related work section rather than
+          re-stating. Use: "The ICP objective (\cref{eq:icp}) is minimised..."
+
+   [E4] Cauchy robust loss function.
+        ρ(r) = (k²/2) · log(1 + (r/k)²)
+        — Define inline in the ICP registration subsection.
+        — Suggested label: \label{eq:cauchy-loss}
+
+   [E5] TF correction transform composition.
+        T_{correction,base} = T_{base→sensor}^{-1} · T_{correction,sensor} · T_{base→sensor}
+        — In \cref{subsec:pa-pose-correction}.
+        — Suggested label: \label{eq:tf-correction}
+
+8. CROSS-REFERENCES
+
+   The following \cref{} references should appear in this section:
+
+   — \cref{chap:SLAM} — when stating that the SLAM system provides the initial pose.
+   — \cref{sec:slam-methodology} — when specifying the SLAM pipeline that
+     produces the ENU-aligned pose.
+   — \cref{subsec:system-context} — when referring to the 3DGS model construction.
+   — \cref{subsec:approach-overview} — when referring to the pipeline stages
+     outlined in the introduction.
+   — \cref{subsec:stereo-depth} — when referencing FoundationStereo background
+     and the disparity-to-depth equation.
+   — \cref{subsec:point-cloud-registration} — when referencing ICP background.
+   — \cref{eq:icp} — when referencing the ICP objective function.
+   — \cref{sec:precise-alignment-results} — in the closing transition sentence.
+
+   Internal cross-references (within this section):
+   — \cref{subsec:pa-reference-model} — from both pipeline subsections when
+     referring to the target point cloud.
+   — \cref{subsec:pa-icp-registration} — from both pipeline subsections when
+     noting that the output feeds into the shared ICP stage.
+   — \cref{fig:pa-pipeline-overview} — from the system overview text.
+   — \cref{fig:pa-tf-correction} — from the pose correction text.
+   — \cref{tab:pa-stereo-params}, \cref{tab:pa-lidar-params},
+     \cref{tab:pa-icp-params} — from corresponding subsections.
+   — \cref{eq:cauchy-loss}, \cref{eq:tf-correction} — from corresponding text.
+
+9. LATEX CONVENTIONS
+
+   — Target file: 4-precise-alignment/4-methodology/tex/4-methodology.tex
+   — Existing label to preserve: \label{sec:precise-alignment-methodology}
+   — New labels to define (following thesis pattern sec:/subsec:/subsubsec:/fig:/tab:/eq:):
+       \label{subsec:pa-system-overview}
+       \label{subsec:pa-reference-model}
+       \label{subsec:pa-stereo-pipeline}
+       \label{subsubsec:pa-depth-estimation}
+       \label{subsubsec:pa-dual-camera}
+       \label{subsubsec:pa-trunk-segmentation}
+       \label{subsec:pa-lidar-pipeline}
+       \label{subsubsec:pa-dense-accumulation}
+       \label{subsubsec:pa-ground-segmentation}
+       \label{subsubsec:pa-lidar-processing}
+       \label{subsec:pa-icp-registration}
+       \label{subsec:pa-pose-correction}
+       \label{subsec:pa-execution-model}
+       \label{fig:pa-pipeline-overview}
+       \label{fig:pa-tf-correction}
+       \label{tab:pa-stereo-params}
+       \label{tab:pa-lidar-params}
+       \label{tab:pa-icp-params}
+       \label{eq:cauchy-loss}
+       \label{eq:tf-correction}
+       \label{eq:dual-camera-extrinsic}
+   — Nesting: \section → \subsection → \subsubsection (no deeper).
+   — Packages already available: amsmath, amsfonts, graphicx, cleveref,
+     tabularx, booktabs, float, subcaption.
+   — Use \cref{} for all cross-references.
+   — Use \cite{} for all citations.
+   — Use UK English throughout.
+   — Use passive voice.
+   — Figures: use \begin{figure}[htbp] with \centering.
+   — Tables: use tabularx with booktabs (\toprule, \midrule, \bottomrule).
+
+10. STYLE NOTES
+
+    Tone:
+    — Formal, restrained, evidence-led academic prose.
+    — Passive voice throughout ("the point cloud is processed..." not "we process...").
+    — No novelty claims or promotional language. The system is presented as an
+      engineering contribution for a specific application domain (vineyard
+      relocalisation), not as a general methodological advance.
+    — Avoid inflated intensifiers ("significantly", "dramatically", etc.) unless
+      quantitatively substantiated.
+
+    Terminology:
+    — "localisation" / "relocalisation" (not "localization")
+    — "optimisation" (not "optimization")
+    — "modelling" (not "modeling")
+    — "behaviour" (not "behavior")
+    — "3DGS model" or "3D Gaussian Splatting model" on first use, then "3DGS model"
+    — "source point cloud" = sensor-captured cloud; "target point cloud" = 3DGS-rendered cloud
+    — Refer to custom libraries generically: "a custom point cloud processing
+      library developed for this work", "a custom ICP registration module
+      developed for this work", "a custom ROS 2 node developed for this work"
+      — do NOT use package names (philips-pointcloud-processing,
+      GS-localisation, dense-mapper) in the thesis text.
+
+    Parameter justification:
+    — Where parameter values are stated, include a brief rationale (e.g.,
+      "z_far = 1.0 m, reflecting the close-range operating distance between
+      the robot and the vine").
+    — Each parameter justification should be accompanied by a TODO comment in
+      the LaTeX source for the author to review:
+      % TODO: review parameter justification
+
+    Tense:
+    — Present tense for describing the system design ("the pipeline processes...",
+      "the correction is applied...").
+    — Past tense reserved for the results section.
+
+11. OPEN QUESTIONS
+
+    [OQ1] Candidate viewpoint sampling strategy: How are the num_samples=5
+          candidate viewpoints sampled around the initial pose? (Perturbations
+          in translation? Rotation? Grid? Random?) This must be resolved before
+          or during writing. Flag with a TODO comment in the text.
+
+    [OQ2] Rationale for Cauchy kernel on LiDAR but not stereo: Is this because
+          LiDAR point clouds have more outlier correspondences (e.g., from
+          remaining ground points or clutter), or because the trunk segmentation
+          on the stereo side already removes most outliers? Flag with a TODO
+          comment in the text.
+
+    [OQ3] Dense-mapper accumulation details: How long is the commanded
+          accumulation interval? How many scans are typically accumulated? Is
+          motion compensation applied during accumulation? Flag with TODO if
+          unknown.
+
+    [OQ4] Specific FoundationStereo configuration: Which checkpoint is used?
+          Any fine-tuning, or purely zero-shot? Flag as TODO if uncertain.
+
+    [OQ5] Missing citations: FoundationStereo, Patchwork++, DBSCAN, Open3D,
+          and Cauchy kernel all need BibTeX entries added to MastersThesis.bib
+          before the final compile. Flag each with a TODO in the source.
+
+12. STEP-BY-STEP IMPLEMENTATION
+
+    Step 1:   Open 4-precise-alignment/4-methodology/tex/4-methodology.tex.
+
+    Step 2:   Remove the existing placeholder text ("Split into Stereo Camera
+              based and Dense LiDAR based methods / Experiment design detailed").
+              Preserve the \section{Proposed Methods} and
+              \label{sec:precise-alignment-methodology} lines.
+
+    Step 3:   Write an introductory paragraph for the section (2–3 sentences)
+              that frames the relocalisation pipeline and references
+              \cref{subsec:approach-overview} and \cref{chap:SLAM}.
+
+    Step 4:   Write \subsection{System Overview} with \label{subsec:pa-system-overview}.
+              — Describe the two-modality architecture.
+              — State that the initial pose comes from the SLAM system proposed
+                in \cref{sec:slam-methodology}.
+              — Insert a TODO comment for the pipeline dataflow figure:
+                % TODO: insert system-level pipeline dataflow figure (fig:pa-pipeline-overview)
+
+    Step 5:   Write \subsection{Reference Model} with \label{subsec:pa-reference-model}.
+              — Reference \cref{subsec:system-context} for model construction.
+              — Describe GPU-accelerated rendering via taichi-splatting.
+              — Explain that the model is loaded once, rendered per-viewpoint.
+              — State near/far depth filtering of rendered clouds.
+
+    Step 6:   Write \subsection{Stereo Vision Pipeline} with
+              \label{subsec:pa-stereo-pipeline}.
+              — Brief introductory paragraph listing the three stages.
+
+    Step 7:   Write \subsubsection{Depth Estimation} with
+              \label{subsubsec:pa-depth-estimation}.
+              — State FoundationStereo is applied (reference
+                \cref{subsec:stereo-depth} for model background).
+              — Configuration: downscale factor 0.7, z_far = 1.0 m.
+              — Include justification for z_far with TODO review comment.
+              — Describe disparity → depth → coloured point cloud conversion.
+              — Reference disparity-to-depth equation from \cref{subsec:stereo-depth}.
+              — Mention radius outlier removal post-processing.
+              — Insert TODO for FoundationStereo citation.
+
+    Step 8:   Write \subsubsection{Dual-Camera Point Cloud Fusion} with
+              \label{subsubsec:pa-dual-camera}.
+              — Describe optional front+back ZED configuration.
+              — State the extrinsic transform composition equation
+                (\cref{eq:dual-camera-extrinsic}).
+              — Explain merging into unified cloud before segmentation.
+              — Note the benefit: increased angular coverage.
+
+    Step 9:   Write \subsubsection{Trunk Segmentation} with
+              \label{subsubsec:pa-trunk-segmentation}.
+              — State this is a custom pipeline developed for this work.
+              — Describe three sequential stages in detail:
+                (a) Morphological closing — explain the voxel-based closing
+                    operation, parameters (radius 0.005 m, voxel size 0.02 m),
+                    and rationale (filling holes in trunk surface).
+                (b) DBSCAN clustering — explain density-based clustering,
+                    parameters (eps 0.05 m, min_samples 200), and rationale
+                    (isolating dominant trunk cluster).
+                (c) Voxel density filter — explain voxel downsampling
+                    (voxel size 0.02 m, min count 20) and rationale
+                    (eliminating sparse regions).
+              — State the input point cap (600,000) and rationale (bounding
+                computation time).
+              — Include TODO review comments for each parameter justification.
+              — Insert TODO for DBSCAN citation.
+              — Include or reference the stereo parameters table
+                (\cref{tab:pa-stereo-params}).
+
+    Step 10:  Write \subsection{LiDAR Pipeline} with
+              \label{subsec:pa-lidar-pipeline}.
+              — Brief introductory paragraph listing the three stages.
+
+    Step 11:  Write \subsubsection{Dense Scan Accumulation} with
+              \label{subsubsec:pa-dense-accumulation}.
+              — Describe the custom dense-mapper ROS 2 node.
+              — Explain that scans are accumulated over a commanded interval.
+              — State the Livox sensor's non-repetitive scanning pattern as
+                motivation for accumulation.
+              — Insert TODO for accumulation duration/scan count details (OQ3).
+
+    Step 12:  Write \subsubsection{Ground Segmentation} with
+              \label{subsubsec:pa-ground-segmentation}.
+              — State Patchwork++ is used for ground plane removal.
+              — List key parameters with justification:
+                sensor height 0.88 m, distance threshold 0.125 m,
+                seed threshold 0.5 m, 3 fitting iterations,
+                range 0.1–3.0 m, RNR and RVPF enabled.
+              — Include TODO review comments for parameter justifications.
+              — Insert TODO for Patchwork++ citation.
+
+    Step 13:  Write \subsubsection{Point Cloud Processing} with
+              \label{subsubsec:pa-lidar-processing}.
+              — State this is a custom filtering pipeline developed for this work.
+              — Describe five sequential stages:
+                (a) Statistical outlier removal (nb_neighbors=16, std_ratio=2.0)
+                (b) Angular filtering (start=-180°, end=0°) — rationale:
+                    exclude rear-facing points / known occlusion regions.
+                (c) Radial outlier removal (nb_points=30, radius=0.05 m)
+                (d) Normal-based filtering (nb_neighbors=75, angle_threshold=100°)
+                (e) Normal-based smoothing (nb_neighbors=30, angle_threshold=25°)
+              — Include TODO review comments for each parameter justification.
+              — Include or reference the LiDAR parameters table
+                (\cref{tab:pa-lidar-params}).
+
+    Step 14:  Write \subsection{ICP Registration Against the 3DGS Model} with
+              \label{subsec:pa-icp-registration}.
+              — State this is a shared registration stage used by both modalities.
+              — State this module was developed for this work.
+              — Describe the procedure step by step:
+                (a) Initial pose converted to 4×4 SE(3) matrix.
+                (b) Candidate viewpoints sampled around initial pose
+                    (num_samples=5).
+                    — Insert TODO: describe sampling strategy (OQ1).
+                (c) 3DGS model rendered at each candidate viewpoint (reference
+                    \cref{subsec:pa-reference-model}).
+                (d) Source and target downsampled via voxel grid (voxel_size=0.0075 m).
+                (e) ICP run using Open3D tensor-based implementation.
+                    — Reference \cref{eq:icp} for the objective function.
+                    — State convergence criteria.
+                (f) Best alignment selected (by fitness/RMSE).
+              — LiDAR-specific: Cauchy robust loss function.
+                — State the Cauchy loss equation (\cref{eq:cauchy-loss}).
+                — Insert TODO: rationale for LiDAR-only usage (OQ2).
+              — Include the ICP parameters table (\cref{tab:pa-icp-params}).
+              — Insert TODO for Open3D citation.
+
+    Step 15:  Write \subsection{Coordinate Frames and Pose Correction} with
+              \label{subsec:pa-pose-correction}.
+              — State the coordinate frame hierarchy.
+              — Describe the TF correction mechanism:
+                — Original chain vs. corrected chain.
+                — Insert TODO for TF tree diagram (fig:pa-tf-correction).
+                — State the correction transform equation (\cref{eq:tf-correction}).
+                — Explain projection from sensor frame to base_link frame.
+                — State it is published as a static transform, non-disruptive.
+                — Mention automatic and manual trigger modes.
+              — Cite \cite{macenskiRobotOperatingSystem2022} for ROS 2 TF.
+
+    Step 16:  Write \subsection{Pipeline Execution Model} with
+              \label{subsec:pa-execution-model}.
+              — 1–2 paragraphs, concise.
+              — Command pattern: each stage is an AsyncCommand.
+              — Asynchronous task queue, sequential command execution.
+              — Thread-pool offloading for ROS 2 event loop responsiveness.
+              — Semaphore-based concurrency control for GPU memory.
+              — Independent job processing per observation.
+
+    Step 17:  Write a closing transition sentence or short paragraph at the end
+              of the section, pointing forward to \cref{sec:precise-alignment-results}.
+
+    Step 18:  Create parameter tables (T1, T2, T3) at the locations specified.
+              Use tabularx with booktabs. Include TODO comments for any values
+              that need verification.
+
+    Step 19:  Insert TODO placeholders for all figures (F1, F2) using
+              commented-out \begin{figure} blocks with descriptive captions.
+
+    Step 20:  Insert all equation environments (E2, E4, E5) with appropriate
+              labels. For E1 and E3, use \cref{} references to the existing
+              equations in the related work section.
+
+    Step 21:  Final pass: verify all \label{} and \cref{} references are
+              consistent, all TODO comments are in place, and UK English
+              spelling is used throughout.

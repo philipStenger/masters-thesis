@@ -35,6 +35,8 @@ Progress in the field is accelerated by open-source datasets tailored to agricul
     \item \textbf{AgriLiRa4D:} A recent multi-modal dataset (LiDAR, Camera, 4D Radar) collected via UAV over diverse terrains (flat, hilly), facilitating research into radar-based fusion and aerial coverage paths \cite{zhanAgriLiRa4DMultiSensorUAV2026}.
 \end{itemize}
 
-\subsection{Conclusion}
-\label{subsec:vineyard-robotics-conclusion}
-The development of SLAM for orchards and vineyards has evolved from the application of generic algorithms to the design of domain-specific architectures. Current research prioritises semantic SLAM to filter dynamic agricultural noise and object-level mapping (e.g., Tree-SLAM) to resolve geometric ambiguity. Furthermore, the integration of multi-sensor fusion (e.g., April-LIO-SAM) has proven essential for achieving the centimetre-level accuracy required for precision tasks. Future work is increasingly driven by long-term autonomy, leveraging datasets like BLT to enable robots that can adapt to the seasonal biological evolution of the crop \cite{tangFruitTreeMappingSystem2024} \cite{polvaraBacchusLongTermBLT2024}.
+\subsection{Summary}
+\label{subsec:vineyard-robotics-summary}
+The development of SLAM for orchards and vineyards has evolved from the application of generic algorithms to the design of domain-specific architectures. Current research prioritises semantic SLAM to filter dynamic agricultural noise and object-level mapping (e.g., Tree-SLAM) to resolve geometric ambiguity. Furthermore, the integration of multi-sensor fusion (e.g., April-LIO-SAM) has proven essential for achieving the centimetre-level accuracy required for precision tasks. Future work is increasingly driven by long-term autonomy, leveraging datasets like BLT to enable robots that can adapt to the seasonal morphological changes of the canopy \cite{tangFruitTreeMappingSystem2024, polvaraBacchusLongTermBLT2024}.
+
+Within vineyard robotics, pruning represents the most demanding localisation sub-problem. In addition to the perceptual aliasing and sensor-fusion challenges described above, it imposes explicit millimetre-level accuracy requirements on pose estimation and introduces constraints particular to the dormant season, reviewed in \cref{sec:vineyard-pruning}.

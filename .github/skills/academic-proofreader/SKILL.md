@@ -43,6 +43,7 @@ Provide a repeatable proofreading workflow for this LaTeX thesis focused on gram
 
 6. Reporting:
 - Return prioritized findings first.
+- **Use `./assets/review-output-template.md` from this skill folder to structure your output.** Read the template first, then fill in each section with your findings. Using the template ensures the output is consistently structured and directly usable by whoever receives it — do not invent a different output format.
 - Provide patch-ready LaTeX rewrite suggestions.
 - End with unresolved questions only when essential.
 

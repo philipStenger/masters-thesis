@@ -1,7 +1,323 @@
 \section{Proposed Methods}
 \label{sec:precise-alignment-methodology}
 
+The relocalisation pipeline described in this section refines the coarse initial pose estimate delivered by the SLAM system presented in \cref{chap:SLAM} through point cloud registration against a pre-built 3D Gaussian Splatting reference model. Two independent sensing modalities --- stereo vision and dense LiDAR --- are evaluated within a common architectural framework; both converge on a shared ICP registration back-end, the output of which is used to correct the robot's estimated pose in the ROS~2 transform tree. The approach is outlined in \cref{subsec:approach-overview}; the following subsections present each component in detail.
 
-Split into Stereo Camera based and Dense LiDAR based methods
+% ---------------------------------------------------------------
+\subsection{System Overview}
+\label{subsec:pa-system-overview}
+% ---------------------------------------------------------------
 
-Experiment design detailed
+The precise-alignment pipeline operates as a one-shot refinement: when the robot halts in front of a target vine, a single localisation correction is computed and applied before any manipulation motion is initiated. The pipeline consists of three cooperating components: a sensor-specific preprocessing stage that transforms raw sensor data into a filtered, downsampled point cloud; a GPU-accelerated rendering stage that synthesises a target point cloud from the 3D Gaussian Splatting (3DGS) model at candidate viewpoints near the initial pose; and a shared ICP registration stage that searches for the optimal rigid alignment between the sensor observation and the rendered reference. The corrected pose is subsequently propagated to the robot's transform tree without modifying the SLAM system's own published transforms.
+
+Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or two ZED stereo cameras, applies the FoundationStereo foundation model~\cite{TODO-FoundationStereo} % TODO: add BibTeX entry for FoundationStereo
+to estimate dense disparity maps, and derives coloured 3D point clouds that are segmented to retain vine trunk structure. The LiDAR pipeline operates on dense point clouds accumulated from a Livox solid-state sensor over a commanded interval, removing the ground plane with Patchwork++ and applying a multi-stage filtering sequence to isolate vine wood. Both pipelines share the same ICP registration module and the same pose correction mechanism; they differ only in their preprocessing steps, which are tailored to the noise characteristics and geometric coverage of the respective sensor.
+
+The initial pose estimate consumed by the pipeline is provided by the ENU-aligned SLAM system described in \cref{sec:slam-methodology}. This pose locates the robot within the global coordinate frame and is used both to select candidate viewpoints for 3DGS rendering and to anchor the final corrected transform in the global frame.
+
+% TODO: insert system-level pipeline dataflow figure here
+% \begin{figure}[htbp]
+%   \centering
+%   % \includegraphics[width=\textwidth]{4-precise-alignment/figures/pa-pipeline-overview}
+%   \caption{System-level dataflow of the precise-alignment pipeline. The stereo and LiDAR
+%            preprocessing branches are shown in parallel, converging at the shared ICP
+%            registration stage. The corrected pose is applied to the ROS~2 TF tree via
+%            the mechanism described in \cref{subsec:pa-pose-correction}.}
+%   \label{fig:pa-pipeline-overview}
+% \end{figure}
+
+% ---------------------------------------------------------------
+\subsection{Reference Model: 3D Gaussian Splatting}
+\label{subsec:pa-reference-model}
+% ---------------------------------------------------------------
+
+The localisation target for both sensor modalities is a point cloud synthesised at runtime from the 3DGS model of the target vine. The construction of this model from SfM photogrammetry is described in \cref{subsec:system-context}; the present subsection addresses how it is used during localisation.
+
+The 3DGS model is loaded once at initialisation and held resident in GPU memory throughout the localisation session. At registration time, the model is rendered at each candidate viewpoint to produce a target point cloud. Rendering is performed using the \textit{taichi-splatting} GPU-accelerated splat rasteriser, which projects the volumetric Gaussian primitives onto a virtual image plane and recovers depth at each pixel; the depth map is then back-projected into a three-dimensional point set in the camera frame of the candidate viewpoint. This per-viewpoint rendering approach avoids pre-computing a single global point cloud, which would require either a fixed viewpoint selection or a coarse global reconstruction that may not capture the local geometry at the resolution required for precise alignment.
+
+After rendering, the point cloud is filtered to retain only points within a specified depth range. Points closer than a near-clip distance are excluded to suppress rendering artefacts on nearby Gaussian primitives, and points beyond a far-clip distance are discarded as their position estimates are less reliable and they correspond to environmental structure unrelated to the vine under registration.
+% TODO: state the near and far clip values used in the 3DGS rendering stage and review justification
+
+% ---------------------------------------------------------------
+\subsection{Stereo Vision Pipeline}
+\label{subsec:pa-stereo-pipeline}
+% ---------------------------------------------------------------
+
+The stereo vision pipeline converts raw rectified image pairs from the ZED stereo camera into a filtered point cloud of the vine trunk, suitable for registration against the 3DGS target described in \cref{subsec:pa-reference-model}. The pipeline proceeds through three sequential stages: dense depth estimation from the stereo pair, optional fusion of clouds from a front and rear camera pair, and trunk segmentation to remove non-structural points. The output is passed directly to the shared ICP registration stage described in \cref{subsec:pa-icp-registration}.
+
+\subsubsection{Depth Estimation}
+\label{subsubsec:pa-depth-estimation}
+
+Dense depth estimation is performed using FoundationStereo~\cite{TODO-FoundationStereo}, % TODO: add BibTeX entry for FoundationStereo
+a stereo foundation model that produces disparity maps with strong zero-shot generalisation across sensor configurations and scene types (see \cref{subsec:stereo-depth} for a description of the model and its benchmarked performance). % TODO: clarify which FoundationStereo checkpoint is used and whether any fine-tuning was applied, or whether inference is purely zero-shot (OQ4)
+FoundationStereo is applied to rectified image pairs from the ZED Mini stereo camera. Prior to inference, the input images are downscaled by a factor of 0.7 relative to the original sensor resolution.
+% TODO: review justification: downscale factor 0.7 was chosen to reduce inference time while retaining sufficient spatial resolution for vine trunk geometry; review against the specific ZED Mini resolution used
+
+The disparity map produced by FoundationStereo is converted to metric depth via the standard pinhole relation (see \cref{subsec:stereo-depth}):
+%
+\begin{equation}
+    Z = \frac{f \cdot B}{d},
+\end{equation}
+%
+where $Z$ is the metric depth, $f$ is the focal length of the rectified camera model, $B$ is the stereo baseline, and $d$ is the estimated disparity at each pixel. A far-clip distance of $z_\mathrm{far} = 1.0$\,m is applied to discard depth estimates beyond the typical operating range between the robot and the target vine.
+% TODO: review justification: z_far = 1.0 m reflects the close-range operating distance in the vineyard row; review against actual deployment geometry
+Points with depth below a minimum threshold are also discarded to suppress artefacts close to the camera aperture.
+
+Each pixel for which a valid depth estimate is available is back-projected into a three-dimensional point in the camera frame, using the corresponding RGB values to produce a coloured point cloud. A radius outlier removal filter is subsequently applied to eliminate sparse, isolated points that are not part of any coherent surface.
+
+\subsubsection{Dual-Camera Point Cloud Fusion}
+\label{subsubsec:pa-dual-camera}
+
+The system supports an optional dual-camera configuration in which a second ZED camera is mounted at the rear of the robot platform, oriented toward the vine from the opposite side. When this configuration is enabled, separate point clouds are produced for the front and rear cameras and merged into a unified observation before trunk segmentation.
+
+The extrinsic relationship between the two cameras is expressed as a rigid transform from the rear camera frame to the front camera frame. Given the transform from the front camera to a common reference frame, $T_{\mathrm{front} \to \mathrm{ref}}$, and the corresponding transform from the rear camera, $T_{\mathrm{back} \to \mathrm{ref}}$, the back-to-front transform is computed as:
+%
+\begin{equation}
+    T_{\mathrm{back} \to \mathrm{front}} = T_{\mathrm{front} \to \mathrm{ref}}^{-1} \cdot T_{\mathrm{back} \to \mathrm{ref}}.
+    \label{eq:dual-camera-extrinsic}
+\end{equation}
+%
+The rear camera point cloud is transformed into the front camera frame using $T_{\mathrm{back} \to \mathrm{front}}$, and the two clouds are concatenated. The merged cloud provides greater angular coverage of the vine structure than either camera alone, which is particularly beneficial when vine geometry extends behind the plane of the front camera or when obstruction limits the coverage from a single viewpoint.
+
+\subsubsection{Trunk Segmentation}
+\label{subsubsec:pa-trunk-segmentation}
+
+A custom trunk segmentation pipeline developed for this work is applied to the merged (or single-camera) point cloud to isolate the vine trunk from background vegetation, noise, and ground returns. The pipeline comprises three sequential stages.
+
+\textbf{Morphological closing.} A voxel-based morphological closing operation fills gaps in the trunk surface caused by specular reflections or missing depth estimates. The input cloud is voxelised at a resolution of 0.02\,m, and a spherical closing kernel of radius 0.005\,m is applied.
+% TODO: review parameter justification: voxel size 0.02 m and closing radius 0.005 m were selected to bridge typical surface gaps in stereo depth reconstructions of vine bark; review against observed gap statistics
+
+\textbf{DBSCAN clustering.} Density-Based Spatial Clustering of Applications with Noise (DBSCAN)~\cite{TODO-DBSCAN} % TODO: add BibTeX entry for DBSCAN (Ester et al., 1996)
+partitions the closed point cloud into spatially coherent clusters. DBSCAN groups points whose neighbourhood within radius $\varepsilon$ contains at least $m_\mathrm{min}$ neighbouring points, classifying the remainder as noise. With $\varepsilon = 0.05$\,m and $m_\mathrm{min} = 200$,
+% TODO: review parameter justification: eps = 0.05 m reflects the typical inter-point spacing at vine-trunk distances; min_samples = 200 was chosen to reject small noise clusters while retaining the dominant trunk; review against cloud density statistics
+the dominant cluster --- corresponding to the vine trunk --- is retained, and all other clusters and noise points are discarded.
+
+\textbf{Voxel density filtering.} The retained cluster is passed through a voxel density filter that partitions the cloud into voxels of side length 0.02\,m and discards any voxel containing fewer than 20 points.
+% TODO: review parameter justification: voxel size 0.02 m and min count 20 eliminate residual sparse regions that survived clustering; review against observed point density at typical vine-to-sensor distances
+This step removes sparsely populated surface regions whose geometric contribution to the ICP objective would otherwise be disproportionate to their informational content.
+
+The combined cloud is capped at 600,000 points by random subsampling prior to the first stage, bounding the worst-case computation time independently of sensor resolution or accumulation duration.
+% TODO: review whether 600,000 is the tightest practical cap; review against observed input sizes
+
+The parameters for the stereo preprocessing pipeline are summarised in \cref{tab:pa-stereo-params}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Stereo vision pipeline parameters.}
+  \label{tab:pa-stereo-params}
+  \begin{tabularx}{\textwidth}{l l X}
+    \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Description} \\
+    \midrule
+    Downscale factor          & 0.7        & Input image downscale factor for FoundationStereo inference \\
+    $z_\mathrm{far}$          & 1.0\,m     & Far-clip depth; points beyond this distance are discarded \\
+    Closing voxel size        & 0.02\,m    & Voxel resolution for the morphological closing operation \\
+    Closing radius            & 0.005\,m   & Spherical kernel radius for the closing operator \\
+    DBSCAN $\varepsilon$      & 0.05\,m    & Neighbourhood radius for cluster membership \\
+    DBSCAN $m_\mathrm{min}$   & 200        & Minimum point count to form a core cluster \\
+    Density filter voxel size & 0.02\,m    & Voxel size for the density filtering stage \\
+    Density filter min count  & 20         & Minimum points per voxel \\
+    Input point cap           & 600\,000   & Maximum points admitted to the segmentation pipeline \\
+    \bottomrule
+  \end{tabularx}
+  % TODO: verify all parameter values and add justifications
+\end{table}
+
+% ---------------------------------------------------------------
+\subsection{LiDAR Pipeline}
+\label{subsec:pa-lidar-pipeline}
+% ---------------------------------------------------------------
+
+The LiDAR pipeline converts raw scans from the Livox solid-state sensor into a filtered point cloud of the vine structure, ready for registration. The pipeline proceeds through three stages: dense scan accumulation to build a spatially rich input cloud, ground plane removal using Patchwork++, and sequential geometric filtering to isolate vine wood. The output is forwarded to the shared ICP registration stage described in \cref{subsec:pa-icp-registration}.
+
+\subsubsection{Dense Scan Accumulation}
+\label{subsubsec:pa-dense-accumulation}
+
+The Livox sensor employs a non-repetitive scanning pattern in which, unlike a conventional spinning LiDAR, the scan lines do not repeat on a fixed cycle. Consequently, a single frame provides sparse and unevenly distributed coverage of the target. A custom dense-mapper ROS~2 node~\cite{macenskiRobotOperatingSystem2022} developed for this work accumulates multiple consecutive scans over a commanded time interval, concatenating their returns into a single dense point cloud. Over a sufficiently long interval, the non-repetitive pattern achieves high fill-factor coverage of the scene within the sensor's field of view, producing a point cloud with spatial density comparable to that of a multi-return spinning LiDAR.
+% TODO: state the commanded accumulation interval and typical number of scans accumulated (OQ3);
+% also clarify whether motion compensation is applied during accumulation.
+
+\subsubsection{Ground Segmentation}
+\label{subsubsec:pa-ground-segmentation}
+
+The accumulated point cloud includes returns from the vineyard floor, which are uninformative for vine pose estimation and introduce spurious correspondences during ICP. Ground plane removal is performed using Patchwork++~\cite{TODO-Patchwork}, % TODO: add BibTeX entry for Patchwork++ (Lee et al., 2022)
+an incremental ground segmentation algorithm that models the ground surface as a set of concentric annular patches and applies region-wise plane fitting with outlier rejection. The method is robust to uneven terrain and does not require a flat-ground assumption.
+
+The parameters used in this work are as follows. The sensor height above the ground surface is set to 0.88\,m,
+% TODO: review: sensor mounting height above ground; verify against robot hardware specification
+consistent with the physical mounting position of the Livox sensor on the robot platform. The distance threshold for classifying a point as ground is 0.125\,m.
+% TODO: review: distance threshold chosen to accommodate minor terrain irregularities; review against observed ground surface roughness
+The seed threshold for initialising planar patches is 0.5\,m, and three plane-fitting iterations are applied per patch.
+% TODO: review seed threshold justification
+The processing range is bounded to 0.1--3.0\,m to discard returns either too close to the sensor aperture or beyond the typical vine operating distance. The Ring-wise Normal-based Removal (RNR) and Ring-wise Vertical Point Filtering (RVPF) modules are enabled to suppress scan-line artefacts characteristic of solid-state LiDAR point clouds.
+
+\subsubsection{Point Cloud Processing}
+\label{subsubsec:pa-lidar-processing}
+
+Following ground removal, the non-ground point cloud is passed through a custom multi-stage filtering pipeline developed for this work. The five sequential stages are described below.
+
+\textbf{Statistical outlier removal.} Each point is evaluated against its $k$-nearest neighbourhood; points whose mean neighbour distance exceeds the population mean by more than $\lambda$ standard deviations are classified as outliers and removed. With $k = 16$ and $\lambda = 2.0$,
+% TODO: review parameter justification: these values provide conservative outlier rejection without eliminating genuine surface points; review against observed noise characteristics
+the first pass removes the most isolated returns, which typically correspond to Livox streak artefacts in far-range returns.
+
+\textbf{Angular filtering.} Points in the azimuthal range from $-180^{\circ}$ to $0^{\circ}$ are retained; returns outside this half-space are discarded.
+% TODO: review angular filtering direction: the excluded half-space corresponds to the rear-facing hemisphere, where the robot body occludes the vine and sensor returns are predominantly self-returns or spurious reflections; verify against the sensor mounting orientation
+This step exploits the known mounting orientation of the Livox sensor to exclude returns from the robot body and from the vineyard row that the robot is not currently targeting.
+
+\textbf{Radial outlier removal.} A spherical neighbourhood of radius 0.05\,m around each point is examined; points with fewer than 30 neighbours within that radius are discarded.
+% TODO: review parameter justification: radius 0.05 m and min neighbours 30 remove isolated noise points that survived statistical outlier removal; review against observed point density at registration distance
+This pass targets point clusters that are spatially consistent at the individual-point level but are too isolated to form part of a coherent surface.
+
+\textbf{Normal-based filtering.} Surface normals are estimated for each point from its 75 nearest neighbours. Points whose estimated normal deviates by more than $100^{\circ}$ from the expected surface orientation are discarded.
+% TODO: review parameter justification: the 100-degree threshold is deliberately permissive, targeting only points whose normal estimate is inverted or pathological; review against observed normal distributions in vine point clouds
+
+\textbf{Normal-based smoothing.} A second normal-based pass with 30 nearest neighbours and a $25^{\circ}$ angular threshold enforces local normal consistency across the retained surface, smoothing boundary effects and reducing the influence of surface noise on the ICP correspondence stage.
+% TODO: review parameter justification: the tighter angle threshold (25 degrees) selects locally flat surface patches, removing noise at vine wood boundaries; review
+
+The parameters for the LiDAR preprocessing pipeline are summarised in \cref{tab:pa-lidar-params}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{LiDAR pipeline parameters.}
+  \label{tab:pa-lidar-params}
+  \begin{tabularx}{\textwidth}{l l X}
+    \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Description} \\
+    \midrule
+    \multicolumn{3}{l}{\textit{Patchwork++ ground segmentation}} \\
+    \midrule
+    Sensor height          & 0.88\,m        & Mounting height of the Livox sensor above the ground \\
+    Distance threshold     & 0.125\,m       & Maximum deviation from the fit plane to be classified as ground \\
+    Seed threshold         & 0.5\,m         & Height threshold for initial ground seed selection \\
+    Fitting iterations     & 3              & Number of plane-fitting iterations per annular patch \\
+    Processing range       & 0.1--3.0\,m    & Minimum and maximum range included in ground estimation \\
+    RNR                    & Enabled        & Ring-wise Normal-based Removal \\
+    RVPF                   & Enabled        & Ring-wise Vertical Point Filtering \\
+    \midrule
+    \multicolumn{3}{l}{\textit{Point cloud filtering}} \\
+    \midrule
+    Statistical outlier $k$             & 16                        & Neighbourhood size for statistical outlier removal \\
+    Statistical outlier $\lambda$       & 2.0                       & Standard deviation multiplier for the outlier threshold \\
+    Angular filter range                & $-180^{\circ}$ to $0^{\circ}$ & Retained azimuthal range \\
+    Radial outlier radius               & 0.05\,m                   & Neighbourhood radius for radial outlier removal \\
+    Radial outlier min neighbours       & 30                        & Minimum neighbours within the search radius \\
+    Normal filter $k$                   & 75                        & Neighbourhood size for normal estimation (filtering stage) \\
+    Normal filter threshold             & $100^{\circ}$             & Maximum normal deviation for point retention \\
+    Normal smooth $k$                   & 30                        & Neighbourhood size for normal estimation (smoothing stage) \\
+    Normal smooth threshold             & $25^{\circ}$              & Maximum normal deviation for smoothing-stage retention \\
+    \bottomrule
+  \end{tabularx}
+  % TODO: verify all parameter values and add justifications
+\end{table}
+
+% ---------------------------------------------------------------
+\subsection{ICP Registration Against the 3DGS Model}
+\label{subsec:pa-icp-registration}
+% ---------------------------------------------------------------
+
+Both the stereo and LiDAR preprocessing branches deliver a filtered source point cloud to a shared ICP registration module, developed for this work, which aligns the sensor observation against a target point cloud rendered on demand from the 3DGS model. The registration procedure is as follows.
+
+\textbf{(a) Initial pose.} The initial pose estimate, obtained from the SLAM system (\cref{sec:slam-methodology}), is represented as a $4 \times 4$ homogeneous transformation matrix in $SE(3)$, encoding the rotation and translation of the robot base in the global frame.
+
+\textbf{(b) Candidate viewpoint sampling.} $N = 5$ candidate viewpoints are sampled in the neighbourhood of the initial pose.
+% TODO: describe the candidate viewpoint sampling strategy in detail (OQ1): how are the perturbations defined --- in translation, rotation, or both? What is the sampling distribution (grid, random, etc.)?
+Each candidate represents a plausible refined pose from which the 3DGS model is rendered for registration.
+
+\textbf{(c) Reference cloud rendering.} The 3DGS model is rendered at each candidate viewpoint as described in \cref{subsec:pa-reference-model}, yielding $N$ target point clouds.
+
+\textbf{(d) Downsampling.} Both the source cloud and each target cloud are independently downsampled using a voxel grid filter with voxel side length $v = 0.0075$\,m. This step reduces the computational cost of each ICP iteration while retaining sufficient geometric detail for convergence.
+
+\textbf{(e) ICP.} ICP is run between the downsampled source and each downsampled target using the Open3D~\cite{TODO-Open3D} % TODO: add BibTeX entry for Open3D (Zhou et al., 2018)
+tensor-based point-to-point implementation. The ICP objective (\cref{eq:icp}) is minimised iteratively until either the maximum iteration count is reached or the relative change in fitness and RMSE falls below the convergence thresholds stated in \cref{tab:pa-icp-params}.
+
+\textbf{(f) Candidate selection.} The registration result with the highest fitness score --- defined as the ratio of accepted correspondences to total source points --- and the lowest point-to-point RMSE is selected as the final alignment across all $N$ candidates.
+
+The output of the registration stage is a result object containing the estimated transformation matrix, the fitness score, the point-to-point RMSE, and the accepted correspondence set.
+
+\subsubsection*{LiDAR-Specific Robust Kernel}
+
+When the source cloud originates from the LiDAR pipeline, a Cauchy robust loss function is applied to the ICP objective to reduce the influence of outlier correspondences. The Cauchy loss is defined as:
+%
+\begin{equation}
+    \rho(r) = \frac{k^2}{2} \ln\!\left(1 + \left(\frac{r}{k}\right)^2\right),
+    \label{eq:cauchy-loss}
+\end{equation}
+%
+where $r$ is the residual distance between a source point and its corresponding target point, and $k = 0.15$ is the scale parameter that controls the transition from approximately quadratic behaviour near the origin to logarithmic growth in the outlier region.
+% TODO: review rationale for using the Cauchy kernel for LiDAR but not stereo (OQ2): is this because the LiDAR cloud retains more outlier correspondences (e.g., from residual ground returns or structural clutter) than the trunk-segmented stereo cloud, or for another reason?
+The standard point-to-point objective without a robust kernel is used for the stereo modality, where the trunk segmentation pipeline substantially reduces the outlier fraction prior to registration.
+
+The parameters for the ICP registration stage are summarised in \cref{tab:pa-icp-params}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{ICP registration parameters.}
+  \label{tab:pa-icp-params}
+  \begin{tabularx}{\textwidth}{l l X}
+    \toprule
+    \textbf{Parameter} & \textbf{Value} & \textbf{Description} \\
+    \midrule
+    Candidate viewpoints ($N$)      & 5                   & Number of candidate viewpoints sampled around the initial pose \\
+    Voxel grid size ($v$)           & 0.0075\,m           & Downsampling resolution applied to source and target clouds \\
+    ICP backend                     & Open3D \texttt{t}   & Tensor-based point-to-point ICP implementation \\
+    Max iterations                  & \textit{TODO}       & Maximum number of ICP iterations per candidate \\ % TODO: verify value
+    Max correspondence distance     & \textit{TODO}       & Maximum point-pair distance for correspondence acceptance \\ % TODO: verify value
+    Relative fitness                & \textit{TODO}       & Convergence criterion: minimum relative change in fitness \\ % TODO: verify value
+    Relative RMSE                   & \textit{TODO}       & Convergence criterion: minimum relative change in RMSE \\ % TODO: verify value
+    Robust kernel (LiDAR only)      & Cauchy, $k = 0.15$  & Applied to LiDAR source clouds; not used for stereo \\
+    \bottomrule
+  \end{tabularx}
+  % TODO: verify all ICP parameter values from the implementation
+\end{table}
+
+% ---------------------------------------------------------------
+\subsection{Coordinate Frames and Pose Correction}
+\label{subsec:pa-pose-correction}
+% ---------------------------------------------------------------
+
+The ICP registration stage returns a rigid transformation expressed in the sensor frame --- that is, the frame of the camera or LiDAR sensor from which the source cloud was acquired. Before this result can be applied to the robot's localisation, it must be expressed in the base link frame that serves as the canonical reference for all downstream planning and control components, and it must be introduced into the ROS~2 transform tree~\cite{macenskiRobotOperatingSystem2022} in a manner that does not disturb the SLAM system's own transform publications.
+
+\subsubsection*{Coordinate Frame Hierarchy}
+
+The coordinate frame hierarchy used throughout this system is:
+\[
+  \texttt{local\_enu} \to \texttt{map} \to \texttt{odom} \to \texttt{base\_link} \to \texttt{sensor\_frame},
+\]
+where \texttt{local\_enu} is the ENU-anchored global frame, \texttt{map} and \texttt{odom} are the frames published by the SLAM system, \texttt{base\_link} is the robot body frame, and \texttt{sensor\_frame} is the frame of whichever sensor produced the source cloud. The static transforms between \texttt{base\_link} and the sensor frames are fixed by the mechanical configuration of the platform and are loaded at launch from the robot description.
+
+\subsubsection*{TF Correction Mechanism}
+
+A custom TF correction mechanism developed for this work inserts a correction frame into the transform tree without modifying any of the transforms published by the SLAM system. The ICP result provides the correction in the sensor frame, $T_{\mathrm{correction, sensor}}$. To express this correction at the level of the base link, the following composition is applied:
+%
+\begin{equation}
+    T_{\mathrm{correction, base}} =
+        T_{\mathrm{base} \to \mathrm{sensor}}^{-1}
+        \cdot T_{\mathrm{correction, sensor}}
+        \cdot T_{\mathrm{base} \to \mathrm{sensor}},
+    \label{eq:tf-correction}
+\end{equation}
+%
+where $T_{\mathrm{base} \to \mathrm{sensor}}$ is the fixed extrinsic transform from the base link to the sensor frame. The resulting base-frame correction is then inserted into the appropriate location in the transform chain and published as a static transform.
+
+% TODO: insert TF tree diagram showing the original and corrected transform chains
+% \begin{figure}[htbp]
+%   \centering
+%   % \includegraphics[width=0.8\textwidth]{4-precise-alignment/figures/pa-tf-correction}
+%   \caption{ROS~2 TF tree before (left) and after (right) insertion of the pose correction
+%            frame. The correction frame is inserted between \texttt{odom} and the downstream
+%            planning frames, preserving the original SLAM transform chain.}
+%   \label{fig:pa-tf-correction}
+% \end{figure}
+
+Because the correction is published as a static transform, it does not require a continuous update loop and is non-disruptive to the SLAM publishers. The correction mechanism supports both automatic triggering --- applied immediately upon successful ICP convergence --- and manual triggering, in which the operator confirms before the correction is broadcast to the transform tree. The appropriate mode is selected at launch via a configuration parameter.
+
+% ---------------------------------------------------------------
+\subsection{Pipeline Execution Model}
+\label{subsec:pa-execution-model}
+% ---------------------------------------------------------------
+
+Each localisation request is encapsulated as an ordered sequence of command objects following the command design pattern. Each processing stage --- depth estimation, point cloud preprocessing, 3DGS rendering, ICP registration, and pose correction --- is implemented as an \texttt{AsyncCommand} with a well-defined input contract and output contract. Commands are submitted to an asynchronous task queue, which executes them sequentially within a dedicated worker thread pool. This design decouples the processing pipeline from the ROS~2 executor event loop: computationally intensive operations such as FoundationStereo inference and Open3D ICP run in non-blocking threads, avoiding latency spikes in the ROS~2 message-handling callbacks.
+
+GPU-resident operations --- specifically FoundationStereo inference and 3DGS rendering --- are governed by a semaphore-based concurrency guard that prevents simultaneous kernel execution from exceeding available GPU memory. When a new localisation request arrives while a prior job is still processing, the new job is queued independently and executes after the in-progress job completes, ensuring that each sensor observation is processed in full without resource contention. This execution model supports both the stereo and LiDAR pipelines without modification, as the modality-specific processing difference is captured entirely within the command sequence submitted for each observation type.
+
+The performance of both sensing modalities across a set of vineyard test cases is evaluated in \cref{sec:precise-alignment-results}.

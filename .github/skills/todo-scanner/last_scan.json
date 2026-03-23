@@ -1,0 +1,567 @@
+[
+  {
+    "category": "A: EXPLICIT TODO / FIXME / HACK / XXX / TBD / WIP",
+    "items": [
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 13,
+        "text": "Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or t...",
+        "rawLine": "Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or two ZED stereo cameras, applies the FoundationStereo foundation model~\\cite{TODO-FoundationStereo} % TODO: add BibTeX entry for FoundationStereo"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 18,
+        "text": "% TODO: insert system-level pipeline dataflow figure here",
+        "rawLine": "% TODO: insert system-level pipeline dataflow figure here"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 39,
+        "text": "% TODO: state the near and far clip values used in the 3DGS rendering stage and review justification",
+        "rawLine": "% TODO: state the near and far clip values used in the 3DGS rendering stage and review justification"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 51,
+        "text": "Dense depth estimation is performed using FoundationStereo~\\cite{TODO-FoundationStereo}, % TODO: add BibTeX entry for Fo...",
+        "rawLine": "Dense depth estimation is performed using FoundationStereo~\\cite{TODO-FoundationStereo}, % TODO: add BibTeX entry for FoundationStereo"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 52,
+        "text": "a stereo foundation model that produces disparity maps with strong zero-shot generalisation across sensor configurations...",
+        "rawLine": "a stereo foundation model that produces disparity maps with strong zero-shot generalisation across sensor configurations and scene types (see \\cref{subsec:stereo-depth} for a description of the model and its benchmarked performance). % TODO: clarify which FoundationStereo checkpoint is used and whether any fine-tuning was applied, or whether inference is purely zero-shot (OQ4)"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 54,
+        "text": "% TODO: review justification: downscale factor 0.7 was chosen to reduce inference time while retaining sufficient spatia...",
+        "rawLine": "% TODO: review justification: downscale factor 0.7 was chosen to reduce inference time while retaining sufficient spatial resolution for vine trunk geometry; review against the specific ZED Mini resolution used"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 63,
+        "text": "% TODO: review justification: z_far = 1.0 m reflects the close-range operating distance in the vineyard row; review agai...",
+        "rawLine": "% TODO: review justification: z_far = 1.0 m reflects the close-range operating distance in the vineyard row; review against actual deployment geometry"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 88,
+        "text": "% TODO: review parameter justification: voxel size 0.02 m and closing radius 0.005 m were selected to bridge typical sur...",
+        "rawLine": "% TODO: review parameter justification: voxel size 0.02 m and closing radius 0.005 m were selected to bridge typical surface gaps in stereo depth reconstructions of vine bark; review against observed gap statistics"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 90,
+        "text": "\\textbf{DBSCAN clustering.} Density-Based Spatial Clustering of Applications with Noise (DBSCAN)~\\cite{TODO-DBSCAN} % TO...",
+        "rawLine": "\\textbf{DBSCAN clustering.} Density-Based Spatial Clustering of Applications with Noise (DBSCAN)~\\cite{TODO-DBSCAN} % TODO: add BibTeX entry for DBSCAN (Ester et al., 1996)"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 92,
+        "text": "% TODO: review parameter justification: eps = 0.05 m reflects the typical inter-point spacing at vine-trunk distances; m...",
+        "rawLine": "% TODO: review parameter justification: eps = 0.05 m reflects the typical inter-point spacing at vine-trunk distances; min_samples = 200 was chosen to reject small noise clusters while retaining the dominant trunk; review against cloud density statistics"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 96,
+        "text": "% TODO: review parameter justification: voxel size 0.02 m and min count 20 eliminate residual sparse regions that surviv...",
+        "rawLine": "% TODO: review parameter justification: voxel size 0.02 m and min count 20 eliminate residual sparse regions that survived clustering; review against observed point density at typical vine-to-sensor distances"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 100,
+        "text": "% TODO: review whether 600,000 is the tightest practical cap; review against observed input sizes",
+        "rawLine": "% TODO: review whether 600,000 is the tightest practical cap; review against observed input sizes"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 123,
+        "text": "% TODO: verify all parameter values and add justifications",
+        "rawLine": "  % TODO: verify all parameter values and add justifications"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 137,
+        "text": "% TODO: state the commanded accumulation interval and typical number of scans accumulated (OQ3);",
+        "rawLine": "% TODO: state the commanded accumulation interval and typical number of scans accumulated (OQ3);"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 143,
+        "text": "The accumulated point cloud includes returns from the vineyard floor, which are uninformative for vine pose estimation a...",
+        "rawLine": "The accumulated point cloud includes returns from the vineyard floor, which are uninformative for vine pose estimation and introduce spurious correspondences during ICP. Ground plane removal is performed using Patchwork++~\\cite{TODO-Patchwork}, % TODO: add BibTeX entry for Patchwork++ (Lee et al., 2022)"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 147,
+        "text": "% TODO: review: sensor mounting height above ground; verify against robot hardware specification",
+        "rawLine": "% TODO: review: sensor mounting height above ground; verify against robot hardware specification"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 149,
+        "text": "% TODO: review: distance threshold chosen to accommodate minor terrain irregularities; review against observed ground su...",
+        "rawLine": "% TODO: review: distance threshold chosen to accommodate minor terrain irregularities; review against observed ground surface roughness"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 151,
+        "text": "% TODO: review seed threshold justification",
+        "rawLine": "% TODO: review seed threshold justification"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 160,
+        "text": "% TODO: review parameter justification: these values provide conservative outlier rejection without eliminating genuine ...",
+        "rawLine": "% TODO: review parameter justification: these values provide conservative outlier rejection without eliminating genuine surface points; review against observed noise characteristics"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 164,
+        "text": "% TODO: review angular filtering direction: the excluded half-space corresponds to the rear-facing hemisphere, where the...",
+        "rawLine": "% TODO: review angular filtering direction: the excluded half-space corresponds to the rear-facing hemisphere, where the robot body occludes the vine and sensor returns are predominantly self-returns or spurious reflections; verify against the sensor mounting orientation"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 168,
+        "text": "% TODO: review parameter justification: radius 0.05 m and min neighbours 30 remove isolated noise points that survived s...",
+        "rawLine": "% TODO: review parameter justification: radius 0.05 m and min neighbours 30 remove isolated noise points that survived statistical outlier removal; review against observed point density at registration distance"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 172,
+        "text": "% TODO: review parameter justification: the 100-degree threshold is deliberately permissive, targeting only points whose...",
+        "rawLine": "% TODO: review parameter justification: the 100-degree threshold is deliberately permissive, targeting only points whose normal estimate is inverted or pathological; review against observed normal distributions in vine point clouds"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 175,
+        "text": "% TODO: review parameter justification: the tighter angle threshold (25 degrees) selects locally flat surface patches, r...",
+        "rawLine": "% TODO: review parameter justification: the tighter angle threshold (25 degrees) selects locally flat surface patches, removing noise at vine wood boundaries; review"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 210,
+        "text": "% TODO: verify all parameter values and add justifications",
+        "rawLine": "  % TODO: verify all parameter values and add justifications"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 223,
+        "text": "% TODO: describe the candidate viewpoint sampling strategy in detail (OQ1): how are the perturbations defined --- in tra...",
+        "rawLine": "% TODO: describe the candidate viewpoint sampling strategy in detail (OQ1): how are the perturbations defined --- in translation, rotation, or both? What is the sampling distribution (grid, random, etc.)?"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 230,
+        "text": "\\textbf{(e) ICP.} ICP is run between the downsampled source and each downsampled target using the Open3D~\\cite{TODO-Open...",
+        "rawLine": "\\textbf{(e) ICP.} ICP is run between the downsampled source and each downsampled target using the Open3D~\\cite{TODO-Open3D} % TODO: add BibTeX entry for Open3D (Zhou et al., 2018)"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 247,
+        "text": "% TODO: review rationale for using the Cauchy kernel for LiDAR but not stereo (OQ2): is this because the LiDAR cloud ret...",
+        "rawLine": "% TODO: review rationale for using the Cauchy kernel for LiDAR but not stereo (OQ2): is this because the LiDAR cloud retains more outlier correspondences (e.g., from residual ground returns or structural clutter) than the trunk-segmented stereo cloud, or for another reason?"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 263,
+        "text": "Max iterations                  & \\textit{TODO}       & Maximum number of ICP iterations per candidate \\\\ % TODO: verify...",
+        "rawLine": "    Max iterations                  & \\textit{TODO}       & Maximum number of ICP iterations per candidate \\\\ % TODO: verify value"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 264,
+        "text": "Max correspondence distance     & \\textit{TODO}       & Maximum point-pair distance for correspondence acceptance \\\\ % T...",
+        "rawLine": "    Max correspondence distance     & \\textit{TODO}       & Maximum point-pair distance for correspondence acceptance \\\\ % TODO: verify value"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 265,
+        "text": "Relative fitness                & \\textit{TODO}       & Convergence criterion: minimum relative change in fitness \\\\ % T...",
+        "rawLine": "    Relative fitness                & \\textit{TODO}       & Convergence criterion: minimum relative change in fitness \\\\ % TODO: verify value"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 266,
+        "text": "Relative RMSE                   & \\textit{TODO}       & Convergence criterion: minimum relative change in RMSE \\\\ % TODO...",
+        "rawLine": "    Relative RMSE                   & \\textit{TODO}       & Convergence criterion: minimum relative change in RMSE \\\\ % TODO: verify value"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 270,
+        "text": "% TODO: verify all ICP parameter values from the implementation",
+        "rawLine": "  % TODO: verify all ICP parameter values from the implementation"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 302,
+        "text": "% TODO: insert TF tree diagram showing the original and corrected transform chains",
+        "rawLine": "% TODO: insert TF tree diagram showing the original and corrected transform chains"
+      },
+      {
+        "file": "4-precise-alignment\\4-related-work\\tex\\4-related-work.tex",
+        "line": 21,
+        "text": "More recently, foundation model approaches have been applied to stereo depth estimation with the goal of achieving relia...",
+        "rawLine": "More recently, foundation model approaches have been applied to stereo depth estimation with the goal of achieving reliable zero-shot generalisation across varied imaging conditions. FoundationStereo~\\cite{TODO-FoundationStereo} % TODO: add BibTeX entry for FoundationStereo"
+      },
+      {
+        "file": "4-precise-alignment\\4-related-work\\tex\\4-related-work.tex",
+        "line": 27,
+        "text": "% TODO: A citation for the SS-GLR multi-temporal RGB-D fusion method (RealSense/Orbbec, 17 acquisition dates) was remove...",
+        "rawLine": "% TODO: A citation for the SS-GLR multi-temporal RGB-D fusion method (RealSense/Orbbec, 17 acquisition dates) was removed here because no BibTeX entry exists yet. Re-add when the entry is available."
+      }
+    ]
+  },
+  {
+    "category": "B: PLACEHOLDER CITATION KEYS",
+    "items": [
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 13,
+        "text": "Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or t...",
+        "rawLine": "Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or two ZED stereo cameras, applies the FoundationStereo foundation model~\\cite{TODO-FoundationStereo} % TODO: add BibTeX entry for FoundationStereo"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 51,
+        "text": "Dense depth estimation is performed using FoundationStereo~\\cite{TODO-FoundationStereo}, % TODO: add BibTeX entry for Fo...",
+        "rawLine": "Dense depth estimation is performed using FoundationStereo~\\cite{TODO-FoundationStereo}, % TODO: add BibTeX entry for FoundationStereo"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 90,
+        "text": "\\textbf{DBSCAN clustering.} Density-Based Spatial Clustering of Applications with Noise (DBSCAN)~\\cite{TODO-DBSCAN} % TO...",
+        "rawLine": "\\textbf{DBSCAN clustering.} Density-Based Spatial Clustering of Applications with Noise (DBSCAN)~\\cite{TODO-DBSCAN} % TODO: add BibTeX entry for DBSCAN (Ester et al., 1996)"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 143,
+        "text": "The accumulated point cloud includes returns from the vineyard floor, which are uninformative for vine pose estimation a...",
+        "rawLine": "The accumulated point cloud includes returns from the vineyard floor, which are uninformative for vine pose estimation and introduce spurious correspondences during ICP. Ground plane removal is performed using Patchwork++~\\cite{TODO-Patchwork}, % TODO: add BibTeX entry for Patchwork++ (Lee et al., 2022)"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 230,
+        "text": "\\textbf{(e) ICP.} ICP is run between the downsampled source and each downsampled target using the Open3D~\\cite{TODO-Open...",
+        "rawLine": "\\textbf{(e) ICP.} ICP is run between the downsampled source and each downsampled target using the Open3D~\\cite{TODO-Open3D} % TODO: add BibTeX entry for Open3D (Zhou et al., 2018)"
+      },
+      {
+        "file": "4-precise-alignment\\4-related-work\\tex\\4-related-work.tex",
+        "line": 21,
+        "text": "More recently, foundation model approaches have been applied to stereo depth estimation with the goal of achieving relia...",
+        "rawLine": "More recently, foundation model approaches have been applied to stereo depth estimation with the goal of achieving reliable zero-shot generalisation across varied imaging conditions. FoundationStereo~\\cite{TODO-FoundationStereo} % TODO: add BibTeX entry for FoundationStereo"
+      }
+    ]
+  },
+  {
+    "category": "C: INLINE TODO PLACEHOLDERS IN BODY TEXT",
+    "items": [
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 13,
+        "text": "Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or t...",
+        "rawLine": "Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or two ZED stereo cameras, applies the FoundationStereo foundation model~\\cite{TODO-FoundationStereo} % TODO: add BibTeX entry for FoundationStereo"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 51,
+        "text": "Dense depth estimation is performed using FoundationStereo~\\cite{TODO-FoundationStereo}, % TODO: add BibTeX entry for Fo...",
+        "rawLine": "Dense depth estimation is performed using FoundationStereo~\\cite{TODO-FoundationStereo}, % TODO: add BibTeX entry for FoundationStereo"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 90,
+        "text": "\\textbf{DBSCAN clustering.} Density-Based Spatial Clustering of Applications with Noise (DBSCAN)~\\cite{TODO-DBSCAN} % TO...",
+        "rawLine": "\\textbf{DBSCAN clustering.} Density-Based Spatial Clustering of Applications with Noise (DBSCAN)~\\cite{TODO-DBSCAN} % TODO: add BibTeX entry for DBSCAN (Ester et al., 1996)"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 143,
+        "text": "The accumulated point cloud includes returns from the vineyard floor, which are uninformative for vine pose estimation a...",
+        "rawLine": "The accumulated point cloud includes returns from the vineyard floor, which are uninformative for vine pose estimation and introduce spurious correspondences during ICP. Ground plane removal is performed using Patchwork++~\\cite{TODO-Patchwork}, % TODO: add BibTeX entry for Patchwork++ (Lee et al., 2022)"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 230,
+        "text": "\\textbf{(e) ICP.} ICP is run between the downsampled source and each downsampled target using the Open3D~\\cite{TODO-Open...",
+        "rawLine": "\\textbf{(e) ICP.} ICP is run between the downsampled source and each downsampled target using the Open3D~\\cite{TODO-Open3D} % TODO: add BibTeX entry for Open3D (Zhou et al., 2018)"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 263,
+        "text": "Max iterations                  & \\textit{TODO}       & Maximum number of ICP iterations per candidate \\\\ % TODO: verify...",
+        "rawLine": "    Max iterations                  & \\textit{TODO}       & Maximum number of ICP iterations per candidate \\\\ % TODO: verify value"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 264,
+        "text": "Max correspondence distance     & \\textit{TODO}       & Maximum point-pair distance for correspondence acceptance \\\\ % T...",
+        "rawLine": "    Max correspondence distance     & \\textit{TODO}       & Maximum point-pair distance for correspondence acceptance \\\\ % TODO: verify value"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 265,
+        "text": "Relative fitness                & \\textit{TODO}       & Convergence criterion: minimum relative change in fitness \\\\ % T...",
+        "rawLine": "    Relative fitness                & \\textit{TODO}       & Convergence criterion: minimum relative change in fitness \\\\ % TODO: verify value"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 266,
+        "text": "Relative RMSE                   & \\textit{TODO}       & Convergence criterion: minimum relative change in RMSE \\\\ % TODO...",
+        "rawLine": "    Relative RMSE                   & \\textit{TODO}       & Convergence criterion: minimum relative change in RMSE \\\\ % TODO: verify value"
+      },
+      {
+        "file": "4-precise-alignment\\4-related-work\\tex\\4-related-work.tex",
+        "line": 21,
+        "text": "More recently, foundation model approaches have been applied to stereo depth estimation with the goal of achieving relia...",
+        "rawLine": "More recently, foundation model approaches have been applied to stereo depth estimation with the goal of achieving reliable zero-shot generalisation across varied imaging conditions. FoundationStereo~\\cite{TODO-FoundationStereo} % TODO: add BibTeX entry for FoundationStereo"
+      }
+    ]
+  },
+  {
+    "category": "D: REVIEW REQUESTS IN COMMENTS",
+    "items": [
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 39,
+        "text": "% TODO: state the near and far clip values used in the 3DGS rendering stage and review justification",
+        "rawLine": "% TODO: state the near and far clip values used in the 3DGS rendering stage and review justification"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 54,
+        "text": "% TODO: review justification: downscale factor 0.7 was chosen to reduce inference time while retaining sufficient spatia...",
+        "rawLine": "% TODO: review justification: downscale factor 0.7 was chosen to reduce inference time while retaining sufficient spatial resolution for vine trunk geometry; review against the specific ZED Mini resolution used"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 63,
+        "text": "% TODO: review justification: z_far = 1.0 m reflects the close-range operating distance in the vineyard row; review agai...",
+        "rawLine": "% TODO: review justification: z_far = 1.0 m reflects the close-range operating distance in the vineyard row; review against actual deployment geometry"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 88,
+        "text": "% TODO: review parameter justification: voxel size 0.02 m and closing radius 0.005 m were selected to bridge typical sur...",
+        "rawLine": "% TODO: review parameter justification: voxel size 0.02 m and closing radius 0.005 m were selected to bridge typical surface gaps in stereo depth reconstructions of vine bark; review against observed gap statistics"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 92,
+        "text": "% TODO: review parameter justification: eps = 0.05 m reflects the typical inter-point spacing at vine-trunk distances; m...",
+        "rawLine": "% TODO: review parameter justification: eps = 0.05 m reflects the typical inter-point spacing at vine-trunk distances; min_samples = 200 was chosen to reject small noise clusters while retaining the dominant trunk; review against cloud density statistics"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 96,
+        "text": "% TODO: review parameter justification: voxel size 0.02 m and min count 20 eliminate residual sparse regions that surviv...",
+        "rawLine": "% TODO: review parameter justification: voxel size 0.02 m and min count 20 eliminate residual sparse regions that survived clustering; review against observed point density at typical vine-to-sensor distances"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 100,
+        "text": "% TODO: review whether 600,000 is the tightest practical cap; review against observed input sizes",
+        "rawLine": "% TODO: review whether 600,000 is the tightest practical cap; review against observed input sizes"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 123,
+        "text": "% TODO: verify all parameter values and add justifications",
+        "rawLine": "  % TODO: verify all parameter values and add justifications"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 147,
+        "text": "% TODO: review: sensor mounting height above ground; verify against robot hardware specification",
+        "rawLine": "% TODO: review: sensor mounting height above ground; verify against robot hardware specification"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 149,
+        "text": "% TODO: review: distance threshold chosen to accommodate minor terrain irregularities; review against observed ground su...",
+        "rawLine": "% TODO: review: distance threshold chosen to accommodate minor terrain irregularities; review against observed ground surface roughness"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 151,
+        "text": "% TODO: review seed threshold justification",
+        "rawLine": "% TODO: review seed threshold justification"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 160,
+        "text": "% TODO: review parameter justification: these values provide conservative outlier rejection without eliminating genuine ...",
+        "rawLine": "% TODO: review parameter justification: these values provide conservative outlier rejection without eliminating genuine surface points; review against observed noise characteristics"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 164,
+        "text": "% TODO: review angular filtering direction: the excluded half-space corresponds to the rear-facing hemisphere, where the...",
+        "rawLine": "% TODO: review angular filtering direction: the excluded half-space corresponds to the rear-facing hemisphere, where the robot body occludes the vine and sensor returns are predominantly self-returns or spurious reflections; verify against the sensor mounting orientation"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 168,
+        "text": "% TODO: review parameter justification: radius 0.05 m and min neighbours 30 remove isolated noise points that survived s...",
+        "rawLine": "% TODO: review parameter justification: radius 0.05 m and min neighbours 30 remove isolated noise points that survived statistical outlier removal; review against observed point density at registration distance"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 172,
+        "text": "% TODO: review parameter justification: the 100-degree threshold is deliberately permissive, targeting only points whose...",
+        "rawLine": "% TODO: review parameter justification: the 100-degree threshold is deliberately permissive, targeting only points whose normal estimate is inverted or pathological; review against observed normal distributions in vine point clouds"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 175,
+        "text": "% TODO: review parameter justification: the tighter angle threshold (25 degrees) selects locally flat surface patches, r...",
+        "rawLine": "% TODO: review parameter justification: the tighter angle threshold (25 degrees) selects locally flat surface patches, removing noise at vine wood boundaries; review"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 210,
+        "text": "% TODO: verify all parameter values and add justifications",
+        "rawLine": "  % TODO: verify all parameter values and add justifications"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 247,
+        "text": "% TODO: review rationale for using the Cauchy kernel for LiDAR but not stereo (OQ2): is this because the LiDAR cloud ret...",
+        "rawLine": "% TODO: review rationale for using the Cauchy kernel for LiDAR but not stereo (OQ2): is this because the LiDAR cloud retains more outlier correspondences (e.g., from residual ground returns or structural clutter) than the trunk-segmented stereo cloud, or for another reason?"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 263,
+        "text": "Max iterations                  & \\textit{TODO}       & Maximum number of ICP iterations per candidate \\\\ % TODO: verify...",
+        "rawLine": "    Max iterations                  & \\textit{TODO}       & Maximum number of ICP iterations per candidate \\\\ % TODO: verify value"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 264,
+        "text": "Max correspondence distance     & \\textit{TODO}       & Maximum point-pair distance for correspondence acceptance \\\\ % T...",
+        "rawLine": "    Max correspondence distance     & \\textit{TODO}       & Maximum point-pair distance for correspondence acceptance \\\\ % TODO: verify value"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 265,
+        "text": "Relative fitness                & \\textit{TODO}       & Convergence criterion: minimum relative change in fitness \\\\ % T...",
+        "rawLine": "    Relative fitness                & \\textit{TODO}       & Convergence criterion: minimum relative change in fitness \\\\ % TODO: verify value"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 266,
+        "text": "Relative RMSE                   & \\textit{TODO}       & Convergence criterion: minimum relative change in RMSE \\\\ % TODO...",
+        "rawLine": "    Relative RMSE                   & \\textit{TODO}       & Convergence criterion: minimum relative change in RMSE \\\\ % TODO: verify value"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 270,
+        "text": "% TODO: verify all ICP parameter values from the implementation",
+        "rawLine": "  % TODO: verify all ICP parameter values from the implementation"
+      }
+    ]
+  },
+  {
+    "category": "E: MISSING CONTENT MARKERS",
+    "items": [
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 13,
+        "text": "Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or t...",
+        "rawLine": "Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or two ZED stereo cameras, applies the FoundationStereo foundation model~\\cite{TODO-FoundationStereo} % TODO: add BibTeX entry for FoundationStereo"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 18,
+        "text": "% TODO: insert system-level pipeline dataflow figure here",
+        "rawLine": "% TODO: insert system-level pipeline dataflow figure here"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 39,
+        "text": "% TODO: state the near and far clip values used in the 3DGS rendering stage and review justification",
+        "rawLine": "% TODO: state the near and far clip values used in the 3DGS rendering stage and review justification"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 51,
+        "text": "Dense depth estimation is performed using FoundationStereo~\\cite{TODO-FoundationStereo}, % TODO: add BibTeX entry for Fo...",
+        "rawLine": "Dense depth estimation is performed using FoundationStereo~\\cite{TODO-FoundationStereo}, % TODO: add BibTeX entry for FoundationStereo"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 52,
+        "text": "a stereo foundation model that produces disparity maps with strong zero-shot generalisation across sensor configurations...",
+        "rawLine": "a stereo foundation model that produces disparity maps with strong zero-shot generalisation across sensor configurations and scene types (see \\cref{subsec:stereo-depth} for a description of the model and its benchmarked performance). % TODO: clarify which FoundationStereo checkpoint is used and whether any fine-tuning was applied, or whether inference is purely zero-shot (OQ4)"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 90,
+        "text": "\\textbf{DBSCAN clustering.} Density-Based Spatial Clustering of Applications with Noise (DBSCAN)~\\cite{TODO-DBSCAN} % TO...",
+        "rawLine": "\\textbf{DBSCAN clustering.} Density-Based Spatial Clustering of Applications with Noise (DBSCAN)~\\cite{TODO-DBSCAN} % TODO: add BibTeX entry for DBSCAN (Ester et al., 1996)"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 123,
+        "text": "% TODO: verify all parameter values and add justifications",
+        "rawLine": "  % TODO: verify all parameter values and add justifications"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 137,
+        "text": "% TODO: state the commanded accumulation interval and typical number of scans accumulated (OQ3);",
+        "rawLine": "% TODO: state the commanded accumulation interval and typical number of scans accumulated (OQ3);"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 138,
+        "text": "% also clarify whether motion compensation is applied during accumulation.",
+        "rawLine": "% also clarify whether motion compensation is applied during accumulation."
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 143,
+        "text": "The accumulated point cloud includes returns from the vineyard floor, which are uninformative for vine pose estimation a...",
+        "rawLine": "The accumulated point cloud includes returns from the vineyard floor, which are uninformative for vine pose estimation and introduce spurious correspondences during ICP. Ground plane removal is performed using Patchwork++~\\cite{TODO-Patchwork}, % TODO: add BibTeX entry for Patchwork++ (Lee et al., 2022)"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 210,
+        "text": "% TODO: verify all parameter values and add justifications",
+        "rawLine": "  % TODO: verify all parameter values and add justifications"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 223,
+        "text": "% TODO: describe the candidate viewpoint sampling strategy in detail (OQ1): how are the perturbations defined --- in tra...",
+        "rawLine": "% TODO: describe the candidate viewpoint sampling strategy in detail (OQ1): how are the perturbations defined --- in translation, rotation, or both? What is the sampling distribution (grid, random, etc.)?"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 230,
+        "text": "\\textbf{(e) ICP.} ICP is run between the downsampled source and each downsampled target using the Open3D~\\cite{TODO-Open...",
+        "rawLine": "\\textbf{(e) ICP.} ICP is run between the downsampled source and each downsampled target using the Open3D~\\cite{TODO-Open3D} % TODO: add BibTeX entry for Open3D (Zhou et al., 2018)"
+      },
+      {
+        "file": "4-precise-alignment\\4-methodology\\tex\\4-methodology.tex",
+        "line": 302,
+        "text": "% TODO: insert TF tree diagram showing the original and corrected transform chains",
+        "rawLine": "% TODO: insert TF tree diagram showing the original and corrected transform chains"
+      },
+      {
+        "file": "4-precise-alignment\\4-related-work\\tex\\4-related-work.tex",
+        "line": 21,
+        "text": "More recently, foundation model approaches have been applied to stereo depth estimation with the goal of achieving relia...",
+        "rawLine": "More recently, foundation model approaches have been applied to stereo depth estimation with the goal of achieving reliable zero-shot generalisation across varied imaging conditions. FoundationStereo~\\cite{TODO-FoundationStereo} % TODO: add BibTeX entry for FoundationStereo"
+      },
+      {
+        "file": "4-precise-alignment\\4-related-work\\tex\\4-related-work.tex",
+        "line": 27,
+        "text": "% TODO: A citation for the SS-GLR multi-temporal RGB-D fusion method (RealSense/Orbbec, 17 acquisition dates) was remove...",
+        "rawLine": "% TODO: A citation for the SS-GLR multi-temporal RGB-D fusion method (RealSense/Orbbec, 17 acquisition dates) was removed here because no BibTeX entry exists yet. Re-add when the entry is available."
+      }
+    ]
+  }
+]

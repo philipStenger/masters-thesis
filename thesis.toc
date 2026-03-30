@@ -8,98 +8,98 @@
 \contentsline {subsection}{\numberline {2.1.1}Introduction}{4}{}%
 \contentsline {subsection}{\numberline {2.1.2}The Limits of Deterministic Localisation}{4}{}%
 \contentsline {subsection}{\numberline {2.1.3}Uncertainty Representation and Sensor Fusion}{5}{}%
-\contentsline {subsection}{\numberline {2.1.4}Point Cloud Registration}{6}{}%
-\contentsline {subsection}{\numberline {2.1.5}Pose Graph Optimisation and Global Consistency}{9}{}%
-\contentsline {subsection}{\numberline {2.1.6}Summary}{10}{}%
-\contentsline {section}{\numberline {2.2}Robot Localisation in Vineyard and Orchard Robotics}{10}{}%
-\contentsline {subsection}{\numberline {2.2.1}Environmental Constraints and Challenges}{10}{}%
-\contentsline {paragraph}{Perceptual Aliasing and Geometric Repetitiveness}{10}{}%
-\contentsline {paragraph}{Dynamic and Unstructured Environment}{11}{}%
-\contentsline {subsection}{\numberline {2.2.2}LiDAR SLAM}{11}{}%
-\contentsline {paragraph}{Benchmarking Datasets}{11}{}%
-\contentsline {subsection}{\numberline {2.2.3}Summary}{12}{}%
-\contentsline {section}{\numberline {2.3}Robot Localisation in Vineyard Pruning}{12}{}%
-\contentsline {subsection}{\numberline {2.3.1}Spatial Alignment Modalities for Pruning Vines}{12}{}%
-\contentsline {subsection}{\numberline {2.3.2}Summary}{13}{}%
-\contentsline {chapter}{\numberline {\uppercase {Chapter\ 3}}\uppercase {SLAM}}{15}{}%
-\contentsline {section}{\numberline {3.1}Introduction}{15}{}%
-\contentsline {subsection}{\numberline {3.1.1}Motivation}{15}{}%
-\contentsline {section}{\numberline {3.2}Related Work}{16}{}%
-\contentsline {subsection}{\numberline {3.2.1}Modern LiDAR-SLAM Architectures}{16}{}%
-\contentsline {paragraph}{Filter-Based Direct Odometry}{17}{}%
-\contentsline {paragraph}{Graph-Based Global Consistency}{17}{}%
-\contentsline {subsection}{\numberline {3.2.2}SLAM Hyperparameter Optimisation}{18}{}%
-\contentsline {paragraph}{Search Space Sampling}{18}{}%
-\contentsline {paragraph}{Robustness, Generalisation and Overfitting}{19}{}%
-\contentsline {section}{\numberline {3.3}Proposed Methods}{20}{}%
-\contentsline {subsection}{\numberline {3.3.1}Geometric Consistency-Based Outlier Rejection}{21}{}%
-\contentsline {subsection}{\numberline {3.3.2}Planar Geometry Quality Assessment in 2D}{22}{}%
-\contentsline {subsection}{\numberline {3.3.3}GLIM Reference Frame Alignment with Local ENU}{23}{}%
-\contentsline {subsection}{\numberline {3.3.4}GNSS Prior Factor Construction}{24}{}%
-\contentsline {subsection}{\numberline {3.3.5}Robust SLAM Parameterisation via Iterative Region Refinement}{25}{}%
-\contentsline {subsubsection}{\numberline {3.3.5.1}Problem Formulation}{25}{}%
-\contentsline {subsubsection}{\numberline {3.3.5.2}Sampling via Latin Hypercube Strategy}{25}{}%
-\contentsline {paragraph}{Implementation and Normalisation}{26}{}%
-\contentsline {subsubsection}{\numberline {3.3.5.3}The Multi-Dataset Consensus Framework}{26}{}%
-\contentsline {paragraph}{Formal Objective Function}{26}{}%
-\contentsline {subsubsection}{\numberline {3.3.5.4}Iterative Region Refinement (IRR)}{26}{}%
-\contentsline {paragraph}{Statistical Search Space Contraction}{27}{}%
-\contentsline {paragraph}{Refinement Phase Schedule}{27}{}%
-\contentsline {subsubsection}{\numberline {3.3.5.5}Optimisation Metrics}{27}{}%
-\contentsline {section}{\numberline {3.4}Results}{28}{}%
-\contentsline {subsection}{\numberline {3.4.1}Baseline GLIM Performance}{28}{}%
-\contentsline {subsection}{\numberline {3.4.2}Refined GLIM Performance}{29}{}%
-\contentsline {subsection}{\numberline {3.4.3}Proposed Method Performance}{29}{}%
-\contentsline {subsection}{\numberline {3.4.4}Comparative Summary}{30}{}%
-\contentsline {subsection}{\numberline {3.4.5}GNSS Factor Utilisation}{31}{}%
-\contentsline {subsection}{\numberline {3.4.6}Parameter Optimisation Progression}{31}{}%
-\contentsline {subsection}{\numberline {3.4.7}Multi-Metric Radar Comparison}{33}{}%
-\contentsline {subsection}{\numberline {3.4.8}Trajectory Visualisation}{34}{}%
-\contentsline {section}{\numberline {3.5}Discussion}{37}{}%
-\contentsline {subsection}{\numberline {3.5.1}Baseline GLIM Performance Analysis}{37}{}%
-\contentsline {subsubsection}{\numberline {3.5.1.1}Vertical Drift and Altitude Recovery}{37}{}%
-\contentsline {subsubsection}{\numberline {3.5.1.2}Planar Failure and the 'Point of No Return'}{37}{}%
-\contentsline {subsection}{\numberline {3.5.2}Refined GLIM Performance}{38}{}%
-\contentsline {subsubsection}{\numberline {3.5.2.1}Magnitude of Error Reduction}{38}{}%
-\contentsline {subsubsection}{\numberline {3.5.2.2}Relative Pose Stability}{38}{}%
-\contentsline {subsubsection}{\numberline {3.5.2.3}Drift Suppression per Meter}{38}{}%
-\contentsline {subsection}{\numberline {3.5.3}Proposed Method: GNSS-Augmented Localisation}{39}{}%
-\contentsline {subsubsection}{\numberline {3.5.3.1}GNSS Integration and Global Constraint}{39}{}%
-\contentsline {subsubsection}{\numberline {3.5.3.2}Dataset-Specific Performance Variability}{39}{}%
-\contentsline {subsubsection}{\numberline {3.5.3.3}Relative Pose Error and Short-Horizon Consistency}{40}{}%
-\contentsline {subsubsection}{\numberline {3.5.3.4}GASP Metric Behaviour and Optimisation Dynamics}{40}{}%
-\contentsline {subsection}{\numberline {3.5.4}Comparative Analysis and Mechanisms of Improvement}{41}{}%
-\contentsline {subsubsection}{\numberline {3.5.4.1}Parametrisation vs. Sensor Fusion}{41}{}%
-\contentsline {subsubsection}{\numberline {3.5.4.2}Role of Outlier Rejection}{41}{}%
-\contentsline {subsubsection}{\numberline {3.5.4.3}Geometric Quality Assessment and Kabsch Stability}{41}{}%
-\contentsline {subsection}{\numberline {3.5.5}Implications for Vineyard Robotics}{42}{}%
-\contentsline {section}{\numberline {3.6}Summary}{42}{}%
-\contentsline {chapter}{\numberline {\uppercase {Chapter\ 4}}\uppercase {precise-alignment}}{43}{}%
-\contentsline {section}{\numberline {4.1}Introduction}{43}{}%
-\contentsline {subsection}{\numberline {4.1.1}System Context}{43}{}%
-\contentsline {subsection}{\numberline {4.1.2}Approach Overview}{44}{}%
-\contentsline {section}{\numberline {4.2}Related Work}{44}{}%
-\contentsline {subsection}{\numberline {4.2.1}Stereo Depth Imaging}{45}{}%
-\contentsline {subsection}{\numberline {4.2.2}Dense LiDAR Mapping}{46}{}%
-\contentsline {subsection}{\numberline {4.2.3}Point Cloud Registration}{48}{}%
-\contentsline {section}{\numberline {4.3}Proposed Methods}{49}{}%
-\contentsline {subsection}{\numberline {4.3.1}System Overview}{50}{}%
-\contentsline {subsection}{\numberline {4.3.2}Reference Model: 3D Gaussian Splatting}{50}{}%
-\contentsline {subsection}{\numberline {4.3.3}Stereo Vision Pipeline}{51}{}%
-\contentsline {subsubsection}{\numberline {4.3.3.1}Depth Estimation}{51}{}%
-\contentsline {subsubsection}{\numberline {4.3.3.2}Dual-Camera Point Cloud Fusion}{51}{}%
-\contentsline {subsubsection}{\numberline {4.3.3.3}Trunk Segmentation}{52}{}%
-\contentsline {subsection}{\numberline {4.3.4}LiDAR Pipeline}{52}{}%
-\contentsline {subsubsection}{\numberline {4.3.4.1}Dense Scan Accumulation}{53}{}%
-\contentsline {subsubsection}{\numberline {4.3.4.2}Ground Segmentation}{53}{}%
-\contentsline {subsubsection}{\numberline {4.3.4.3}Point Cloud Processing}{54}{}%
-\contentsline {subsection}{\numberline {4.3.5}ICP Registration Against the 3DGS Model}{54}{}%
-\contentsline {subsection}{\numberline {4.3.6}Coordinate Frames and Pose Correction}{56}{}%
-\contentsline {subsection}{\numberline {4.3.7}Pipeline Execution Model}{58}{}%
-\contentsline {section}{\numberline {4.4}Results}{58}{}%
-\contentsline {section}{\numberline {4.5}Discussion}{58}{}%
-\contentsline {section}{\numberline {4.6}Summary}{58}{}%
-\contentsline {chapter}{\numberline {\uppercase {Chapter\ 5}}\uppercase {Conclusion}}{59}{}%
-\contentsline {section}{\numberline {5.1}Future Work}{59}{}%
-\contentsline {chapter}{\numberline {\uppercase {Chapter\ 6}}\uppercase {References}}{60}{}%
-\contentsline {chapter}{\uppercase {Supplementary Figures}}{67}{}%
+\contentsline {subsection}{\numberline {2.1.4}Point Cloud Registration}{5}{}%
+\contentsline {subsection}{\numberline {2.1.5}Pose Graph Optimisation and Global Consistency}{7}{}%
+\contentsline {subsection}{\numberline {2.1.6}Summary}{7}{}%
+\contentsline {section}{\numberline {2.2}Robot Localisation in Vineyard and Orchard Robotics}{8}{}%
+\contentsline {subsection}{\numberline {2.2.1}Environmental Constraints and Challenges}{8}{}%
+\contentsline {paragraph}{Perceptual Aliasing and Geometric Repetitiveness}{8}{}%
+\contentsline {paragraph}{Dynamic and Unstructured Environment}{8}{}%
+\contentsline {subsection}{\numberline {2.2.2}LiDAR SLAM}{9}{}%
+\contentsline {paragraph}{Benchmarking Datasets}{9}{}%
+\contentsline {subsection}{\numberline {2.2.3}Summary}{10}{}%
+\contentsline {section}{\numberline {2.3}Robot Localisation in Vineyard Pruning}{10}{}%
+\contentsline {subsection}{\numberline {2.3.1}Spatial Alignment Modalities for Pruning Vines}{10}{}%
+\contentsline {subsection}{\numberline {2.3.2}Summary}{11}{}%
+\contentsline {chapter}{\numberline {\uppercase {Chapter\ 3}}\uppercase {SLAM}}{12}{}%
+\contentsline {section}{\numberline {3.1}Introduction}{12}{}%
+\contentsline {subsection}{\numberline {3.1.1}Motivation}{12}{}%
+\contentsline {section}{\numberline {3.2}Related Work}{13}{}%
+\contentsline {subsection}{\numberline {3.2.1}Modern LiDAR-SLAM Architectures}{13}{}%
+\contentsline {paragraph}{Filter-Based Direct Odometry}{14}{}%
+\contentsline {paragraph}{Graph-Based Global Consistency}{14}{}%
+\contentsline {subsection}{\numberline {3.2.2}SLAM Hyperparameter Optimisation}{15}{}%
+\contentsline {paragraph}{Search Space Sampling}{15}{}%
+\contentsline {paragraph}{Robustness, Generalisation and Overfitting}{17}{}%
+\contentsline {section}{\numberline {3.3}Proposed Methods}{18}{}%
+\contentsline {subsection}{\numberline {3.3.1}Geometric Consistency-Based Outlier Rejection}{18}{}%
+\contentsline {subsection}{\numberline {3.3.2}Planar Geometry Quality Assessment in 2D}{19}{}%
+\contentsline {subsection}{\numberline {3.3.3}GLIM Reference Frame Alignment with Local ENU}{20}{}%
+\contentsline {subsection}{\numberline {3.3.4}GNSS Prior Factor Construction}{21}{}%
+\contentsline {subsection}{\numberline {3.3.5}Robust SLAM Parameterisation via Iterative Region Refinement}{22}{}%
+\contentsline {subsubsection}{\numberline {3.3.5.1}Problem Formulation}{22}{}%
+\contentsline {subsubsection}{\numberline {3.3.5.2}Sampling via Latin Hypercube Strategy}{23}{}%
+\contentsline {paragraph}{Implementation and Normalisation}{23}{}%
+\contentsline {subsubsection}{\numberline {3.3.5.3}The Multi-Dataset Consensus Framework}{23}{}%
+\contentsline {paragraph}{Formal Objective Function}{23}{}%
+\contentsline {subsubsection}{\numberline {3.3.5.4}Iterative Region Refinement (IRR)}{24}{}%
+\contentsline {paragraph}{Statistical Search Space Contraction}{24}{}%
+\contentsline {paragraph}{Refinement Phase Schedule}{24}{}%
+\contentsline {subsubsection}{\numberline {3.3.5.5}Optimisation Metrics}{24}{}%
+\contentsline {section}{\numberline {3.4}Results}{25}{}%
+\contentsline {subsection}{\numberline {3.4.1}Baseline GLIM Performance}{25}{}%
+\contentsline {subsection}{\numberline {3.4.2}Refined GLIM Performance}{25}{}%
+\contentsline {subsection}{\numberline {3.4.3}Proposed Method Performance}{25}{}%
+\contentsline {subsection}{\numberline {3.4.4}Comparative Summary}{27}{}%
+\contentsline {subsection}{\numberline {3.4.5}GNSS Factor Utilisation}{27}{}%
+\contentsline {subsection}{\numberline {3.4.6}Parameter Optimisation Progression}{27}{}%
+\contentsline {subsection}{\numberline {3.4.7}Multi-Metric Radar Comparison}{31}{}%
+\contentsline {subsection}{\numberline {3.4.8}Trajectory Visualisation}{31}{}%
+\contentsline {section}{\numberline {3.5}Discussion}{34}{}%
+\contentsline {subsection}{\numberline {3.5.1}Baseline GLIM Performance Analysis}{34}{}%
+\contentsline {subsubsection}{\numberline {3.5.1.1}Vertical Drift and Altitude Recovery}{34}{}%
+\contentsline {subsubsection}{\numberline {3.5.1.2}Planar Failure and the 'Point of No Return'}{34}{}%
+\contentsline {subsection}{\numberline {3.5.2}Refined GLIM Performance}{35}{}%
+\contentsline {subsubsection}{\numberline {3.5.2.1}Magnitude of Error Reduction}{35}{}%
+\contentsline {subsubsection}{\numberline {3.5.2.2}Relative Pose Stability}{35}{}%
+\contentsline {subsubsection}{\numberline {3.5.2.3}Drift Suppression per Meter}{35}{}%
+\contentsline {subsection}{\numberline {3.5.3}Proposed Method: GNSS-Augmented Localisation}{36}{}%
+\contentsline {subsubsection}{\numberline {3.5.3.1}GNSS Integration and Global Constraint}{36}{}%
+\contentsline {subsubsection}{\numberline {3.5.3.2}Dataset-Specific Performance Variability}{37}{}%
+\contentsline {subsubsection}{\numberline {3.5.3.3}Relative Pose Error and Short-Horizon Consistency}{37}{}%
+\contentsline {subsubsection}{\numberline {3.5.3.4}GASP Metric Behaviour and Optimisation Dynamics}{37}{}%
+\contentsline {subsection}{\numberline {3.5.4}Comparative Analysis and Mechanisms of Improvement}{38}{}%
+\contentsline {subsubsection}{\numberline {3.5.4.1}Parametrisation vs. Sensor Fusion}{38}{}%
+\contentsline {subsubsection}{\numberline {3.5.4.2}Role of Outlier Rejection}{39}{}%
+\contentsline {subsubsection}{\numberline {3.5.4.3}Geometric Quality Assessment and Kabsch Stability}{39}{}%
+\contentsline {subsection}{\numberline {3.5.5}Implications for Vineyard Robotics}{39}{}%
+\contentsline {section}{\numberline {3.6}Summary}{40}{}%
+\contentsline {chapter}{\numberline {\uppercase {Chapter\ 4}}\uppercase {Precise Alignment}}{41}{}%
+\contentsline {section}{\numberline {4.1}Introduction}{41}{}%
+\contentsline {subsection}{\numberline {4.1.1}System Context}{41}{}%
+\contentsline {subsection}{\numberline {4.1.2}Approach Overview}{42}{}%
+\contentsline {section}{\numberline {4.2}Related Work}{42}{}%
+\contentsline {subsection}{\numberline {4.2.1}Stereo Depth Imaging}{43}{}%
+\contentsline {subsection}{\numberline {4.2.2}Dense LiDAR Mapping}{44}{}%
+\contentsline {subsection}{\numberline {4.2.3}Point Cloud Registration}{46}{}%
+\contentsline {section}{\numberline {4.3}Proposed Methods}{47}{}%
+\contentsline {subsection}{\numberline {4.3.1}System Overview}{48}{}%
+\contentsline {subsection}{\numberline {4.3.2}Reference Model: 3D Gaussian Splatting}{48}{}%
+\contentsline {subsection}{\numberline {4.3.3}Stereo Vision Pipeline}{49}{}%
+\contentsline {subsubsection}{\numberline {4.3.3.1}Depth Estimation}{49}{}%
+\contentsline {subsubsection}{\numberline {4.3.3.2}Dual-Camera Point Cloud Fusion}{49}{}%
+\contentsline {subsubsection}{\numberline {4.3.3.3}Trunk Segmentation}{50}{}%
+\contentsline {subsection}{\numberline {4.3.4}LiDAR Pipeline}{50}{}%
+\contentsline {subsubsection}{\numberline {4.3.4.1}Dense Scan Accumulation}{51}{}%
+\contentsline {subsubsection}{\numberline {4.3.4.2}Ground Segmentation}{51}{}%
+\contentsline {subsubsection}{\numberline {4.3.4.3}Point Cloud Processing}{52}{}%
+\contentsline {subsection}{\numberline {4.3.5}ICP Registration Against the 3DGS Model}{52}{}%
+\contentsline {subsection}{\numberline {4.3.6}Coordinate Frames and Pose Correction}{54}{}%
+\contentsline {subsection}{\numberline {4.3.7}Pipeline Execution Model}{56}{}%
+\contentsline {section}{\numberline {4.4}Results}{56}{}%
+\contentsline {section}{\numberline {4.5}Discussion}{56}{}%
+\contentsline {section}{\numberline {4.6}Summary}{56}{}%
+\contentsline {chapter}{\numberline {\uppercase {Chapter\ 5}}\uppercase {Conclusion}}{57}{}%
+\contentsline {section}{\numberline {5.1}Future Work}{57}{}%
+\contentsline {chapter}{\numberline {\uppercase {Chapter\ 6}}\uppercase {References}}{58}{}%
+\contentsline {chapter}{\uppercase {Supplementary Figures}}{66}{}%

@@ -1,9 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.10)  18 MAR 2026 15:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.10)  30 MAR 2026 16:27
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
-**./thesis.tex
-(thesis.tex
+**c:/Users/PSTENGE/Documents/misc/thesis/thesis.tex
+(c:/Users/PSTENGE/Documents/misc/thesis/thesis.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
 (electhesis.cls
@@ -31,13 +32,11 @@ File: bk11.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen148
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
 )) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\lmodern.sty
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\lmodern.sty
 Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
@@ -71,11 +70,9 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
 Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \col@sep=\dimen149
 \ar@mcellbox=\box53
@@ -92,8 +89,7 @@ Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \TX@delta=\dimen155
 \TX@cols=\count284
 \TX@ftn=\toks18
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen156
 \lightrulewidth=\dimen157
@@ -119,20 +115,18 @@ Elec. Eng. Citation Style File `eleccite' <1994/11/10>.
 ) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
 Package: amsmath 2025/07/09 v2.17z AMS math features
 \@mathmargin=\skip53
+
 For additional information on amsmath, use the `?' option.
 (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
 Package: amstext 2024/11/17 v2.01 AMS text
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks19
 \ex@=\dimen169
-))
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+)) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen170
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
 \inf@bad=\count289
@@ -182,52 +176,42 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \mathdisplay@stack=\toks23
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks24
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics
-.cfg
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.d
-ef
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen178
 \Gin@req@width=\dimen179
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
 \multirow@colwidth=\skip56
 \multirow@cntb=\count301
 \multirow@dima=\skip57
 \bigstrutjot=\dimen180
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.st
-y
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
 Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
  (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@tempdima=\dimen181
 \captionmargin=\dimen182
@@ -239,11 +223,7 @@ Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@hangindent=\dimen188
 Package caption Info: Unknown document class (or package),
 (caption)             standard defaults will be used.
-Package caption Info: \@makecaption = \long macro:#1#2-> \vskip \abovecaptionsk
-ip \sbox \@tempboxa {\footnotesize {\bfseries #1}\hskip 1em #2} \ifdim \wd \@te
-mpboxa >\hsize \footnotesize {\bfseries #1}\hskip 1em #2\par \else \hbox to\hsi
-ze {\hfil \box \@tempboxa \hfil }\fi \vskip \belowcaptionskip  on input line 11
-75.
+Package caption Info: \@makecaption = \long macro:#1#2-> \vskip \abovecaptionskip \sbox \@tempboxa {\footnotesize {\bfseries #1}\hskip 1em #2} \ifdim \wd \@tempboxa >\hsize \footnotesize {\bfseries #1}\hskip 1em #2\par \else \hbox to\hsize {\hfil \box \@tempboxa \hfil }\fi \vskip \belowcaptionskip  on input line 1175.
 )
 
 Package caption Warning: Unknown document class (or package),
@@ -264,18 +244,15 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box57
 \@float@everytoks=\toks26
 \@floatcapt=\box58
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/cleveref\cleveref.sty
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/cleveref\cleveref.sty
 Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
 )
 ==> First Aid for cleveref.sty applied!
-
 (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
 ))
 \Gm@cnth=\count307
@@ -290,22 +267,14 @@ Package: iftex 2024/12/12 v1.0g TeX engine tests
 \Gm@layouthoffset=\dimen195
 \Gm@layoutvoffset=\dimen196
 \Gm@dimlist=\toks27
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg
-))
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 22
-.
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 22.
  (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-p
-dftex.def
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count310
-) (thesis.aux (abstract.aux) (acknowledgements.aux) (preface.aux)
-(notation.aux) (1-intro/introduction.aux) (2-background/background.aux)
-(3-SLAM/SLAM.aux) (4-precise-alignment/precise-alignment.aux)
-(5-conclusion/conclusion.aux) (appendix-a.aux))
+) (thesis.aux (abstract.aux) (acknowledgements.aux) (preface.aux) (notation.aux) (1-intro/introduction.aux) (2-background/background.aux) (3-SLAM/SLAM.aux) (4-precise-alignment/precise-alignment.aux) (5-conclusion/conclusion.aux) (appendix-a.aux))
 \openout1 = `thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
@@ -322,9 +291,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
 LaTeX Font Info:    ... okay on input line 22.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
 LaTeX Font Info:    ... okay on input line 22.
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.
-mkii
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count311
 \scratchdimen=\dimen197
@@ -337,15 +304,10 @@ mkii
 \MPnumerator=\count315
 \makeMPintoPDFobject=\count316
 \everyMPtoPDFconversion=\toks29
-)
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf
--base.sty
+) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-85.
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys
-.cfg
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 Package caption Info: Begin \AtBeginDocument code.
@@ -386,27 +348,20 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 3
-1.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 31.
 (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 3
-1.
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 31.
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-31.
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 31.
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-31.
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 31.
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -416,27 +371,20 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <12> on input line 31.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 31.
-
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 31.
-
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-[1
+) [1
 
 
 
-{C:/Users/PSTENGE/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/PS
-TENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}]
+{C:/Users/PSTENGE/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}]
 \openout2 = `abstract.aux'.
 
-
-(abstract.tex) [2
+ (abstract.tex) [2
 
 
 ] (thesis.toc
@@ -487,19 +435,13 @@ Chapter 1.
 
 
 
-])
-(1-intro/tex/1-research-objectives.tex
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-0.
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
+]) (1-intro/tex/1-research-objectives.tex
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 10.
+ (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-[2{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc
-}]
+) [2{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}]
 Overfull \hbox (15.21852pt too wide) in paragraph at lines 18--19
-[]\T1/lmr/m/n/10.95 Validate lo-cal-i-sa-tion per-for-mance un-der vary-ing vin
-e-yard con-di-tions in-clud-ing GNSS dropout,
+[]\T1/lmr/m/n/10.95 Validate lo-cal-i-sa-tion per-for-mance un-der vary-ing vine-yard con-di-tions in-clud-ing GNSS dropout,
  []
 
 ) (1-intro/tex/1-thesis-structure.tex)) [3]
@@ -512,39 +454,13 @@ Chapter 2.
 
 
 
-] [5{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.en
-c}{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.
-enc}{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-maths
-y.enc}{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mat
-hex.enc}]
-<2-background/figures/globalMappingOccupancyGrid.png, id=56, 450.9347pt x 513.4
-1812pt>
-File: 2-background/figures/globalMappingOccupancyGrid.png Graphic file (type pn
-g)
-<use 2-background/figures/globalMappingOccupancyGrid.png>
-Package pdftex.def Info: 2-background/figures/globalMappingOccupancyGrid.png  u
-sed on input line 60.
-(pdftex.def)             Requested size: 226.48395pt x 257.86787pt.
-<2-background/figures/sonarOccupancyGrid.png, id=58, 545.03625pt x 274.02374pt>
-
-File: 2-background/figures/sonarOccupancyGrid.png Graphic file (type png)
-<use 2-background/figures/sonarOccupancyGrid.png>
-Package pdftex.def Info: 2-background/figures/sonarOccupancyGrid.png  used on i
-nput line 67.
-(pdftex.def)             Requested size: 226.48395pt x 113.86826pt.
-<2-background/figures/OccupancyGridSensorFusion.png, id=59, 322.20375pt x 576.6
-5437pt>
-File: 2-background/figures/OccupancyGridSensorFusion.png Graphic file (type png
-)
+]
+<2-background/figures/OccupancyGridSensorFusion.png, id=44, 322.20375pt x 576.65437pt>
+File: 2-background/figures/OccupancyGridSensorFusion.png Graphic file (type png)
 <use 2-background/figures/OccupancyGridSensorFusion.png>
-Package pdftex.def Info: 2-background/figures/OccupancyGridSensorFusion.png  us
-ed on input line 74.
+Package pdftex.def Info: 2-background/figures/OccupancyGridSensorFusion.png  used on input line 23.
 (pdftex.def)             Requested size: 226.48395pt x 405.35352pt.
- [6] [7 <./2-background/figures/globalMappingOccupancyGrid.png> <./2-background
-/figures/sonarOccupancyGrid.png>] [8 <./2-background/figures/OccupancyGridSenso
-rFusion.png>] [9])
-(2-background/tex/2-vineyard-robotics.tex [10] [11])
-(2-background/tex/2-vineyard-pruning.tex [12]
+ [5] [6 <./2-background/figures/OccupancyGridSensorFusion.png>] [7]) (2-background/tex/2-vineyard-robotics.tex [8] [9]) (2-background/tex/2-vineyard-pruning.tex [10]
 Underfull \hbox (badness 10000) in paragraph at lines 26--26
 []|\T1/lmr/m/n/10.95 Moderate (Depth-
  []
@@ -559,25 +475,24 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--26
 []|\T1/lmr/m/n/10.95 High (3D Co-or-di-
  []
 
-[13])) [14]
+)) [11{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
 \openout2 = `3-SLAM/SLAM.aux'.
 
  (3-SLAM/SLAM.tex
 Chapter 3.
-(3-SLAM/3-intro/tex/3-intro.tex [15
+(3-SLAM/3-intro/tex/3-intro.tex [12
 
 
 
 
-])
-(3-SLAM/3-related-work/tex/3-related-work.tex [16] [17]
+]) (3-SLAM/3-related-work/tex/3-related-work.tex [13] [14]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 33.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 33.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 33.
- [18]
+ [15]
 Underfull \hbox (badness 10000) in paragraph at lines 75--75
 []|\T1/lmr/bx/n/10 Latin Hy-per-cube
  []
@@ -617,7 +532,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 75--75
 \T1/lmr/m/n/10 dis-crep-ancy [Chris-
  []
 
-[19]
+[16{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
 Underfull \hbox (badness 10000) in paragraph at lines 106--106
 []|\T1/lmr/bx/n/10 VSLAM Fail-ure
  []
@@ -667,19 +582,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 106--106
 []|\T1/lmr/m/n/10 Point cloud skew
  []
 
-) (3-SLAM/3-methodology/tex/3-methodology.tex [20] [21] [22] [23] [24] [25]
+) (3-SLAM/3-methodology/tex/3-methodology.tex [17] [18] [19] [20] [21] [22] [23]
 Overfull \hbox (1.60901pt too wide) in paragraph at lines 206--207
- \T1/lmr/bx/n/10.95 Sta-tis-ti-cal Search Space Con-trac-tion[] \T1/lmr/m/n/10.
-95 At the con-clu-sion of each phase $\OML/lmm/m/it/10.95 i$\T1/lmr/m/n/10.95 ,
- the top-performing
+ \T1/lmr/bx/n/10.95 Sta-tis-ti-cal Search Space Con-trac-tion[] \T1/lmr/m/n/10.95 At the con-clu-sion of each phase $\OML/lmm/m/it/10.95 i$\T1/lmr/m/n/10.95 , the top-performing
  []
 
-[26]
+
 Underfull \hbox (badness 10000) in paragraph at lines 227--227
 []|\T1/lmr/m/n/10.95 High-density sam-pling within
  []
 
-[27]) (3-SLAM/3-results/tex/3-results.tex
+[24]) (3-SLAM/3-results/tex/3-results.tex
 Underfull \hbox (badness 10000) in paragraph at lines 32--32
 []|\T1/lmr/bx/n/10.95 Dataset
  []
@@ -704,7 +617,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 32--32
 []|\T1/lmr/bx/n/10.95 Dataset
  []
 
-[28]
+
 Underfull \hbox (badness 10000) in paragraph at lines 62--62
 []|\T1/lmr/bx/n/10.95 Dataset
  []
@@ -754,12 +667,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 94--94
 []|\T1/lmr/bx/n/10.95 Dataset
  []
 
-[29]
-Overfull \vbox (32.99356pt too high) detected at line 121
+[25] [26]
+Overfull \vbox (27.20004pt too high) detected at line 121
  []
 
 
-Overfull \vbox (32.99356pt too high) detected at line 121
+Overfull \vbox (27.20004pt too high) detected at line 121
  []
 
 
@@ -807,11 +720,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 121--121
 []|\T1/lmr/m/n/10.95 Proposed
  []
 
-[30]
-Underfull \hbox (badness 10000) in paragraph at lines 138--138
-[]|\T1/lmr/bx/n/10.95 Dataset
- []
-
 
 Underfull \hbox (badness 10000) in paragraph at lines 138--138
 []|\T1/lmr/bx/n/10.95 Dataset
@@ -832,212 +740,157 @@ Underfull \hbox (badness 10000) in paragraph at lines 138--138
 []|\T1/lmr/bx/n/10.95 Dataset
  []
 
-<3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png, id=148, 100
-3.75pt x 602.25pt>
-File: 3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png Graphic
- file (type png)
+
+Underfull \hbox (badness 10000) in paragraph at lines 138--138
+[]|\T1/lmr/bx/n/10.95 Dataset
+ []
+
+<3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png, id=131, 1003.75pt x 602.25pt>
+File: 3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/glim_error_distribution_by_st
-age_log.png  used on input line 150.
+Package pdftex.def Info: 3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png  used on input line 150.
 (pdftex.def)             Requested size: 362.37569pt x 217.42552pt.
-<3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png, id=149,
- 1003.75pt x 602.25pt>
-File: 3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png Gra
-phic file (type png)
+<3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png, id=132, 1003.75pt x 602.25pt>
+File: 3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/proposed_error_distribution_b
-y_stage_log.png  used on input line 159.
+Package pdftex.def Info: 3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png  used on input line 159.
 (pdftex.def)             Requested size: 362.37569pt x 217.42552pt.
-[31]
-<3-SLAM/3-results/figures/glim_consensus_progression.png, id=153, 1003.75pt x 6
-02.25pt>
-File: 3-SLAM/3-results/figures/glim_consensus_progression.png Graphic file (typ
-e png)
+<3-SLAM/3-results/figures/glim_consensus_progression.png, id=133, 1003.75pt x 602.25pt>
+File: 3-SLAM/3-results/figures/glim_consensus_progression.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/glim_consensus_progression.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/glim_consensus_progression.pn
-g  used on input line 175.
+Package pdftex.def Info: 3-SLAM/3-results/figures/glim_consensus_progression.png  used on input line 175.
 (pdftex.def)             Requested size: 362.37569pt x 217.42552pt.
-<3-SLAM/3-results/figures/proposed_consensus_progression.png, id=154, 1003.75pt
- x 602.25pt>
-File: 3-SLAM/3-results/figures/proposed_consensus_progression.png Graphic file 
-(type png)
+<3-SLAM/3-results/figures/proposed_consensus_progression.png, id=134, 1003.75pt x 602.25pt>
+File: 3-SLAM/3-results/figures/proposed_consensus_progression.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/proposed_consensus_progression.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/proposed_consensus_progressio
-n.png  used on input line 184.
+Package pdftex.def Info: 3-SLAM/3-results/figures/proposed_consensus_progression.png  used on input line 184.
 (pdftex.def)             Requested size: 362.37569pt x 217.42552pt.
- [32 <./3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png> <./3
--SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png>]
-<3-SLAM/3-results/figures/spider_error_per_m.png, id=160, 793.96625pt x 642.4pt
->
+[27] [28] [29 <./3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png> <./3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png>] [30 <./3-SLAM/3-results/figures/glim_consensus_progression.png> <./3-SLAM/3-results/figures/proposed_consensus_progression.png>]
+<3-SLAM/3-results/figures/spider_error_per_m.png, id=152, 793.96625pt x 642.4pt>
 File: 3-SLAM/3-results/figures/spider_error_per_m.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/spider_error_per_m.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/spider_error_per_m.png  used 
-on input line 201.
+Package pdftex.def Info: 3-SLAM/3-results/figures/spider_error_per_m.png  used on input line 201.
 (pdftex.def)             Requested size: 217.42265pt x 175.91068pt.
-<3-SLAM/3-results/figures/spider_error_pct.png, id=161, 795.97375pt x 639.38875
-pt>
+<3-SLAM/3-results/figures/spider_error_pct.png, id=153, 795.97375pt x 639.38875pt>
 File: 3-SLAM/3-results/figures/spider_error_pct.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/spider_error_pct.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/spider_error_pct.png  used on
- input line 208.
+Package pdftex.def Info: 3-SLAM/3-results/figures/spider_error_pct.png  used on input line 208.
 (pdftex.def)             Requested size: 217.42265pt x 174.64705pt.
-<3-SLAM/3-results/figures/spider_mean_abs_pos_err.png, id=162, 787.94376pt x 63
-7.38126pt>
-File: 3-SLAM/3-results/figures/spider_mean_abs_pos_err.png Graphic file (type p
-ng)
+<3-SLAM/3-results/figures/spider_mean_abs_pos_err.png, id=154, 787.94376pt x 637.38126pt>
+File: 3-SLAM/3-results/figures/spider_mean_abs_pos_err.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/spider_mean_abs_pos_err.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/spider_mean_abs_pos_err.png  
-used on input line 215.
+Package pdftex.def Info: 3-SLAM/3-results/figures/spider_mean_abs_pos_err.png  used on input line 215.
 (pdftex.def)             Requested size: 217.42265pt x 175.86879pt.
-<3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png, id=163, 787.94376pt x 63
-4.37pt>
-File: 3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png Graphic file (type p
-ng)
+<3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png, id=155, 787.94376pt x 634.37pt>
+File: 3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png  
-used on input line 222.
+Package pdftex.def Info: 3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png  used on input line 222.
 (pdftex.def)             Requested size: 217.42265pt x 175.0379pt.
-
-[33 <./3-SLAM/3-results/figures/glim_consensus_progression.png> <./3-SLAM/3-res
-ults/figures/proposed_consensus_progression.png>]
-<3-SLAM/3-results/figures/ds0_xy.png, id=169, 803.0pt x 228.855pt>
+<3-SLAM/3-results/figures/ds0_xy.png, id=156, 803.0pt x 228.855pt>
 File: 3-SLAM/3-results/figures/ds0_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds0_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds0_xy.png  used on input lin
-e 239.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds0_xy.png  used on input line 239.
 (pdftex.def)             Requested size: 217.42265pt x 61.96626pt.
-<3-SLAM/3-results/figures/pds0_xy.png, id=170, 803.0pt x 220.825pt>
+<3-SLAM/3-results/figures/pds0_xy.png, id=157, 803.0pt x 220.825pt>
 File: 3-SLAM/3-results/figures/pds0_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds0_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds0_xy.png  used on input li
-ne 245.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds0_xy.png  used on input line 245.
 (pdftex.def)             Requested size: 217.42265pt x 59.792pt.
-<3-SLAM/3-results/figures/ds1_xy.png, id=171, 803.0pt x 602.25pt>
+<3-SLAM/3-results/figures/ds1_xy.png, id=158, 803.0pt x 602.25pt>
 File: 3-SLAM/3-results/figures/ds1_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds1_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds1_xy.png  used on input lin
-e 254.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds1_xy.png  used on input line 254.
 (pdftex.def)             Requested size: 217.42265pt x 163.06914pt.
-<3-SLAM/3-results/figures/pds1_xy.png, id=172, 803.0pt x 602.25pt>
+<3-SLAM/3-results/figures/pds1_xy.png, id=159, 803.0pt x 602.25pt>
 File: 3-SLAM/3-results/figures/pds1_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds1_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds1_xy.png  used on input li
-ne 260.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds1_xy.png  used on input line 260.
 (pdftex.def)             Requested size: 217.42265pt x 163.06914pt.
-<3-SLAM/3-results/figures/ds2_xy.png, id=173, 803.0pt x 247.92625pt>
+<3-SLAM/3-results/figures/ds2_xy.png, id=160, 803.0pt x 247.92625pt>
 File: 3-SLAM/3-results/figures/ds2_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds2_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds2_xy.png  used on input lin
-e 269.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds2_xy.png  used on input line 269.
 (pdftex.def)             Requested size: 217.42265pt x 67.13013pt.
-<3-SLAM/3-results/figures/pds2_xy.png, id=174, 803.0pt x 191.71625pt>
+<3-SLAM/3-results/figures/pds2_xy.png, id=161, 803.0pt x 191.71625pt>
 File: 3-SLAM/3-results/figures/pds2_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds2_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds2_xy.png  used on input li
-ne 275.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds2_xy.png  used on input line 275.
 (pdftex.def)             Requested size: 217.42265pt x 51.91034pt.
-<3-SLAM/3-results/figures/ds3_xy.png, id=175, 803.0pt x 246.9225pt>
+<3-SLAM/3-results/figures/ds3_xy.png, id=162, 803.0pt x 246.9225pt>
 File: 3-SLAM/3-results/figures/ds3_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds3_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds3_xy.png  used on input lin
-e 284.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds3_xy.png  used on input line 284.
 (pdftex.def)             Requested size: 217.42265pt x 66.85834pt.
-<3-SLAM/3-results/figures/pds3_xy.png, id=176, 803.0pt x 249.93375pt>
+<3-SLAM/3-results/figures/pds3_xy.png, id=163, 803.0pt x 249.93375pt>
 File: 3-SLAM/3-results/figures/pds3_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds3_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds3_xy.png  used on input li
-ne 290.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds3_xy.png  used on input line 290.
 (pdftex.def)             Requested size: 217.42265pt x 67.67369pt.
-<3-SLAM/3-results/figures/ds4_xy.png, id=177, 803.0pt x 190.7125pt>
+<3-SLAM/3-results/figures/ds4_xy.png, id=164, 803.0pt x 190.7125pt>
 File: 3-SLAM/3-results/figures/ds4_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds4_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds4_xy.png  used on input lin
-e 299.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds4_xy.png  used on input line 299.
 (pdftex.def)             Requested size: 217.42265pt x 51.63855pt.
-<3-SLAM/3-results/figures/pds4_xy.png, id=178, 803.0pt x 183.68625pt>
+<3-SLAM/3-results/figures/pds4_xy.png, id=165, 803.0pt x 183.68625pt>
 File: 3-SLAM/3-results/figures/pds4_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds4_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds4_xy.png  used on input li
-ne 305.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds4_xy.png  used on input line 305.
 (pdftex.def)             Requested size: 217.42265pt x 49.73608pt.
- [34 <./3-SLAM/3-results/figures/spider_error_per_m.png> <./3-SLAM/3-results/fi
-gures/spider_error_pct.png> <./3-SLAM/3-results/figures/spider_mean_abs_pos_err
-.png> <./3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png>]
-<3-SLAM/3-results/figures/ds0_z.png, id=186, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/ds0_z.png, id=166, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/ds0_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds0_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds0_z.png  used on input line
- 320.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds0_z.png  used on input line 320.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/pds0_z.png, id=187, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/pds0_z.png, id=167, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/pds0_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds0_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds0_z.png  used on input lin
-e 326.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds0_z.png  used on input line 326.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/ds1_z.png, id=188, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/ds1_z.png, id=168, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/ds1_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds1_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds1_z.png  used on input line
- 335.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds1_z.png  used on input line 335.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/pds1_z.png, id=189, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/pds1_z.png, id=169, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/pds1_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds1_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds1_z.png  used on input lin
-e 341.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds1_z.png  used on input line 341.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/ds2_z.png, id=190, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/ds2_z.png, id=170, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/ds2_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds2_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds2_z.png  used on input line
- 350.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds2_z.png  used on input line 350.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/pds2_z.png, id=191, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/pds2_z.png, id=171, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/pds2_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds2_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds2_z.png  used on input lin
-e 356.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds2_z.png  used on input line 356.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/ds3_z.png, id=192, 578.16pt x 289.08pt>
+<3-SLAM/3-results/figures/ds3_z.png, id=172, 578.16pt x 289.08pt>
 File: 3-SLAM/3-results/figures/ds3_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds3_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds3_z.png  used on input line
- 365.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds3_z.png  used on input line 365.
 (pdftex.def)             Requested size: 217.42265pt x 108.70908pt.
-<3-SLAM/3-results/figures/pds3_z.png, id=193, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/pds3_z.png, id=173, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/pds3_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds3_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds3_z.png  used on input lin
-e 371.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds3_z.png  used on input line 371.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/ds4_z.png, id=194, 578.16pt x 289.08pt>
+<3-SLAM/3-results/figures/ds4_z.png, id=174, 578.16pt x 289.08pt>
 File: 3-SLAM/3-results/figures/ds4_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds4_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds4_z.png  used on input line
- 380.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds4_z.png  used on input line 380.
 (pdftex.def)             Requested size: 217.42265pt x 108.70908pt.
-<3-SLAM/3-results/figures/pds4_z.png, id=195, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/pds4_z.png, id=175, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/pds4_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds4_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds4_z.png  used on input lin
-e 386.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds4_z.png  used on input line 386.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-) [35 <./3-SLAM/3-results/figures/ds0_xy.png> <./3-SLAM/3-results/figures/pds0_
-xy.png> <./3-SLAM/3-results/figures/ds1_xy.png> <./3-SLAM/3-results/figures/pds
-1_xy.png> <./3-SLAM/3-results/figures/ds2_xy.png> <./3-SLAM/3-results/figures/p
-ds2_xy.png> <./3-SLAM/3-results/figures/ds3_xy.png> <./3-SLAM/3-results/figures
-/pds3_xy.png> <./3-SLAM/3-results/figures/ds4_xy.png> <./3-SLAM/3-results/figur
-es/pds4_xy.png>]
-Overfull \vbox (4.45688pt too high) has occurred while \output is active []
 
 
-[36 <./3-SLAM/3-results/figures/ds0_z.png> <./3-SLAM/3-results/figures/pds0_z.p
-ng> <./3-SLAM/3-results/figures/ds1_z.png> <./3-SLAM/3-results/figures/pds1_z.p
-ng> <./3-SLAM/3-results/figures/ds2_z.png> <./3-SLAM/3-results/figures/pds2_z.p
-ng> <./3-SLAM/3-results/figures/ds3_z.png> <./3-SLAM/3-results/figures/pds3_z.p
-ng> <./3-SLAM/3-results/figures/ds4_z.png> <./3-SLAM/3-results/figures/pds4_z.p
-ng>] (3-SLAM/3-discussion/tex/3-discussion.tex [37]
+LaTeX Warning: Float too large for page by 4.45688pt on input line 392.
+
+) (3-SLAM/3-discussion/tex/3-discussion.tex [31 <./3-SLAM/3-results/figures/spider_error_per_m.png> <./3-SLAM/3-results/figures/spider_error_pct.png> <./3-SLAM/3-results/figures/spider_mean_abs_pos_err.png> <./3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png>] [32 <./3-SLAM/3-results/figures/ds0_xy.png> <./3-SLAM/3-results/figures/pds0_xy.png> <./3-SLAM/3-results/figures/ds1_xy.png> <./3-SLAM/3-results/figures/pds1_xy.png> <./3-SLAM/3-results/figures/ds2_xy.png> <./3-SLAM/3-results/figures/pds2_xy.png> <./3-SLAM/3-results/figures/ds3_xy.png> <./3-SLAM/3-results/figures/pds3_xy.png> <./3-SLAM/3-results/figures/ds4_xy.png> <./3-SLAM/3-results/figures/pds4_xy.png>] [33 <./3-SLAM/3-results/figures/ds0_z.png> <./3-SLAM/3-results/figures/pds0_z.png> <./3-SLAM/3-results/figures/ds1_z.png> <./3-SLAM/3-results/figures/pds1_z.png> <./3-SLAM/3-results/figures/ds2_z.png> <./3-SLAM/3-results/figures/pds2_z.png> <./3-SLAM/3-results/figures/ds3_z.png> <./3-SLAM/3-results/figures/pds3_z.png> <./3-SLAM/3-results/figures/ds4_z.png> <./3-SLAM/3-results/figures/pds4_z.png>] [34]
 Underfull \hbox (badness 10000) in paragraph at lines 45--45
 []|\T1/lmr/bx/n/10.95 Dataset
  []
@@ -1062,126 +915,67 @@ Underfull \hbox (badness 10000) in paragraph at lines 45--45
 []|\T1/lmr/bx/n/10.95 Dataset
  []
 
-[38] [39] [40] [41]) (3-SLAM/3-summary/tex/3-summary.tex)) [42]
+[35] [36] [37] [38] [39]) (3-SLAM/3-summary/tex/3-summary.tex)) [40]
 \openout2 = `4-precise-alignment/precise-alignment.aux'.
 
-
-(4-precise-alignment/precise-alignment.tex
+ (4-precise-alignment/precise-alignment.tex
 Chapter 4.
-(4-precise-alignment/4-intro/tex/4-intro.tex [43
+(4-precise-alignment/4-intro/tex/4-intro.tex [41
 
 
 
 
-])
-(4-precise-alignment/4-related-work/tex/4-related-work.tex [44] [45]
-
-LaTeX Warning: Citation `TODO-FoundationStereo' on page 46 undefined on input l
-ine 21.
-
-[46] [47] [48]) (4-precise-alignment/4-methodology/tex/4-methodology.tex
-[49]
-
-LaTeX Warning: Citation `TODO-FoundationStereo' on page 50 undefined on input l
-ine 13.
-
-[50]
-
-LaTeX Warning: Citation `TODO-FoundationStereo' on page 51 undefined on input l
-ine 51.
-
-[51]
-
-LaTeX Warning: Citation `TODO-DBSCAN' on page 52 undefined on input line 90.
-
-[52]
-
-LaTeX Warning: Citation `TODO-Patchwork' on page 53 undefined on input line 143
-.
-
-[53] [54] [55]
-
-LaTeX Warning: Citation `TODO-Open3D' on page 56 undefined on input line 230.
-
-(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd)
+]) (4-precise-alignment/4-related-work/tex/4-related-work.tex [42] [43] [44] [45] [46]) (4-precise-alignment/4-methodology/tex/4-methodology.tex [47] [48] [49] [50] [51] [52] [53] (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd)
 Underfull \hbox (badness 7047) in paragraph at lines 269--269
 []|\T1/lmr/m/n/10.95 Downsampling res-o-lu-tion ap-plied to
  []
 
-[56] [57]) (4-precise-alignment/4-results/tex/4-results.tex)
-(4-precise-alignment/4-discussion/tex/4-discussion.tex)
-(4-precise-alignment/4-summary/tex/4-summary.tex)) [58]
+[54] [55]) (4-precise-alignment/4-results/tex/4-results.tex) (4-precise-alignment/4-discussion/tex/4-discussion.tex) (4-precise-alignment/4-summary/tex/4-summary.tex)) [56]
 \openout2 = `5-conclusion/conclusion.aux'.
 
-
-(5-conclusion/conclusion.tex
+ (5-conclusion/conclusion.tex
 Chapter 5.
-(5-conclusion/tex/5-future-work.tex)) [59
+(5-conclusion/tex/5-future-work.tex)) [57
 
 
 
 
 ] (thesis.bbl
 Chapter 6.
-[60
+[58
 
 
 
-] [61]
-Underfull \hbox (badness 10000) in paragraph at lines 142--146
-\T1/lmr/m/n/10.95 https://www.mpi.govt.nz/resources-and-forms/economic-intellig
-ence/situation-and-
+] [59]
+Underfull \hbox (badness 10000) in paragraph at lines 150--154
+\T1/lmr/m/n/10.95 https://www.mpi.govt.nz/resources-and-forms/economic-intelligence/situation-and-
  []
 
-[62] [63] [64] [65]) [66]
+[60] [61] [62] [63] [64]) [65]
 \openout2 = `appendix-a.aux'.
 
- (appendix-a.tex) [67
+ (appendix-a.tex) [66
 
 
 
-] (thesis.aux (abstract.aux)
-(acknowledgements.aux) (preface.aux) (notation.aux) (1-intro/introduction.aux)
-(2-background/background.aux) (3-SLAM/SLAM.aux)
-(4-precise-alignment/precise-alignment.aux) (5-conclusion/conclusion.aux)
-(appendix-a.aux))
+] (thesis.aux (abstract.aux) (acknowledgements.aux) (preface.aux) (notation.aux) (1-intro/introduction.aux) (2-background/background.aux) (3-SLAM/SLAM.aux) (4-precise-alignment/precise-alignment.aux) (5-conclusion/conclusion.aux) (appendix-a.aux))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 7820 strings out of 467867
- 162156 string characters out of 5417366
- 569999 words of memory out of 5000000
- 36416 multiletter control sequences out of 15000+600000
+ 7810 strings out of 467867
+ 161667 string characters out of 5417366
+ 586999 words of memory out of 5000000
+ 36404 multiletter control sequences out of 15000+600000
  738117 words of font info for 121 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,14n,77p,1820b,513s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.
-pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx1
-2.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb
-x8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lm
-csc10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm
-/lmex10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-lm/lmmi10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/lm/lmmi7.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/lm/lmmi8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/pub
-lic/lm/lmmib10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/
-public/lm/lmr10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1
-/public/lm/lmr12.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/lm/lmr6.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/lm/lmr7.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/lm/lmr8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/lm/lmr9.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/lm/lmri10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/lm/lmsy10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/
-type1/public/lm/lmsy8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts
-/type1/public/lm/lmtt10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (74 pages, 1838020 bytes).
+ 67i,14n,77p,1857b,517s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmib10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on thesis.pdf (73 pages, 1627139 bytes).
 PDF statistics:
- 422 PDF objects out of 1000 (max. 8388607)
+ 415 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 156 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 146 words of extra memory for PDF output out of 10000 (max. 10000000)
 

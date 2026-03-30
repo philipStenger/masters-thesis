@@ -25,10 +25,6 @@ Reallocating 'name_of_file' (item size: 1) to 14 items.
 Reallocating 'name_of_file' (item size: 1) to 15 items.
 A level-1 auxiliary file: appendix-a.aux
 Database file #1: MastersThesis.bib
-Warning--I didn't find a database entry for "TODO-FoundationStereo"
-Warning--I didn't find a database entry for "TODO-DBSCAN"
-Warning--I didn't find a database entry for "TODO-Patchwork"
-Warning--I didn't find a database entry for "TODO-Open3D"
 Warning: need a key to make a label in 2025MarlboroughVineyard
 Warning: the author shouldn't be empty in 2025MarlboroughVineyard
 Warning: the year shouldn't be empty in 2025MarlboroughVineyard
@@ -40,45 +36,44 @@ Warning: the journal shouldn't be empty in moravecObstacleAvoidanceNavigatio1980
 Warning: the institution shouldn't be empty in nilssonShakeyRobot1984
 Warning: the authors shouldn't be empty in nocedalTrustRegionMethods2006
 Warning: the booktitle shouldn't be empty in zhangLOAMLidarOdometry2014
-You've used 82 entries,
+You've used 89 entries,
             1952 wiz_defined-function locations,
-            1013 strings with 27365 characters,
-and the built_in function-call counts, 38649 in all, are:
-= -- 4626
-> -- 1251
+            1051 strings with 29117 characters,
+and the built_in function-call counts, 41926 in all, are:
+= -- 5004
+> -- 1344
 < -- 0
-+ -- 349
-- -- 335
-* -- 3237
-:= -- 7412
-add.period$ -- 97
-call.type$ -- 82
-change.case$ -- 388
-chr.to.int$ -- 81
-cite$ -- 93
-duplicate$ -- 684
++ -- 374
+- -- 359
+* -- 3520
+:= -- 8042
+add.period$ -- 104
+call.type$ -- 89
+change.case$ -- 416
+chr.to.int$ -- 88
+cite$ -- 100
+duplicate$ -- 742
 empty$ -- 0
-format.name$ -- 553
-if$ -- 7233
+format.name$ -- 595
+if$ -- 7832
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 1231
-newline$ -- 264
-num.names$ -- 246
-pop$ -- 163
+missing$ -- 1339
+newline$ -- 285
+num.names$ -- 267
+pop$ -- 180
 preamble$ -- 0
-purify$ -- 246
+purify$ -- 267
 quote$ -- 0
-skip$ -- 1405
+skip$ -- 1521
 stack$ -- 0
-substring$ -- 2323
-swap$ -- 5045
+substring$ -- 2566
+swap$ -- 5479
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 11
 type$ -- 0
 warning$ -- 0
-while$ -- 214
-width$ -- 90
-write$ -- 989
-(There were 4 warnings)
+while$ -- 236
+width$ -- 97
+write$ -- 1068

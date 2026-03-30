@@ -71,6 +71,14 @@
 {\sc Elfes, A.} (1989), `Using occupancy grids for mobile robot perception and
   navigation', {\it Computer}, Vol.\,22, No.\,6, June, pp.\,46--57.
 
+\bibitem[{Ester\
+  {\citeetal}}~{1996}]{esterDensityBasedAlgorithmDiscovering1996}
+{\sc Ester, M., Kriegel, H.P., Sander, J. and Xu, X.} (1996), `A
+  {{Density-Based Algorithm}} for {{Discovering Clusters}} in {{Large Spatial
+  Databases}} with {{Noise}}', In {\it Proceedings of the {{Second
+  International Conference}} on {{Knowledge Discovery}} and {{Data Mining}}
+  ({{KDD-96}})}, AAAI Press, Portland, Oregon, pp.\,226--231.
+
 \bibitem[{Farhan\ {\citeetal}}~{2024}]{farhanComprehensiveReviewLiDAR2024}
 {\sc Farhan, S.M., Yin, J., Chen, Z. and Memon, M.S.} (2024), `A
   {{Comprehensive Review}} of {{LiDAR Applications}} in {{Crop Management}} for
@@ -175,6 +183,12 @@
   September, p.\,104750.
 \newblock Comment: Robotics and Autonomous Systems.
 
+\bibitem[{Lee\ {\citeetal}}~{2022}]{leePatchworkFastRobust2022}
+{\sc Lee, S., Lim, H. and Myung, H.} (2022), `{{Patchwork++}}: {{Fast}} and
+  {{Robust Ground Segmentation Solving Partial Under-Segmentation Using 3D
+  Point Cloud}}', {\it IEEE Robotics and Automation Letters}, Vol.\,7, No.\,4,
+  pp.\,11014--11021.
+
 \bibitem[{Leonard\ and
   {Durrant-Whyte}}~{1991}]{leonardSimultaneousMapBuilding1991}
 {\sc Leonard, J. and {Durrant-Whyte}, H.} (1991), `Simultaneous map building
@@ -248,6 +262,12 @@
 \bibitem[{Navone\ {\citeetal}}~{2025}]{navoneAutonomousRoboticPruning2025}
 {\sc Navone, A., Martini, M. and Chiaberge, M.} (2025), `Autonomous {{Robotic
   Pruning}} in {{Orchards}} and {{Vineyards}}: A {{Review}}', May.
+
+\bibitem[{Nievinski\ and
+  Larson}~{2014}]{nievinskiForwardModelingGPSMultipath2014}
+{\sc Nievinski, F.G. and Larson, K.M.} (2014), `Forward modeling of {{GPS}}
+  multipath for near-surface reflectometry and positioning applications', {\it
+  GPS Solutions}, Vol.\,18, No.\,2, pp.\,309--322.
 
 \bibitem[{Nilsson}~{1984}]{nilssonShakeyRobot1984}
 {\sc Nilsson, N.J.} (1984), {\it Shakey the {{Robot}}}, Technical {{Note}}~AIC
@@ -360,6 +380,12 @@
   October.
 \newblock Comment: Code available at https://github.com/iit-DLSLab/VAR-SLAM.
 
+\bibitem[{Solheim\ {\citeetal}}~{1999}]{solheimPropagationDelaysGPSSignals1999}
+{\sc Solheim, F.S., Vivekanandan, J., Ware, R.H. and Rocken, C.} (1999),
+  `Propagation delays induced in {{GPS}} signals by dry air, water vapor,
+  hydrometeors, and other particulates', {\it Journal of Geophysical Research:
+  Atmospheres}, Vol.\,104, No.\,D8, pp.\,9663--9670.
+
 \bibitem[{{soumyadip}}~{2024}]{soumyadipIntroductionLiDARSLAM2024}
 {\sc {soumyadip}} (2024), `Introduction to {{LiDAR SLAM}}: {{LOAM}} \&
   {{LeGO-LOAM}} - {{Paper}} \& {{Code Explained}} with {{ROS}} 2', August.
@@ -434,6 +460,16 @@
   2018 {{IEEE}}/{{ION Position}}, {{Location}} and {{Navigation Symposium}}
   ({{PLANS}})}, April, pp.\,158--165.
 
+\bibitem[{Wen\ {\citeetal}}~{2025}]{wenFoundationStereoZeroShot2025}
+{\sc Wen, B., Trepte, M., Kautz, J., Gallo, O. and Birchfield, S.} (2025),
+  `{{FoundationStereo}}: {{Zero-Shot Stereo Matching}}'.
+
+\bibitem[{Wielgosz\
+  {\citeetal}}~{2005}]{wielgoszAnalysisNetworkRTKIonospheric2005}
+{\sc Wielgosz, P., Kashani, I. and Grejner-Brzezinska, D.} (2005), `Analysis of
+  long-range network {{RTK}} during a severe ionospheric storm', {\it Journal
+  of Geodesy}, Vol.\,79, No.\,9, pp.\,524--531.
+
 \bibitem[{Xu\ {\citeetal}}~{2022}]{xuFASTLIO2FastDirect2022}
 {\sc Xu, W., Cai, Y., He, D., Lin, J. and Zhang, F.} (2022), `{{FAST-LIO2}}:
   {{Fast Direct LiDAR-Inertial Odometry}}', {\it IEEE Transactions on
@@ -486,5 +522,9 @@
   Protection UAVs}} in {{Hilly}} and {{Mountainous Areas}}: {{Progress}},
   {{Challenges}}, and {{Prospects}}', {\it Agronomy}, Vol.\,16, No.\,2,
   January.
+
+\bibitem[{Zhou\ {\citeetal}}~{2018}]{zhouOpen3DModernLibrary2018}
+{\sc Zhou, Q.Y., Park, J. and Koltun, V.} (2018), `{{Open3D}}: {{A Modern
+  Library}} for {{3D Data Processing}}'.
 
 \end{thebibliography}

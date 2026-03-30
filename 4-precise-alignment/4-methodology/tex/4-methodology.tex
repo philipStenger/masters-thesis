@@ -10,7 +10,7 @@ The relocalisation pipeline described in this section refines the coarse initial
 
 The precise-alignment pipeline operates as a one-shot refinement: when the robot halts in front of a target vine, a single localisation correction is computed and applied before any manipulation motion is initiated. The pipeline consists of three cooperating components: a sensor-specific preprocessing stage that transforms raw sensor data into a filtered, downsampled point cloud; a GPU-accelerated rendering stage that synthesises a target point cloud from the 3D Gaussian Splatting (3DGS) model at candidate viewpoints near the initial pose; and a shared ICP registration stage that searches for the optimal rigid alignment between the sensor observation and the rendered reference. The corrected pose is subsequently propagated to the robot's transform tree without modifying the SLAM system's own published transforms.
 
-Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or two ZED stereo cameras, applies the FoundationStereo foundation model~\cite{TODO-FoundationStereo} % TODO: add BibTeX entry for FoundationStereo
+Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or two ZED stereo cameras, applies the FoundationStereo foundation model~\cite{wenFoundationStereoZeroShot2025}
 to estimate dense disparity maps, and derives coloured 3D point clouds that are segmented to retain vine trunk structure. The LiDAR pipeline operates on dense point clouds accumulated from a Livox solid-state sensor over a commanded interval, removing the ground plane with Patchwork++ and applying a multi-stage filtering sequence to isolate vine wood. Both pipelines share the same ICP registration module and the same pose correction mechanism; they differ only in their preprocessing steps, which are tailored to the noise characteristics and geometric coverage of the respective sensor.
 
 The initial pose estimate consumed by the pipeline is provided by the ENU-aligned SLAM system described in \cref{sec:slam-methodology}. This pose locates the robot within the global coordinate frame and is used both to select candidate viewpoints for 3DGS rendering and to anchor the final corrected transform in the global frame.
@@ -48,7 +48,7 @@ The stereo vision pipeline converts raw rectified image pairs from the ZED stere
 \subsubsection{Depth Estimation}
 \label{subsubsec:pa-depth-estimation}
 
-Dense depth estimation is performed using FoundationStereo~\cite{TODO-FoundationStereo}, % TODO: add BibTeX entry for FoundationStereo
+Dense depth estimation is performed using FoundationStereo~\cite{wenFoundationStereoZeroShot2025},
 a stereo foundation model that produces disparity maps with strong zero-shot generalisation across sensor configurations and scene types (see \cref{subsec:stereo-depth} for a description of the model and its benchmarked performance). % TODO: clarify which FoundationStereo checkpoint is used and whether any fine-tuning was applied, or whether inference is purely zero-shot (OQ4)
 FoundationStereo is applied to rectified image pairs from the ZED Mini stereo camera. Prior to inference, the input images are downscaled by a factor of 0.7 relative to the original sensor resolution.
 % TODO: review justification: downscale factor 0.7 was chosen to reduce inference time while retaining sufficient spatial resolution for vine trunk geometry; review against the specific ZED Mini resolution used
@@ -87,7 +87,7 @@ A custom trunk segmentation pipeline developed for this work is applied to the m
 \textbf{Morphological closing.} A voxel-based morphological closing operation fills gaps in the trunk surface caused by specular reflections or missing depth estimates. The input cloud is voxelised at a resolution of 0.02\,m, and a spherical closing kernel of radius 0.005\,m is applied.
 % TODO: review parameter justification: voxel size 0.02 m and closing radius 0.005 m were selected to bridge typical surface gaps in stereo depth reconstructions of vine bark; review against observed gap statistics
 
-\textbf{DBSCAN clustering.} Density-Based Spatial Clustering of Applications with Noise (DBSCAN)~\cite{TODO-DBSCAN} % TODO: add BibTeX entry for DBSCAN (Ester et al., 1996)
+\textbf{DBSCAN clustering.} Density-Based Spatial Clustering of Applications with Noise (DBSCAN)~\cite{esterDensityBasedAlgorithmDiscovering1996}
 partitions the closed point cloud into spatially coherent clusters. DBSCAN groups points whose neighbourhood within radius $\varepsilon$ contains at least $m_\mathrm{min}$ neighbouring points, classifying the remainder as noise. With $\varepsilon = 0.05$\,m and $m_\mathrm{min} = 200$,
 % TODO: review parameter justification: eps = 0.05 m reflects the typical inter-point spacing at vine-trunk distances; min_samples = 200 was chosen to reject small noise clusters while retaining the dominant trunk; review against cloud density statistics
 the dominant cluster --- corresponding to the vine trunk --- is retained, and all other clusters and noise points are discarded.
@@ -140,7 +140,7 @@ The Livox sensor employs a non-repetitive scanning pattern in which, unlike a co
 \subsubsection{Ground Segmentation}
 \label{subsubsec:pa-ground-segmentation}
 
-The accumulated point cloud includes returns from the vineyard floor, which are uninformative for vine pose estimation and introduce spurious correspondences during ICP. Ground plane removal is performed using Patchwork++~\cite{TODO-Patchwork}, % TODO: add BibTeX entry for Patchwork++ (Lee et al., 2022)
+The accumulated point cloud includes returns from the vineyard floor, which are uninformative for vine pose estimation and introduce spurious correspondences during ICP. Ground plane removal is performed using Patchwork++~\cite{leePatchworkFastRobust2022},
 an incremental ground segmentation algorithm that models the ground surface as a set of concentric annular patches and applies region-wise plane fitting with outlier rejection. The method is robust to uneven terrain and does not require a flat-ground assumption.
 
 The parameters used in this work are as follows. The sensor height above the ground surface is set to 0.88\,m,
@@ -227,7 +227,7 @@ Each candidate represents a plausible refined pose from which the 3DGS model is 
 
 \textbf{(d) Downsampling.} Both the source cloud and each target cloud are independently downsampled using a voxel grid filter with voxel side length $v = 0.0075$\,m. This step reduces the computational cost of each ICP iteration while retaining sufficient geometric detail for convergence.
 
-\textbf{(e) ICP.} ICP is run between the downsampled source and each downsampled target using the Open3D~\cite{TODO-Open3D} % TODO: add BibTeX entry for Open3D (Zhou et al., 2018)
+\textbf{(e) ICP.} ICP is run between the downsampled source and each downsampled target using the Open3D~\cite{zhouOpen3DModernLibrary2018}
 tensor-based point-to-point implementation. The ICP objective (\cref{eq:icp}) is minimised iteratively until either the maximum iteration count is reached or the relative change in fitness and RMSE falls below the convergence thresholds stated in \cref{tab:pa-icp-params}.
 
 \textbf{(f) Candidate selection.} The registration result with the highest fitness score --- defined as the ratio of accepted correspondences to total source points --- and the lowest point-to-point RMSE is selected as the final alignment across all $N$ candidates.

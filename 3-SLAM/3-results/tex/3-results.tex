@@ -67,7 +67,7 @@ RPE\ 10m\ translation\ max\ & 5.7503 & 7.7271 & 10.7189 & 15.4780 & 6.6573 \\ \b
 
 \cref{tab:proposed_performance} reports the results for the proposed GNSS-augmented method. The error percentage per metre ranges from 0.0153\% (Dataset~4) to 0.0501\% (Dataset~2). The 3D RMSE ranges from 0.1097\,m (Dataset~0) to 0.2280\,m (Dataset~2), and the ATE ranges from 0.0811\,m to 0.1741\,m. The GASP metric, which combines drift rate and local pose smoothness, returned values between 0.0274 (Dataset~0) and 0.0679 (Dataset~2).
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Proposed method performance over the 5 test datasets}
 \label{tab:proposed_performance}
@@ -98,7 +98,7 @@ RPE\ 10m\ translation\ max\ & 0.3799 & 0.7620 & 0.8566 & 0.7620 & 0.5377 \\ \bot
 
 \cref{tab:comparison_table_key_metrics} presents a side-by-side comparison of the three methods on three key metrics: error percentage per metre, RPE 1\,m translation standard deviation, and error per metre. The lowest value for each metric--dataset combination is indicated in bold.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Comparison Table of the Key Metrics (Best results in bold)}
 \label{tab:comparison_table_key_metrics}
@@ -125,7 +125,7 @@ RPE\ 10m\ translation\ max\ & 0.3799 & 0.7620 & 0.8566 & 0.7620 & 0.5377 \\ \bot
 
 \cref{tab:gnss_stats} reports the number of GNSS factors incorporated into the proposed method's factor graph relative to the total number of available GNSS measurements. Across the five datasets, the proportion of GNSS points retained after outlier rejection and incorporated as factors ranges from 0.65\% (Dataset~2) to 0.78\% (Dataset~3).
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Statistics on the number of GNSS factors used for the proposed method}
 \label{tab:gnss_stats}
@@ -142,7 +142,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
 
 \cref{fig:comparison_dist} shows the distribution of per-iteration errors across the four optimisation stages. \cref{fig:baseline_error_dist} plots the error percentage per metre for the baseline GLIM tuning, and \cref{fig:proposed_error_dist} plots the GASP metric for the proposed method tuning. Both plots use a logarithmic horizontal axis.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
      \centering
      % Increased width to 0.8 to make them larger now that they are stacked
      \begin{subfigure}[b]{0.8\textwidth}
@@ -167,7 +167,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
 
 \cref{fig:comparison_progression} plots the best consensus error at the end of each optimisation stage. \cref{fig:baseline_progression} tracks the error percentage for the baseline GLIM, and \cref{fig:proposed_progression} tracks the GASP metric for the proposed method. The baseline error decreases monotonically across the four stages; the proposed method's GASP score increases from stage~0 to stage~3.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
      \centering
      % Increased width from 0.48 to 0.8 for better visibility
      \begin{subfigure}[b]{0.8\textwidth}
@@ -194,7 +194,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
 
 \cref{fig:comparison_spider} presents four radar plots comparing the baseline, refined, and proposed methods across all five datasets. The four metrics displayed are error per metre, error percentage per metre, ATE, and RPE 1\,m translation standard deviation. Radial axes are plotted on a logarithmic scale.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
      \centering
      \begin{subfigure}[b]{0.48\textwidth}
          \centering
@@ -231,7 +231,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
 
 \cref{fig:large_grid_xy} presents the planar ($x$--$y$) trajectories for each dataset. The left column shows the refined GLIM output and the right column shows the proposed method output, both plotted against the RTK~GNSS ground truth.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     % --- ROW 1 ---
     \begin{subfigure}[b]{0.48\textwidth}
@@ -312,7 +312,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
 
 \cref{fig:large_grid_z} presents the altitude ($z$-axis) trajectories for each dataset in the same layout, with the refined GLIM estimates on the left and the proposed method estimates on the right, both compared against RTK~GNSS ground truth.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     % --- ROW 1 ---
     \begin{subfigure}[b]{0.48\textwidth}

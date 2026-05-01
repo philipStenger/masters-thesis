@@ -72,15 +72,37 @@ Confirm the saved file path and describe what was drawn in one sentence.
 
 ### 5 — Export to PNG
 
-After saving the `.drawio` file, export it to PNG using the draw.io desktop CLI (installed at `C:\Program Files\draw.io\draw.io.exe`):
+After saving the `.drawio` file, export it to PNG using the draw.io desktop CLI:
+
+**Executable path:** `C:\Program Files\draw.io\draw.io.exe`
 
 ```powershell
-& "C:\Program Files\draw.io\draw.io.exe" --export --format png --output "<out.png>" "<in.drawio>"
+& "C:\Program Files\draw.io\draw.io.exe" --export --format png --border 10 "<in.drawio>"
 ```
 
-- The CLI exits with code 0 on success and produces no stdout output — verify success by checking the output file exists and has non-zero size.
-- Always export the PNG to the same directory as the `.drawio` file, with the same base name.
-- For thesis figures, the correct output directory is the chapter's `figures/` subdirectory (e.g., `3-SLAM\3-methodology\figures\`).
+**Critical:** Do **not** use the `--output` flag — it suppresses the write and the PNG is silently never created even though the exit code is 0. Omitting `--output` causes draw.io to write the PNG alongside the `.drawio` file with the same base name, which is the correct behaviour.
+
+**Verifying success:**
+```powershell
+$drawio = "C:\Program Files\draw.io\draw.io.exe"
+& $drawio --export --format png --border 10 "path\to\diagram.drawio"
+Start-Sleep -Seconds 2   # the process exits before the write completes
+Get-Item "path\to\diagram.png"  # confirm file exists with non-zero size
+```
+
+**Batch export (multiple files):** Add a `Start-Sleep -Seconds 2` between each export — the CLI exits before the renderer finishes writing, so back-to-back calls can collide:
+
+```powershell
+$drawio = "C:\Program Files\draw.io\draw.io.exe"
+$dir = "C:\path\to\figures"
+foreach ($f in Get-ChildItem $dir -Filter "*.drawio") {
+    & $drawio --export --format png --border 10 $f.FullName
+    Start-Sleep -Seconds 2
+}
+```
+
+- For thesis figures, `.drawio` and `.png` files live in the same `figures/` subdirectory (e.g., `4-precise-alignment\4-methodology\figures\`).
+- Always verify the PNG exists and has non-zero size after export.
 
 ---
 

@@ -1,0 +1,83 @@
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="870" pageHeight="730" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- Inputs above the ICP swimlane -->
+    <mxCell id="100" value="Filtered Source Cloud (Stereo or LiDAR)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="35" y="30" width="480" height="50" as="geometry" />
+    </mxCell>
+
+    <mxCell id="101" value="Initial Pose (from SLAM)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="595" y="30" width="240" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- ICP Registration Stage swimlane (repositioned from x=427,y=870) -->
+    <mxCell id="31" value="ICP Registration Stage" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="35" y="110" width="800" height="520" as="geometry" />
+    </mxCell>
+
+    <mxCell id="32" value="Candidate Viewpoint Sampling (N=5)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="31">
+      <mxGeometry x="60" y="50" width="680" height="45" as="geometry" />
+    </mxCell>
+
+    <mxCell id="33" value="3DGS Rendering at Each Candidate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="31">
+      <mxGeometry x="60" y="120" width="680" height="45" as="geometry" />
+    </mxCell>
+
+    <mxCell id="34" value="GPU, taichi-splatting, depth-filtered target clouds" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666;" vertex="1" parent="31">
+      <mxGeometry x="60" y="168" width="680" height="16" as="geometry" />
+    </mxCell>
+
+    <mxCell id="35" value="Voxel Downsampling (v=0.0075 m) — source &amp; each target" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="31">
+      <mxGeometry x="60" y="192" width="680" height="45" as="geometry" />
+    </mxCell>
+
+    <mxCell id="36" value="ICP: source vs. each of N target clouds (Open3D tensor)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="31">
+      <mxGeometry x="60" y="260" width="680" height="45" as="geometry" />
+    </mxCell>
+
+    <mxCell id="37" value="stereo: L2; LiDAR: Cauchy kernel k=0.15" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666;" vertex="1" parent="31">
+      <mxGeometry x="60" y="308" width="680" height="16" as="geometry" />
+    </mxCell>
+
+    <mxCell id="38" value="Select Best: highest fitness + lowest RMSE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="31">
+      <mxGeometry x="60" y="334" width="680" height="45" as="geometry" />
+    </mxCell>
+
+    <mxCell id="39" value="Pose Correction + TF Broadcast" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="31">
+      <mxGeometry x="60" y="420" width="680" height="45" as="geometry" />
+    </mxCell>
+
+    <!-- Edges: inputs → Candidate Viewpoint Sampling -->
+    <mxCell id="102" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="100" target="32" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="103" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="101" target="32" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ICP internal edges -->
+    <mxCell id="61" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="32" target="33" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="62" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="33" target="35" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="63" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="35" target="36" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="64" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="36" target="38" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="65" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="38" target="39" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>

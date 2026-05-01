@@ -13,17 +13,44 @@ The precise-alignment pipeline operates as a one-shot refinement: when the robot
 Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or two ZED stereo cameras, applies the FoundationStereo foundation model~\cite{wenFoundationStereoZeroShot2025}
 to estimate dense disparity maps, and derives coloured 3D point clouds that are segmented to retain vine trunk structure. The LiDAR pipeline operates on dense point clouds accumulated from a Livox solid-state sensor over a commanded interval, removing the ground plane with Patchwork++ and applying a multi-stage filtering sequence to isolate vine wood. Both pipelines share the same ICP registration module and the same pose correction mechanism; they differ only in their preprocessing steps, which are tailored to the noise characteristics and geometric coverage of the respective sensor.
 
-The initial pose estimate consumed by the pipeline is provided by the ENU-aligned SLAM system described in \cref{sec:slam-methodology}. This pose locates the robot within the global coordinate frame and is used both to select candidate viewpoints for 3DGS rendering and to anchor the final corrected transform in the global frame. The complete pipeline dataflow is illustrated in \cref{fig:pa-pipeline-overview}.
+The initial pose estimate consumed by the pipeline is provided by the ENU-aligned SLAM system described in \cref{sec:slam-methodology}. This pose locates the robot within the global coordinate frame and is used both to select candidate viewpoints for 3DGS rendering and to anchor the final corrected transform in the global frame. The pipeline dataflow for each sensing modality is illustrated in
+\cref{fig:pa-pipeline-stereo,fig:pa-pipeline-lidar}; the shared ICP
+registration stage is shown in \cref{fig:pa-pipeline-icp}.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\linewidth]{4-precise-alignment/4-methodology/figures/pa-pipeline-overview}
-  \caption{System-level dataflow of the precise-alignment pipeline. The stereo
-           vision branch (left) and LiDAR branch (right) are shown in parallel;
-           both converge on the shared ICP registration stage. The corrected pose
-           is applied to the ROS~2 TF tree via the mechanism described in
+  \includegraphics[width=0.65\linewidth]{4-precise-alignment/4-methodology/figures/pa-pipeline-stereo}
+  \caption{Stereo vision preprocessing branch of the precise-alignment pipeline.
+           Rectified image pairs from the ZED stereo camera(s) are processed
+           through FoundationStereo depth estimation, back-projection, radius
+           outlier removal, optional dual-camera fusion, and trunk segmentation
+           to produce a filtered source point cloud passed to the shared ICP
+           registration stage (\cref{fig:pa-pipeline-icp}).}
+  \label{fig:pa-pipeline-stereo}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.65\linewidth]{4-precise-alignment/4-methodology/figures/pa-pipeline-lidar}
+  \caption{LiDAR preprocessing branch of the precise-alignment pipeline. Dense
+           scans from the Livox solid-state LiDAR are filtered through ground
+           removal, statistical and angular outlier rejection, and normal-based
+           processing to produce a filtered source point cloud passed to the
+           shared ICP registration stage (\cref{fig:pa-pipeline-icp}).}
+  \label{fig:pa-pipeline-lidar}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{4-precise-alignment/4-methodology/figures/pa-pipeline-icp}
+  \caption{Shared ICP registration stage, common to both sensing modalities.
+           Candidate viewpoints are sampled around the initial SLAM pose and
+           rendered from the 3DGS model; each rendered target cloud is
+           registered against the filtered source cloud from either preprocessing
+           branch, and the best-fitting result is used to correct the robot pose
+           in the ROS~2 TF tree via the mechanism described in
            \cref{subsec:pa-pose-correction}.}
-  \label{fig:pa-pipeline-overview}
+  \label{fig:pa-pipeline-icp}
 \end{figure}
 
 % ---------------------------------------------------------------

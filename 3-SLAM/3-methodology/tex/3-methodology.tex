@@ -1,11 +1,11 @@
-\section{Proposed Methods}
+\section{The GLIM-GNSS Pipeline}
 \label{sec:slam-methodology}
 
-The following subsections describe the methods developed and integrated to achieve globally consistent, ENU-referenced localisation in vineyard environments. These contributions build on the GLIM framework surveyed in the preceding section and address the key challenges of reference frame alignment, GNSS outlier rejection, and parameter optimisation.
+The following subsections describe the methods developed and integrated to achieve globally consistent, ENU-referenced localisation in vineyard environments. These contributions build on the GLIM framework surveyed in the preceding section and address the key challenges of reference frame alignment, GNSS outlier rejection, and parameter optimisation. The resulting system is hereafter referred to as \textbf{GLIM-GNSS}, reflecting its core architecture: a LiDAR-inertial SLAM backbone (GLIM) augmented with sparse GNSS factor injection for absolute drift correction.
 
 To begin this investigation, we implemented GLIM \cite{koideGLIM3DRangeInertial2024}. We chose GLIM as it had infrastructure in place to add extension modules to incorporate new sensors and capabilities. GLIM provides a global callback slot mechanism that allows access to the internal states of the mapping process and insertion of additional constraints into the factor graph. GLIM also eliminated sensor-specific processes, meaning it can be applied to a wide variety of range sensors such as spinning-type LiDAR, non-repetitive scan LiDAR, solid-state LiDAR and even RGB-D cameras.
 
-GLIM state estimation is created in the local odometry frame. For our use in the wider research project, we required state estimation in the local ENU reference frame, which is a surveyed-in point at each of our farms. Thus, we needed a procedure to align the GLIM reference frame with the existing local ENU reference frame.
+GLIM state estimation is created in the local odometry frame, whose origin is determined by wherever the robot begins mapping. Without an absolute reference, each run produces a distinct, arbitrarily-oriented map frame, making trajectory estimates across runs mutually incomparable. For our use in the wider research project, we required state estimation in a consistent local ENU reference frame surveyed at each farm, so that all localisation data — regardless of when or where a run begins — can be expressed in the same coordinate system and compared directly. Thus, we needed a procedure to align the GLIM map frame with the existing local ENU reference frame.
 
 Firstly, we time synchronise the on-board GPS unit with the LiDAR and with the system clock. This allows us to associate corresponding GNSS points with the submaps or keyframes of LiDAR frames that GLIM registers, as illustrated in \cref{fig:time-matching}. We aggregate a set of corresponding GNSS coordinates with keyframe coordinates, and then implement the Kabsch algorithm \cite{kabschSolutionBestRotation1976} to find the relative transform between the two point sets by minimising the root-mean-square deviation between the two point sets.
 
@@ -16,12 +16,12 @@ Firstly, we time synchronise the on-board GPS unit with the LiDAR and with the s
     \label{fig:time-matching}
 \end{figure}
 
-The Kabsch algorithm relies on the least-squares method to minimise the root-mean-square deviation (RMSD) between two point sets. Since the objective function squares the distances between paired points, outliers produce disproportionately large influences on the final transformation matrix. Thus, for global alignment, it is important that outliers are filtered out before executing the Kabsch algorithm. \cref{fig:system-pipeline} illustrates the complete proposed pipeline from sensor input to globally consistent ENU trajectory output.
+The Kabsch algorithm relies on the least-squares method to minimise the root-mean-square deviation (RMSD) between two point sets. Since the objective function squares the distances between paired points, outliers produce disproportionately large influences on the final transformation matrix. Thus, for global alignment, it is important that outliers are filtered out before executing the Kabsch algorithm. \cref{fig:system-pipeline} illustrates the complete GLIM-GNSS pipeline from sensor input to globally consistent ENU trajectory output.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{3-SLAM/3-methodology/figures/system-pipeline}
-    \caption{Overview of the proposed GNSS-augmented SLAM pipeline. The initialisation track (left) performs time synchronisation, outlier rejection, planar geometry quality assessment, and Kabsch alignment to publish the map-to-ENU transform. The continuous track (right) constructs GNSS prior factors and inserts them into the GLIM factor graph for ongoing drift correction. On geometry check failure, initialisation waits and accumulates further GNSS--pose correspondences before retrying.}
+    \caption{Overview of the GLIM-GNSS pipeline. The initialisation track (left) performs time synchronisation, outlier rejection, planar geometry quality assessment, and Kabsch alignment to publish the map-to-ENU transform. The continuous track (right) constructs GNSS prior factors and inserts them into the GLIM factor graph for ongoing drift correction. On geometry check failure, initialisation waits and accumulates further GNSS--pose correspondences before retrying.}
     \label{fig:system-pipeline}
 \end{figure}
 
@@ -198,7 +198,7 @@ Given a submap pose $\mathbf{T}_{\text{map}}^{\text{sub}} \in SE(3)$, the predic
 \label{eq:predicted_gps}
 \hat{\mathbf{p}}_{\text{map}} = \mathbf{T}_{\text{map}}^{\text{sub}} \, \mathbf{p}_{\text{imu}}^{\text{gps}}.
 \end{equation}
-This formulation is valid as the GLIM submap origin is defined at the IMU center, such that the extrinsic offset $\mathbf{p}_{\text{imu}}^{\text{gps}}$ represents the antenna position relative to the submap origin. An expression-based factor is then constructed to minimize the residual between the predicted and measured positions under the noise model $\mathcal{N}(\mathbf{0}, \boldsymbol{\Sigma}_{\text{gps}})$:
+This formulation is valid as the GLIM submap origin is defined at the IMU centre, such that the extrinsic offset $\mathbf{p}_{\text{imu}}^{\text{gps}}$ represents the antenna position relative to the submap origin. An expression-based factor is then constructed to minimise the residual between the predicted and measured positions under the noise model $\mathcal{N}(\mathbf{0}, \boldsymbol{\Sigma}_{\text{gps}})$:
 \begin{equation}
 \label{eq:gnss_factor}
 \mathbf{r}(\mathbf{T}_{\text{map}}^{\text{sub}}) = \left\| \hat{\mathbf{p}}_{\text{map}} - \mathbf{p}_{\text{map}} \right\|^2_{\boldsymbol{\Sigma}_{\text{gps}}}.
@@ -237,10 +237,10 @@ where $\theta_{j, \min}$ and $\theta_{j, \max}$ represent the physical lower and
 \subsubsection{The Multi-Dataset Consensus Framework}
 A primary challenge in SLAM optimisation is the risk of ``over-specialisation'', where parameters become overfitted to the unique noise characteristics of a single trajectory \cite{soaresVARSLAMVisualAdaptive2025}. We implement a Consensus Survival Framework to prioritise reliability across datasets.
 
-In some situations, standard ``Mean-Performance Optimisation'' can hide brittle configurations that perform well on average but fail catastrophically on a single sequence \cite{kandasamyTuningHyperparametersGrad}. However, in this setting, catastrophic failure typically results in excessively high amplitude errors, which effectively inflate the mean normalised error. That being said, some particular parameter configurations can lead to excessive GPU draw, resulting in a runtime CUDA out-of-memory error. If the parameter set does not complete processing the trajectory on any dataset $k$, it is assigned an infinite cost and discarded from the survivor pool. This ensures the survival of only those configurations that meet the computational requirements of the system.
+In some situations, standard ``Mean-Performance Optimisation'' can hide brittle configurations that perform well on average but fail catastrophically on a single sequence \cite{kandasamyTuningHyperparametersGrad}. In this setting, though, catastrophic failure typically results in excessively high amplitude errors, which effectively inflate the mean normalised error. That being said, some particular parameter configurations can lead to excessive GPU draw, resulting in a runtime CUDA out-of-memory error. If the parameter set does not complete processing the trajectory on any dataset $k$, the framework assigns it an infinite cost and discards it from the survivor pool. This ensures the survival of only those configurations that meet the computational requirements of the system.
 
 \paragraph{Formal Objective Function}
-For the "surviving" configurations, the objective function $J(\theta)$ is defined as the mean normalized error across the valid sequences \eqref{eq:piecewise_success}:
+For the ``surviving'' configurations, the objective function $J(\theta)$ is defined as the mean normalised error across the valid sequences \eqref{eq:piecewise_success}:
 \begin{equation}
 \label{eq:piecewise_success}
 J(\theta) = 
@@ -310,12 +310,12 @@ TEP = \frac{ATE}{L} \times 100\%.
 \end{equation}
 The $TEP$ effectively measures the per cent drift per metre of motion.
 
-For the optimisation of the proposed method, the cost function is a custom metric referred to as Global Alignment and Smoothness Profile ($GASP$). This is calculated by taking the weighted sum of the $ATE$ per metre and the standard deviation of the translational Relative Pose Error ($RPE$), as defined in Equation \eqref{eq:gasp}:
+For the optimisation of GLIM-GNSS, the cost function is a custom metric referred to as Global Alignment and Smoothness Profile ($GASP$). This is calculated by taking the weighted sum of the $ATE$ per metre and the standard deviation of the translational Relative Pose Error ($RPE$), as defined in Equation \eqref{eq:gasp}:
 \begin{equation}
 \label{eq:gasp}
 \text{GASP} = w_{\text{drift}} \cdot \left( \frac{ATE}{L} \right) + w_{\text{smoothness}} \cdot \text{Translational RPE}.
 \end{equation}
-The weights $w_{\text{drift}}$ and $w_{\text{smoothness}}$ have been empirically tuned such that each term contributes approximately equally to the total cost. Because the weighted sum mixes quantities with different units, GASP serves as a relative performance index; its values are meaningful only when compared within the same experimental framework.
+The weights $w_{\text{drift}}$ and $w_{\text{smoothness}}$ were chosen to normalise the differing magnitudes of the two component metrics, such that each term contributes approximately equally to the total cost under representative operating conditions. Because the weighted sum mixes quantities with different units, GASP serves as a relative performance index; its values are meaningful only when compared within the same experimental framework.
 
 \subsection{Experimental Setup}
 \label{subsec:slam-experimental-setup}
@@ -324,7 +324,7 @@ The following subsection describes the datasets and evaluation protocol used to 
 
 \subsubsection{Parameterisation Datasets}
 
-Five datasets were used to parameterise the two optimised configurations — the refined GLIM algorithm and the proposed GNSS-augmented method. The datasets span two distinct agricultural environments: one apple orchard (Dataset~1) and four vineyard traversals (Datasets~0, 2, 3, and~4), the latter all collected at the same farm. This environmental diversity was deliberate, as including a structurally different environment reduces the risk that the parameterised configurations are over-specialised to a single terrain type.
+Five datasets were used to parameterise the two optimised configurations — the refined GLIM algorithm and GLIM-GNSS. The datasets span two distinct agricultural environments: one apple orchard (Dataset~1) and four vineyard traversals (Datasets~0, 2, 3, and~4), the latter all collected at the same farm. This environmental diversity was deliberate, as including a structurally different environment reduces the risk that the parameterised configurations are over-specialised to a single terrain type.
 
 \begin{itemize}
   \item \textbf{Dataset~0 --- Vineyard.} A forward-and-return traversal. The altitude increases gradually on the forward pass and decreases correspondingly on the return.
@@ -342,9 +342,9 @@ The purpose of this dataset is to provide an unbiased estimate of whether the pe
 
 \subsubsection{Evaluation Protocol}
 
-Three configurations were evaluated: the baseline GLIM algorithm, the refined GLIM algorithm with optimised parameters, and the proposed GNSS-augmented method. Each configuration was evaluated on each of the five parameterisation datasets using a single run per dataset.
+Three configurations were evaluated: the baseline GLIM algorithm, the refined GLIM algorithm with optimised parameters, and GLIM-GNSS. Each configuration was evaluated on each of the five parameterisation datasets using a single run per dataset.
 
 For the Evaluation Dataset, each configuration was evaluated across five independent runs. This repetition is motivated by the non-deterministic behaviour of the SLAM system: internal parallelism and floating-point operation ordering cause run-to-run variation in the generated trajectory, even under identical input conditions. A single run on an unseen dataset therefore risks reporting an uncharacteristic outcome. For each metric, the mean, standard deviation, median, minimum, and maximum across the five runs are reported.
 
-Performance is assessed using the metrics defined in \cref{sec:slam-methodology}: RMSE (per axis and aggregate 3D), ATE, maximum 3D positional error, error per metre, error percentage per metre, RPE at displacement intervals of 1\,m and 10\,m (RMSE, mean, standard deviation, and maximum translation error), and, for the proposed method, GASP.
+Performance is assessed using the metrics defined in \cref{sec:slam-methodology}: RMSE (per axis and aggregate 3D), ATE, maximum 3D positional error, error per metre, error percentage per metre, RPE at displacement intervals of 1\,m and 10\,m (RMSE, mean, standard deviation, and maximum translation error), and, for GLIM-GNSS, GASP.
 

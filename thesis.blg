@@ -9,6 +9,8 @@ Reallocating 'name_of_file' (item size: 1) to 21 items.
 A level-1 auxiliary file: acknowledgements.aux
 Reallocating 'name_of_file' (item size: 1) to 12 items.
 A level-1 auxiliary file: preface.aux
+Reallocating 'name_of_file' (item size: 1) to 18 items.
+A level-1 auxiliary file: ai-disclosure.aux
 Reallocating 'name_of_file' (item size: 1) to 13 items.
 A level-1 auxiliary file: notation.aux
 Reallocating 'name_of_file' (item size: 1) to 25 items.
@@ -36,44 +38,44 @@ Warning: the journal shouldn't be empty in moravecObstacleAvoidanceNavigatio1980
 Warning: the institution shouldn't be empty in nilssonShakeyRobot1984
 Warning: the authors shouldn't be empty in nocedalTrustRegionMethods2006
 Warning: the booktitle shouldn't be empty in zhangLOAMLidarOdometry2014
-You've used 90 entries,
+You've used 91 entries,
             1952 wiz_defined-function locations,
-            1056 strings with 29401 characters,
-and the built_in function-call counts, 42315 in all, are:
-= -- 5040
-> -- 1368
+            1064 strings with 29736 characters,
+and the built_in function-call counts, 42826 in all, are:
+= -- 5106
+> -- 1383
 < -- 0
-+ -- 382
-- -- 366
-* -- 3555
-:= -- 8120
-add.period$ -- 105
-call.type$ -- 90
-change.case$ -- 421
-chr.to.int$ -- 89
-cite$ -- 101
-duplicate$ -- 750
++ -- 386
+- -- 370
+* -- 3597
+:= -- 8218
+add.period$ -- 106
+call.type$ -- 91
+change.case$ -- 426
+chr.to.int$ -- 90
+cite$ -- 102
+duplicate$ -- 758
 empty$ -- 0
-format.name$ -- 604
-if$ -- 7896
+format.name$ -- 610
+if$ -- 7994
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 1351
-newline$ -- 288
-num.names$ -- 270
-pop$ -- 182
+missing$ -- 1366
+newline$ -- 291
+num.names$ -- 273
+pop$ -- 183
 preamble$ -- 0
-purify$ -- 270
+purify$ -- 273
 quote$ -- 0
-skip$ -- 1532
+skip$ -- 1551
 stack$ -- 0
-substring$ -- 2573
-swap$ -- 5537
+substring$ -- 2606
+swap$ -- 5603
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 11
 type$ -- 0
 warning$ -- 0
-while$ -- 237
-width$ -- 98
-write$ -- 1078
+while$ -- 241
+width$ -- 99
+write$ -- 1091

@@ -4,7 +4,7 @@
 			"path": "."
 		},
 		{
-			"path": "../pruning_vision_pipeline-master"
+			"path": "../glim_extension-main"
 		}
 	],
 	"settings": {

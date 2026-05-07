@@ -1,6 +1,6 @@
 \section{Results}
 \label{sec:slam-results}
-This section presents the empirical results from the evaluation of three localisation configurations: the baseline GLIM algorithm with default parameters, the refined GLIM algorithm with optimised parameters, and the proposed GNSS-augmented method. Each configuration was evaluated on five parameterisation datasets; additionally, all three configurations were evaluated on a held-out Evaluation Dataset, described in \cref{subsec:slam-experimental-setup}, to assess generalisation to an unseen route. Performance is reported using Root Mean Square Error (RMSE), Absolute Trajectory Error (ATE), Relative Pose Error (RPE), and, for the proposed method, the Global Alignment and Smoothness Profile (GASP) metric defined in the methodology.
+This section presents the empirical results from the evaluation of three localisation configurations: the baseline GLIM algorithm with default parameters, the refined GLIM algorithm with optimised parameters, and GLIM-GNSS. Each configuration was evaluated on five parameterisation datasets; additionally, all three configurations were evaluated on a held-out Evaluation Dataset, described in \cref{subsec:slam-experimental-setup}, to assess generalisation to an unseen route. Performance is reported using Root Mean Square Error (RMSE), Absolute Trajectory Error (ATE), Relative Pose Error (RPE), and, for GLIM-GNSS, the Global Alignment and Smoothness Profile (GASP) metric defined in the methodology.
 
 \subsection{Baseline GLIM Performance}
 
@@ -63,34 +63,34 @@ RPE\ 10m\ translation\ max\ & 5.7503 & 7.7271 & 10.7189 & 15.4780 & 6.6573 \\ \b
 \end{table}
 
 
-\subsection{Proposed Method Performance}
+\subsection{GLIM-GNSS Performance}
 
-\cref{tab:proposed_performance} reports the results for the proposed GNSS-augmented method. The error percentage per metre ranges from 0.0153\% (Dataset~4) to 0.0501\% (Dataset~2). The 3D RMSE ranges from 0.1097\,m (Dataset~0) to 0.2280\,m (Dataset~2), and the ATE ranges from 0.0811\,m to 0.1741\,m. The GASP metric, which combines drift rate and local pose smoothness, returned values between 0.0274 (Dataset~0) and 0.0679 (Dataset~2).
+\cref{tab:proposed_performance} reports the results for GLIM-GNSS. The error percentage per metre ranges from 0.0134\% (Dataset~3) to 0.0501\% (Dataset~2). The 3D RMSE ranges from 0.1031\,m (Dataset~3) to 0.2280\,m (Dataset~2), and the ATE ranges from 0.0711\,m (Dataset~3) to 0.1741\,m (Dataset~2). The GASP metric, which combines drift rate and local pose smoothness, returned values between 0.0274 (Dataset~0) and 0.0679 (Dataset~2).
 
 \begin{table}[htbp]
 \centering
-\caption{Proposed method performance over the 5 test datasets}
+\caption{GLIM-GNSS performance over the 5 test datasets}
 \label{tab:proposed_performance}
 \begin{tabularx}{\textwidth}{lXXXXX}
 \toprule
 \textbf{Metrics} & \textbf{Dataset 0} & \textbf{Dataset 1} & \textbf{Dataset 2} & \textbf{Dataset 3} & \textbf{Dataset 4} \\ \midrule
-RMSE\ x\ (m)\ & 0.0756 & 0.0528 & 0.0909 & 0.0528 & 0.0728 \\
-RMSE\ y\ (m)\ & 0.0645 & 0.0906 & 0.2003 & 0.0906 & 0.0789 \\
-RMSE\ z\ (m)\ & 0.0465 & 0.0347 & 0.0599 & 0.0347 & 0.0560 \\
-RMSE\ 3D\ (m)\ & 0.1097 & 0.1105 & 0.2280 & 0.1105 & 0.1211 \\
-ATE\ (m)\ & 0.0846 & 0.0811 & 0.1741 & 0.0811 & 0.1031 \\
-max\ error\ 3D\ (m)\ & 0.7363 & 0.8963 & 1.0246 & 0.8963 & 0.7056 \\
-error\ per\ meter\ (m)\ & 0.0002 & 0.0002 & 0.0005 & 0.0002 & 0.0002 \\
-error\ percent\ per\ meter\ (\%)\ & 0.0171 & 0.0154 & 0.0501 & 0.0154 & 0.0153 \\
-gasp & 0.0274 & 0.0290 & 0.0679 & 0.0290 & 0.0429 \\
-RPE\ 1m\ translation\ RMSE\ & 0.0270 & 0.0308 & 0.0556 & 0.0308 & 0.0444 \\
-RPE\ 1m\ translation\ mean\ & 0.0175 & 0.0206 & 0.0282 & 0.0206 & 0.0249 \\
-RPE\ 1m\ translation\ std\ & 0.0205 & 0.0229 & 0.0479 & 0.0229 & 0.0368 \\
-RPE\ 1m\ translation\ max\ & 0.2001 & 0.4906 & 0.6992 & 0.4906 & 0.6462 \\
-RPE\ 10m\ translation\ RMSE\ & 0.0649 & 0.0936 & 0.1772 & 0.0936 & 0.0769 \\
-RPE\ 10m\ translation\ mean\ & 0.0433 & 0.0613 & 0.0987 & 0.0613 & 0.0573 \\
-RPE\ 10m\ translation\ std\ & 0.0482 & 0.0708 & 0.1471 & 0.0708 & 0.0512 \\
-RPE\ 10m\ translation\ max\ & 0.3799 & 0.7620 & 0.8566 & 0.7620 & 0.5377 \\ \bottomrule
+RMSE\ x\ (m)\ & 0.0756 & 0.0528 & 0.0909 & 0.0453 & 0.0728 \\
+RMSE\ y\ (m)\ & 0.0645 & 0.0906 & 0.2003 & 0.0880 & 0.0789 \\
+RMSE\ z\ (m)\ & 0.0465 & 0.0347 & 0.0599 & 0.0290 & 0.0560 \\
+RMSE\ 3D\ (m)\ & 0.1097 & 0.1105 & 0.2280 & 0.1031 & 0.1211 \\
+ATE\ (m)\ & 0.0846 & 0.0811 & 0.1741 & 0.0711 & 0.1031 \\
+max\ error\ 3D\ (m)\ & 0.7363 & 0.8963 & 1.0246 & 0.9132 & 0.7056 \\
+error\ per\ meter\ (m)\ & 0.0002 & 0.0002 & 0.0005 & 0.0001 & 0.0002 \\
+error\ percent\ per\ meter\ (\%)\ & 0.0171 & 0.0154 & 0.0501 & 0.0134 & 0.0153 \\
+gasp & 0.0274 & 0.0290 & 0.0679 & 0.0295 & 0.0429 \\
+RPE\ 1m\ translation\ RMSE\ & 0.0270 & 0.0308 & 0.0556 & 0.0315 & 0.0444 \\
+RPE\ 1m\ translation\ mean\ & 0.0175 & 0.0206 & 0.0282 & 0.0202 & 0.0249 \\
+RPE\ 1m\ translation\ std\ & 0.0205 & 0.0229 & 0.0479 & 0.0240 & 0.0368 \\
+RPE\ 1m\ translation\ max\ & 0.2001 & 0.4906 & 0.6992 & 0.5074 & 0.6462 \\
+RPE\ 10m\ translation\ RMSE\ & 0.0649 & 0.0936 & 0.1772 & 0.1011 & 0.0769 \\
+RPE\ 10m\ translation\ mean\ & 0.0433 & 0.0613 & 0.0987 & 0.0629 & 0.0573 \\
+RPE\ 10m\ translation\ std\ & 0.0482 & 0.0708 & 0.1471 & 0.0709 & 0.0512 \\
+RPE\ 10m\ translation\ max\ & 0.3799 & 0.7620 & 0.8566 & 0.8628 & 0.5377 \\ \bottomrule
 \end{tabularx}
 \end{table}
 
@@ -109,25 +109,25 @@ RPE\ 10m\ translation\ max\ & 0.3799 & 0.7620 & 0.8566 & 0.7620 & 0.5377 \\ \bot
 % Use {=} in multirow to allow text wrapping inside the X column
 \multirow{3}{=}{error percent per meter (\%)} & Baseline GLIM & 3.3580 & 1.2530 & 7.3610 & 4.8970 & 4.1910 \\
  & Refined GLIM & 0.8735 & 0.6081 & 3.6150 & 0.7499 & 0.6680 \\
- & Proposed Method & \textbf{0.0171} & \textbf{0.0154} & \textbf{0.0501} & \textbf{0.0154} & \textbf{0.0153} \\ \midrule
+ & GLIM-GNSS & \textbf{0.0171} & \textbf{0.0154} & \textbf{0.0501} & \textbf{0.0134} & \textbf{0.0153} \\ \midrule
 
 \multirow{3}{=}{RPE 1m translation std} & Baseline GLIM & 0.4125 & 0.2602 & 0.6767 & 0.9384 & 0.4285 \\
  & Refined GLIM & 0.3619 & 0.2449 & 0.4814 & 0.8239 & 0.3430 \\
- & Proposed Method & \textbf{0.0205} & \textbf{0.0229} & \textbf{0.0479} & \textbf{0.0229} & \textbf{0.0368} \\ \midrule
+ & GLIM-GNSS & \textbf{0.0205} & \textbf{0.0229} & \textbf{0.0479} & \textbf{0.0240} & \textbf{0.0368} \\ \midrule
 
 \multirow{3}{=}{error per meter (m)} & Baseline GLIM & 0.0340 & 0.0130 & 0.0740 & 0.0490 & 0.0420 \\
  & Refined GLIM & 0.0087 & 0.0061 & 0.0362 & 0.0075 & 0.0067 \\
- & Proposed Method & \textbf{0.0002} & \textbf{0.0002} & \textbf{0.0005} & \textbf{0.0002} & \textbf{0.0002} \\ \bottomrule
+ & GLIM-GNSS & \textbf{0.0002} & \textbf{0.0002} & \textbf{0.0005} & \textbf{0.0001} & \textbf{0.0002} \\ \bottomrule
 \end{tabularx}
 \end{table}
 
 \subsection{GNSS Factor Utilisation}
 
-\cref{tab:gnss_stats} reports the number of GNSS factors incorporated into the proposed method's factor graph relative to the total number of available GNSS measurements. Across the five datasets, the proportion of GNSS points retained after outlier rejection and incorporated as factors ranges from 0.65\% (Dataset~2) to 0.78\% (Dataset~3).
+\cref{tab:gnss_stats} reports the number of GNSS factors incorporated into the GLIM-GNSS system's factor graph relative to the total number of available GNSS measurements. Across the five datasets, the proportion of GNSS points retained after outlier rejection and incorporated as factors ranges from 0.65\% (Dataset~2) to 0.78\% (Dataset~3).
 
 \begin{table}[htbp]
 \centering
-\caption{Statistics on the number of GNSS factors used for the proposed method}
+\caption{Statistics on the number of GNSS factors used for GLIM-GNSS}
 \label{tab:gnss_stats}
 \begin{tabularx}{\textwidth}{lXXXXX}
 \toprule
@@ -140,7 +140,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
 
 \subsection{Parameter Optimisation Progression}
 
-\cref{fig:comparison_dist} shows the distribution of per-iteration errors across the four optimisation stages. \cref{fig:baseline_error_dist} plots the error percentage per metre for the baseline GLIM tuning, and \cref{fig:proposed_error_dist} plots the GASP metric for the proposed method tuning. Both plots use a logarithmic horizontal axis.
+\cref{fig:comparison_dist} shows the distribution of per-iteration errors across the four optimisation stages. \cref{fig:baseline_error_dist} plots the error percentage per metre for the baseline GLIM tuning, and \cref{fig:proposed_error_dist} plots the GASP metric for GLIM-GNSS tuning. Both plots use a logarithmic horizontal axis.
 
 \begin{figure}[htbp]
      \centering
@@ -157,15 +157,15 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
      \begin{subfigure}[b]{0.8\textwidth}
          \centering
          \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png}
-         \caption{Proposed method tuning.}
+         \caption{GLIM-GNSS tuning.}
          \label{fig:proposed_error_dist}
      \end{subfigure}
      
-     \caption{Error distribution (log scale) over optimisation stages for baseline tuning (error = error percentage) and proposed method tuning (error = GASP).}
+     \caption{Error distribution (log scale) over optimisation stages for baseline tuning (error = error percentage) and GLIM-GNSS tuning (error = GASP).}
      \label{fig:comparison_dist}
 \end{figure}
 
-\cref{fig:comparison_progression} plots the best consensus error at the end of each optimisation stage. \cref{fig:baseline_progression} tracks the error percentage for the baseline GLIM, and \cref{fig:proposed_progression} tracks the GASP metric for the proposed method. The baseline error decreases monotonically across the four stages; the proposed method's GASP score increases from stage~0 to stage~3.
+\cref{fig:comparison_progression} plots the best consensus error at the end of each optimisation stage. \cref{fig:baseline_progression} tracks the error percentage for the baseline GLIM, and \cref{fig:proposed_progression} tracks the GASP metric for GLIM-GNSS. The baseline error decreases monotonically across the four stages; the GLIM-GNSS system's GASP score increases from stage~0 to stage~3.
 
 \begin{figure}[htbp]
      \centering
@@ -182,17 +182,17 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
      \begin{subfigure}[b]{0.8\textwidth}
          \centering
          \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/proposed_consensus_progression.png}
-         \caption{Proposed Method GASP error.}
+         \caption{GLIM-GNSS GASP error.}
          \label{fig:proposed_progression}
      \end{subfigure}
      
-     \caption{Consensus error over optimisation stages for baseline tuning (error = error percentage) and proposed method tuning (error = GASP).}
+     \caption{Consensus error over optimisation stages for baseline tuning (error = error percentage) and GLIM-GNSS tuning (error = GASP).}
      \label{fig:comparison_progression}
 \end{figure}
 
 \subsection{Multi-Metric Radar Comparison}
 
-\cref{fig:comparison_spider} presents four radar plots comparing the baseline, refined, and proposed methods across all five datasets. The four metrics displayed are error per metre, error percentage per metre, ATE, and RPE 1\,m translation standard deviation. Radial axes are plotted on a logarithmic scale.
+\cref{fig:comparison_spider} presents four radar plots comparing the baseline, refined, and GLIM-GNSSs across all five datasets. The four metrics displayed are error per metre, error percentage per metre, ATE, and RPE 1\,m translation standard deviation. Radial axes are plotted on a logarithmic scale.
 
 \begin{figure}[htbp]
      \centering
@@ -223,13 +223,13 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
          \caption{RPE (translation only) standard deviation.} 
          \label{fig:spider_RPE_std}
      \end{subfigure}
-     \caption{Spider plot comparisons of the glim baseline, refined and proposed methods for various key performance metrics.}
+     \caption{Spider plot comparisons of the GLIM baseline, refined, and GLIM-GNSSs for key performance metrics.}
      \label{fig:comparison_spider}
 \end{figure}
 
 \subsection{Trajectory Visualisation}
 
-\cref{fig:large_grid_xy} presents the planar ($x$--$y$) trajectories for each dataset. The left column shows the refined GLIM output and the right column shows the proposed method output, both plotted against the RTK~GNSS ground truth.
+\cref{fig:large_grid_xy} presents the planar ($x$--$y$) trajectories for each dataset. The left column shows the refined GLIM output and the right column shows GLIM-GNSS output, both plotted against the RTK~GNSS ground truth.
 
 \begin{figure}[htbp]
     \centering
@@ -238,12 +238,13 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
         \centering
         \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/ds0_xy.png}
         \caption{Baseline | Dataset 0}
+        \label{fig:ds0_xy_baseline}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/pds0_xy.png}
-        \caption{Proposed | Dataset 0}
+        \caption{GLIM-GNSS | Dataset 0}
     \end{subfigure}
 
     \vspace{1em} % Vertical space between rows
@@ -258,7 +259,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/pds1_xy.png}
-        \caption{Proposed | Dataset 1}
+        \caption{GLIM-GNSS | Dataset 1}
     \end{subfigure}
 
     \vspace{1em}
@@ -273,7 +274,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/pds2_xy.png}
-        \caption{Proposed | Dataset 2}
+        \caption{GLIM-GNSS | Dataset 2}
     \end{subfigure}
 
     \vspace{1em}
@@ -288,7 +289,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/pds3_xy.png}
-        \caption{Proposed | Dataset 3}
+        \caption{GLIM-GNSS | Dataset 3}
     \end{subfigure}
 
     \vspace{1em}
@@ -303,14 +304,14 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/pds4_xy.png}
-        \caption{Proposed | Dataset 4}
+        \caption{GLIM-GNSS | Dataset 4}
     \end{subfigure}
 
-    \caption{Trajectories in XY plane from baseline GLIM and the proposed method.}
+    \caption{Trajectories in XY plane from baseline GLIM and GLIM-GNSS.}
     \label{fig:large_grid_xy}
 \end{figure}
 
-\cref{fig:large_grid_z} presents the altitude ($z$-axis) trajectories for each dataset in the same layout, with the refined GLIM estimates on the left and the proposed method estimates on the right, both compared against RTK~GNSS ground truth.
+\cref{fig:large_grid_z} presents the altitude ($z$-axis) trajectories for each dataset in the same layout, with the refined GLIM estimates on the left and GLIM-GNSS estimates on the right, both compared against RTK~GNSS ground truth.
 
 \begin{figure}[htbp]
     \centering
@@ -324,7 +325,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/pds0_z.png}
-        \caption{Proposed | Dataset 0}
+        \caption{GLIM-GNSS | Dataset 0}
     \end{subfigure}
 
     \vspace{1em} % Vertical space between rows
@@ -339,7 +340,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/pds1_z.png}
-        \caption{Proposed | Dataset 1}
+        \caption{GLIM-GNSS | Dataset 1}
     \end{subfigure}
 
     \vspace{1em}
@@ -354,7 +355,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/pds2_z.png}
-        \caption{Proposed | Dataset 2}
+        \caption{GLIM-GNSS | Dataset 2}
     \end{subfigure}
 
     \vspace{1em}
@@ -369,7 +370,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/pds3_z.png}
-        \caption{Proposed | Dataset 3}
+        \caption{GLIM-GNSS | Dataset 3}
     \end{subfigure}
 
     \vspace{1em}
@@ -379,15 +380,16 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
         \centering
         \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/ds4_z.png}
         \caption{Baseline | Dataset 4}
+        \label{fig:ds4_z_baseline}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/pds4_z.png}
-        \caption{Proposed | Dataset 4}
+        \caption{GLIM-GNSS | Dataset 4}
     \end{subfigure}
 
-    \caption{Trajectories in Z plane from baseline GLIM and the proposed method.}
+    \caption{Trajectories in Z plane from baseline GLIM and GLIM-GNSS.}
     \label{fig:large_grid_z}
 \end{figure}
 
@@ -428,7 +430,7 @@ RPE\ 10m\ translation\ max\  & 1.8315 & 1.2155 & 1.3836 & 1.0030 & 3.9561 \\ \bo
 
 \subsubsection{Refined GLIM --- Evaluation Dataset}
 
-\cref{tab:eval_refined_performance} reports the refined GLIM performance on the Evaluation Dataset. The mean error percentage per metre is 0.6215\% (std 0.1089\%), consistent with the parameterisation dataset range of 0.608\%--3.615\%. However, the maximum 3D positional error exhibits a mean of 39.5938\,m with a standard deviation of 60.9811\,m and a maximum of 148.6057\,m, against a median of only 13.0861\,m. This large discrepancy between mean and median indicates that at least one run experienced a catastrophic failure, with the median providing a more representative estimate of typical performance. The same instability is evident in the RPE metrics, where the mean and standard deviation are far in excess of the corresponding median values.
+\cref{tab:eval_refined_performance} reports the refined GLIM performance on the Evaluation Dataset. The mean error percentage per metre is 0.6215\% (std 0.1089\%), consistent with the parameterisation dataset range of 0.608\%--3.615\%. Yet the maximum 3D positional error exhibits a mean of 39.5938\,m with a standard deviation of 60.9811\,m and a maximum of 148.6057\,m, against a median of only 13.0861\,m. This large discrepancy between mean and median indicates that at least one run experienced a catastrophic failure, with the median providing a more representative estimate of typical performance. The same instability is evident in the RPE metrics, where the mean and standard deviation are far in excess of the corresponding median values.
 
 \begin{table}[htbp]
 \centering
@@ -456,13 +458,13 @@ RPE\ 10m\ translation\ max\  & 30.3526 & 66.1113 & 0.8106  & 0.5282 & 148.6158 \
 \end{tabularx}
 \end{table}
 
-\subsubsection{Proposed Method --- Evaluation Dataset}
+\subsubsection{GLIM-GNSS --- Evaluation Dataset}
 
-\cref{tab:eval_proposed_performance} reports the proposed method's performance on the Evaluation Dataset. The mean error percentage per metre is 0.0166\% with a standard deviation of 0.0004\%, indicating highly consistent performance across all five runs. The mean RMSE 3D is 0.1459\,m and the mean ATE is 0.1135\,m. The GASP metric has a mean of 0.0508 (std 0.0081), which is consistent with the range observed on the parameterisation datasets (0.0274--0.0679).
+\cref{tab:eval_proposed_performance} reports the GLIM-GNSS system's performance on the Evaluation Dataset. The mean error percentage per metre is 0.0166\% with a standard deviation of 0.0004\%, indicating highly consistent performance across all five runs. The mean RMSE 3D is 0.1459\,m and the mean ATE is 0.1135\,m. The GASP metric has a mean of 0.0508 (std 0.0081), which is consistent with the range observed on the parameterisation datasets (0.0274--0.0679).
 
 \begin{table}[htbp]
 \centering
-\caption{Proposed method performance on the Evaluation Dataset (mean, std, median, min, and max across five independent runs)}
+\caption{GLIM-GNSS performance on the Evaluation Dataset (mean, std, median, min, and max across five independent runs)}
 \label{tab:eval_proposed_performance}
 \begin{tabularx}{\textwidth}{lXXXXX}
 \toprule
@@ -489,7 +491,7 @@ RPE\ 10m\ translation\ max\  & 0.7674 & 0.2078 & 0.7978 & 0.5085 & 0.9709 \\ \bo
 
 \subsubsection{Evaluation Dataset Comparative Summary}
 
-\cref{tab:eval_comparison_key_metrics} presents a side-by-side comparison of the three methods on three key metrics across the Evaluation Dataset. The proposed method achieves the lowest mean value for all three metrics. The refined GLIM's mean RPE 1\,m translation standard deviation exceeds that of the baseline due to the contribution of the catastrophic failure run; the median values for this metric restore the expected baseline--refined--proposed ordering.
+\cref{tab:eval_comparison_key_metrics} presents a side-by-side comparison of the three methods on three key metrics across the Evaluation Dataset. GLIM-GNSS achieves the lowest mean value for all three metrics. The refined GLIM's mean RPE 1\,m translation standard deviation exceeds that of the baseline due to the contribution of the catastrophic failure run; the median values for this metric restore the expected baseline--refined--GLIM-GNSS ordering.
 
 \begin{table}[htbp]
 \centering
@@ -502,17 +504,26 @@ RPE\ 10m\ translation\ max\  & 0.7674 & 0.2078 & 0.7978 & 0.5085 & 0.9709 \\ \bo
 \multirow{3}{=}{error percent per meter (\%)}
  & Baseline GLIM  & 1.9612 & 0.4519 & 1.9785 \\
  & Refined GLIM   & 0.6215 & 0.1089 & 0.6501 \\
- & Proposed Method & \textbf{0.0166} & 0.0004 & 0.0165 \\ \midrule
+ & GLIM-GNSS & \textbf{0.0166} & 0.0004 & 0.0165 \\ \midrule
 
 \multirow{3}{=}{RPE 1m translation std}
  & Baseline GLIM  & 0.1093 & 0.0657 & 0.0952 \\
  & Refined GLIM   & 0.4019 & 0.8213 & 0.0367 \\
- & Proposed Method & \textbf{0.0441} & 0.0080 & 0.0454 \\ \midrule
+ & GLIM-GNSS & \textbf{0.0441} & 0.0080 & 0.0454 \\ \midrule
 
 \multirow{3}{=}{error per meter (m)}
  & Baseline GLIM  & 0.0196   & 0.0045    & 0.0198   \\
  & Refined GLIM   & 0.0062   & 0.0011    & 0.0065   \\
- & Proposed Method & \textbf{0.000166} & 0.0000035 & 0.000165 \\ \bottomrule
+ & GLIM-GNSS & \textbf{0.000166} & 0.0000035 & 0.000165 \\ \bottomrule
 
 \end{tabularx}
 \end{table}
+
+\paragraph{Statistical Separation of Methods}
+With only five independent runs per configuration, formal hypothesis testing has limited statistical power; a two-tailed Wilcoxon signed-rank test with $n = 5$ pairs cannot achieve a $p$-value below 0.0625. We therefore characterise the separation between methods using three complementary arguments.
+
+First, the distributions are entirely non-overlapping on the primary metric (error percentage per metre): the GLIM-GNSS system's worst run (0.0172\%) is 26$\times$ lower than the refined GLIM's best run (0.4453\%), which is itself 3$\times$ lower than the baseline's best run (1.339\%). No permutation of run labels can bring any two adjacent methods' distributions into overlap.
+
+Second, applying a $t$-based 95\% confidence interval to the GLIM-GNSS system's error percentage per metre yields $0.0166 \pm t_{0.025,4} \cdot 0.0004/\sqrt{5} = [0.0161\%,\; 0.0171\%]$. The corresponding interval for the refined GLIM is $[0.4864\%,\; 0.7566\%]$ and for the baseline $[1.4003\%,\; 2.5221\%]$. These intervals do not overlap, confirming that the observed differences exceed what could be attributed to run-to-run variability.
+
+Third, the effect size between GLIM-GNSS and the refined GLIM, measured by Cohen's $d$ using the pooled standard deviation, exceeds $d = 7.8$ --- well beyond the threshold conventionally considered ``large'' ($d = 0.8$). The practical magnitude of the improvement (approximately one order of magnitude relative to the refined GLIM, and two orders relative to the untuned baseline) is therefore unambiguous regardless of the limited sample size.

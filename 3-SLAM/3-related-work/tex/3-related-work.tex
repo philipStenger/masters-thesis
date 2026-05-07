@@ -15,7 +15,7 @@ The transition to tight-coupling was facilitated by the advancement of IMU Pre-i
     \label{fig:imuPreintegration}
 \end{figure}
 
-The result of this evolution is LIO-SAM \cite{shanLIOSAMTightlycoupledLidar2020}, which established the feature-based factor graph benchmark for global consistency, as shown in \cref{fig:liosamArchitecture}. LIO-SAM builds a factor graph incorporating LiDAR odometry, IMU pre-integration, and explicit loop closure factors. To manage computational complexity, it employs a "sliding window" local map for scan-to-map matching. Despite its accuracy and robustness compared to predecessors, its reliance on LOAM-style feature extraction and a standard KD-tree for neighbor searching limits its performance in geometrically degenerate environments.
+The result of this evolution is LIO-SAM \cite{shanLIOSAMTightlycoupledLidar2020}, which established the feature-based factor graph benchmark for global consistency, as shown in \cref{fig:liosamArchitecture}. LIO-SAM builds a factor graph incorporating LiDAR odometry, IMU pre-integration, and explicit loop closure factors. To manage computational complexity, it employs a ``sliding window'' local map for scan-to-map matching. Despite its accuracy and robustness compared to predecessors, its reliance on LOAM-style feature extraction and a standard KD-tree for neighbour searching limits its performance in geometrically degenerate environments.
 
 \begin{figure}[htbp]
     \centering
@@ -69,13 +69,14 @@ Super-LIO is effective for projects constrained to low-power CPUs that can toler
 
 \subsection{SLAM Hyperparameter Optimisation}
 \label{subsec:slam-hyperparameter}
+As hyperparameter optimisation constitutes a primary contribution of this work (see \cref{sec:slam-intro}), this subsection surveys the relevant literature in greater depth than the architecture review above.
 The optimisation of SLAM systems has evolved from manual tuning into rigorous hyperparameter optimisation (HPO) and statistical space exploration. As robots transition from the lab into industrial, agricultural and extraterrestrial domains, stability, robustness and generalisation become pre-eminent \cite{weiLiDARVisualInertial2026}. Many modern SLAM systems are configured by a complex set of interdependent parameters that influence behaviour from high-level feature extraction to back-end pose graph optimisation \cite{hanMultiObjectiveOptimizationLoop2020}. The challenge of configuring a high-dimensional space, often referred to as the curse of dimensionality, poses a significant hurdle in tuning these SLAM systems. The first challenge is finding a subset of points from a high-dimensional search space that accurately represents the underlying performance landscape \cite{hanMultiObjectiveOptimizationLoop2020}. 
 
 \paragraph{Search Space Sampling}
 One such method for sampling high-dimensional search spaces is Latin Hypercube Sampling (LHS). LHS, as formally introduced by Michael McKay in 1979, was used as a variance reduction technique to address the inefficiencies of Monte Carlo simulation (MCS) in high-dimensional domains \cite{chrismanLatinHypercubeSampling2014}. In MCS, sample points are generated independently, which often leads to ``clusters'' and ``voids'' in disparate regions, which can neglect critical narrow regions of optimal performance \cite{deutschLatinHypercubeSampling2012}. LHS addresses this by enforcing a stratification of the marginal distributions of each input variable.
 
 LHS divides the range of each of the $d$ variables into $n$ equiprobable intervals. In a standard uniform distribution of $[0, 1]$, these strata are defined as $A_i = \left( \frac{i-1}{n}, \frac{i}{n} \right]$ for $i = 1, \dots, n$ \cite{chrismanLatinHypercubeSampling2014}. To generate a LHS sample, one value is drawn from each interval for each dimension. These values are then combined into vectors such that
-each $n$ sample point is the only representative in each axis-aligned hyperplane. A visual comparison of MCS and LHS point distributions is shown in \cref{fig:samplingComparison}, and a comparison of LHS, MCS and Grid Search is detailed in Table~\ref{tab:sampling_comparison}.
+each $n$ sample point is the only representative in each axis-aligned hyperplane. A visual comparison of MCS and LHS point distributions is shown in \cref{fig:samplingComparison}, and a comparison of LHS, MCS and Grid Search is detailed in \cref{tab:sampling_comparison}.
 
 \begin{table}[h]
 \centering
@@ -103,19 +104,21 @@ Search Structure & Unstructured & Rigidly structured & Near-random with low disc
     \begin{subfigure}[b]{0.48\linewidth}
         \centering
         \includegraphics[width=\linewidth]{3-SLAM/3-related-work/figures/MC_dist.png}
+        \caption{Monte Carlo sampling}
         \label{fig:mcDist}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\linewidth}
         \centering
         \includegraphics[width=\linewidth]{3-SLAM/3-related-work/figures/LHS_dist.png}
+        \caption{Latin Hypercube sampling}
         \label{fig:lhsDist}
     \end{subfigure}
-    \caption{Spatial distribution of 16 sample points drawn in a two-dimensional parameter space, visualised at two grid resolutions. In (a) and (b), pure Monte Carlo sampling populates the space without structural constraint, producing irregular clusters and uncovered voids that persist regardless of grid resolution. In (g) and (h), the optimised Latin Hypercube Sampling stratification guarantee ensures that exactly one sample occupies each row and column of the partition grid, yielding substantially more uniform marginal coverage for the same number of evaluations \protect\cite{deutschLatinHypercubeSampling2012}.}
+    \caption{Spatial distribution of 16 sample points drawn in a two-dimensional parameter space. In~\subref{fig:mcDist}, pure Monte Carlo sampling populates the space without structural constraint, producing irregular clusters and uncovered voids. In~\subref{fig:lhsDist}, the optimised Latin Hypercube Sampling stratification guarantee ensures that exactly one sample occupies each row and column of the partition grid, yielding substantially more uniform marginal coverage for the same number of evaluations \protect\cite{deutschLatinHypercubeSampling2012}.}
     \label{fig:samplingComparison}
 \end{figure}
 
-The advantage of LHS in SLAM parameterisation comes from its capacity to represent the parameter space with fewer samples than traditional methods. In a SLAM system with ten parameters, a grid search with only three levels per parameter would require $3^{10} = 59,049$ evaluations. Testing each sample on a real trajectory quickly becomes time prohibitive. LHS can explore the same search space with fewer points while maintaining that each parameter is tested at different levels \cite{deutschLatinHypercubeSampling2012}. However, while uniformity is guaranteed across each axis, it does not guarantee that the interior of the hypercube is filled uniformly. As a result, researchers have developed Latin Hypercube Sampling with Multidimensional Uniformity (LHSMDU) to address the limitations of univariate stratification \cite{deutschLatinHypercubeSampling2012}. LHSMDU employs a sequential elimination process, where a large pool of MCS candidates are generated, and those that are too close in the multidimensional space are pruned \cite{deutschLatinHypercubeSampling2012}. This method maximises the minimum inter-point distance, maximising the spread of samples throughout the multi-dimensional space.
+The advantage of LHS in SLAM parameterisation comes from its capacity to represent the parameter space with fewer samples than traditional methods. In a SLAM system with ten parameters, a grid search with only three levels per parameter would require $3^{10} = 59,049$ evaluations. Testing each sample on a real trajectory quickly becomes time prohibitive. LHS can explore the same search space with fewer points while maintaining that each parameter is tested at different levels \cite{deutschLatinHypercubeSampling2012}. Although uniformity is guaranteed across each axis, this does not guarantee that the interior of the hypercube is filled uniformly. As a result, researchers have developed Latin Hypercube Sampling with Multidimensional Uniformity (LHSMDU) to address the limitations of univariate stratification \cite{deutschLatinHypercubeSampling2012}. LHSMDU employs a sequential elimination process, where a large pool of MCS candidates are generated, and those that are too close in the multidimensional space are pruned \cite{deutschLatinHypercubeSampling2012}. This method maximises the minimum inter-point distance, maximising the spread of samples throughout the multi-dimensional space.
 
 Often the SLAM parameters have physical or co-dependent constraints, such as turn radii or computational resource limits.
 Standard LHS assumes independent variables, but extensions like Latin Hypercube Sampling with Dependence (LHSD) allow for the incorporation of copula-based dependence structures \cite{packhamLatinHypercubeSampling2008}. This method enforces constraints on the sampling strategy so that the search does not enter undefined/invalid regions of the search space. 
@@ -123,7 +126,7 @@ Standard LHS assumes independent variables, but extensions like Latin Hypercube 
 \paragraph{Robustness, Generalisation and Overfitting}
 Often, it is not difficult to find a high-performance SLAM configuration for a single dataset. The real challenge is finding a configuration that generalises across a diverse set of environments. This is the common problem in machine learning of overfitting to a dataset, and is a widespread bottleneck to reliable and robust deployment of robotic systems \cite{soaresVARSLAMVisualAdaptive2025}. 
 
-Different SLAM architectures are more sensitive to overfitting to specific environmental characteristics. For example, visual SLAM systems are more sensitive to overfitting to different lighting conditions, and LiDAR SLAM systems are more sensitive to overfitting to specific geometric characteristics. For example, a LiDAR SLAM parameter set tuned for a feature-rich, static hallway will likely adopt aggressive feature matching thresholds and high confidence in loop closure. When transitioned to an open field with sparse landmarks and faster movement, these same parameters may cause the system to lose tracking or generate false-positive loop closures \cite{soumyadipIntroductionLiDARSLAM2024}. Some general examples of environmental factors, SLAM failure modes and impacts on tuning are illustrated in Table~\ref{tab:slam_failure_modes}. This highlights the importance of avoiding overfitting to a single dataset, as characteristics such as ``low light'' for VSLAM can skew the optimisation process in a direction that is unsuitable for other lighting conditions. 
+Different SLAM architectures are more sensitive to overfitting to specific environmental characteristics. For example, visual SLAM systems are more sensitive to overfitting to different lighting conditions, and LiDAR SLAM systems are more sensitive to overfitting to specific geometric characteristics. For example, a LiDAR SLAM parameter set tuned for a feature-rich, static hallway will likely adopt aggressive feature matching thresholds and high confidence in loop closure. When transitioned to an open field with sparse landmarks and faster movement, these same parameters may cause the system to lose tracking or generate false-positive loop closures \cite{soumyadipIntroductionLiDARSLAM2024}. Some general examples of environmental factors, SLAM failure modes and impacts on tuning are illustrated in \cref{tab:slam_failure_modes}. This highlights the importance of avoiding overfitting to a single dataset, as characteristics such as ``low light'' for VSLAM can skew the optimisation process in a direction that is unsuitable for other lighting conditions. 
 
 \begin{table}[h]
 \centering
@@ -133,11 +136,11 @@ Different SLAM architectures are more sensitive to overfitting to specific envir
 \toprule
 Environmental Factor & \textbf{VSLAM Failure Mode} & \textbf{LiDAR SLAM Failure Mode} & \textbf{Impact on Tuning} \\ 
 \midrule
-Low Light & Feature extraction failure $^{10}$ & Minimal (Active sensing) & Requires adaptive thresholds $^{10}$ \\ 
+Low Light & Feature extraction failure \cite{schmidtROVERMultiSeasonDataset2024} & Minimal (Active sensing) & Requires adaptive thresholds \cite{schmidtROVERMultiSeasonDataset2024} \\ 
 \addlinespace
 Dynamic Objects & Tracking drift; ghosting \cite{soaresVARSLAMVisualAdaptive2025} & Segmentation errors \cite{soumyadipIntroductionLiDARSLAM2024} & Necessitates robust loss kernels \cite{soaresVARSLAMVisualAdaptive2025} \\ 
 \addlinespace
-Low Texture & Tracking loss $^{19}$ & Geometric degeneracy \cite{soumyadipIntroductionLiDARSLAM2024} & High dependency on sensor fusion \cite{weiLiDARVisualInertial2026} \\ 
+Low Texture & Tracking loss \cite{linguaImprovingImageAlignment2025} & Geometric degeneracy \cite{soumyadipIntroductionLiDARSLAM2024} & High dependency on sensor fusion \cite{weiLiDARVisualInertial2026} \\ 
 \addlinespace
 High Speed & Motion blur \cite{xuTKOSLAMVisualSLAM2024} & Point cloud skew \cite{soumyadipIntroductionLiDARSLAM2024} & Requires higher frame rates \cite{xuTKOSLAMVisualSLAM2024} \\ 
 \bottomrule
@@ -146,4 +149,4 @@ High Speed & Motion blur \cite{xuTKOSLAMVisualSLAM2024} & Point cloud skew \cite
 \label{tab:slam_failure_modes}
 \end{table}
 
-Traditional optimisation focuses on minimising a scalar error metric, such as Absolute Trajectory Error (ATE), on a single ``representative'' dataset -- typically one of the prevailing SLAM benchmark datasets such as KITTI or TUM RGB-D. However, this approach tends to ``chase'' the noise of that specific trajectory \cite{kandasamyTuningHyperparametersGrad}, resulting in parameters that are essentially ``hard-coded'' to that specific sequence of sensor observations and noise realisations of the training data. 
+Traditional optimisation focuses on minimising a scalar error metric, such as Absolute Trajectory Error (ATE), on a single ``representative'' dataset -- typically one of the prevailing SLAM benchmark datasets such as KITTI or TUM RGB-D. Yet this approach tends to ``chase'' the noise of that specific trajectory \cite{kandasamyTuningHyperparametersGrad}, resulting in parameters that are essentially ``hard-coded'' to that specific sequence of sensor observations and noise realisations of the training data. 

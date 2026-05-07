@@ -10,155 +10,167 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}System Context}{59}{}\protected@file@percent }
 \newlabel{subsec:system-context}{{4.1.1}{59}{}{subsection.4.1.1}{}}
 \newlabel{subsec:system-context@cref}{{[subsection][1][4,1]4.1.1}{[1][59][]59}{}{}{}}
-\citation{beslMethodRegistration3D1992a}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces System context for the precise-alignment stage. The 3DGS model and its SfM point cloud are constructed offline from survey imagery and registered in a global ENU frame. At mission time the SLAM system provides a metre-scale initial pose, which --- together with a live point cloud acquired from the physical vine --- is consumed by the precise-alignment stage. The resulting rigid transform updates the robot pose estimate, which is then used by all downstream manipulation tasks: cut-point detection, arm path planning, and collision avoidance.}}{60}{}\protected@file@percent }
+\newlabel{fig:pa-system-context}{{4.1}{60}{}{figure.4.1}{}}
+\newlabel{fig:pa-system-context@cref}{{[figure][1][4]4.1}{[1][60][]60}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Approach Overview}{60}{}\protected@file@percent }
 \newlabel{subsec:approach-overview}{{4.1.2}{60}{}{subsection.4.1.2}{}}
 \newlabel{subsec:approach-overview@cref}{{[subsection][2][4,1]4.1.2}{[1][60][]60}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Related Work}{60}{}\protected@file@percent }
-\newlabel{sec:precise-alignment-related-work}{{4.2}{60}{}{section.4.2}{}}
-\newlabel{sec:precise-alignment-related-work@cref}{{[section][2][4]4.2}{[1][60][]60}{}{}{}}
+\citation{beslMethodRegistration3D1992a}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Overview of the four-stage precise-alignment pipeline. A live point cloud is acquired from the physical vine (\emph  {Stage~1}), passed through a preprocessing pipeline (\emph  {Stage~2}), registered against the SfM target cloud derived from the 3DGS model using ICP (\emph  {Stage~3}), and the recovered rigid transform is applied to update the robot pose estimate (\emph  {Stage~4}), which is consumed by the arm path planner.}}{61}{}\protected@file@percent }
+\newlabel{fig:pa-approach-overview}{{4.2}{61}{}{figure.4.2}{}}
+\newlabel{fig:pa-approach-overview@cref}{{[figure][2][4]4.2}{[1][61][]61}{}{}{}}
 \citation{klodtFieldPhenotypingGrapevine2015}
 \citation{parrAnalysisDepthCameras2022}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Related Work}{62}{}\protected@file@percent }
+\newlabel{sec:precise-alignment-related-work}{{4.2}{62}{}{section.4.2}{}}
+\newlabel{sec:precise-alignment-related-work@cref}{{[section][2][4]4.2}{[1][62][]62}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Stereo Depth Imaging}{62}{}\protected@file@percent }
+\newlabel{subsec:stereo-depth}{{4.2.1}{62}{}{subsection.4.2.1}{}}
+\newlabel{subsec:stereo-depth@cref}{{[subsection][1][4,2]4.2.1}{[1][62][]62}{}{}{}}
 \citation{wangAccuratePlant3D2025}
 \citation{tamuraUnsupervisedMonocularDepth2025}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Stereo Depth Imaging}{61}{}\protected@file@percent }
-\newlabel{subsec:stereo-depth}{{4.2.1}{61}{}{subsection.4.2.1}{}}
-\newlabel{subsec:stereo-depth@cref}{{[subsection][1][4,2]4.2.1}{[1][61][]61}{}{}{}}
 \citation{wenFoundationStereoZeroShot2025}
 \citation{wenFoundationStereoZeroShot2025}
 \citation{wenFoundationStereoZeroShot2025}
 \citation{mirandaAssessingAutomaticData2023}
 \citation{stumpe3DMultimodalImage2025}
 \citation{farhanComprehensiveReviewLiDAR2024}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Zero-shot stereo depth predictions from FoundationStereo across diverse in-the-wild scenes, including indoor and outdoor environments, textureless and reflective surfaces, and challenging illumination conditions. No per-domain fine-tuning is performed \cite {wenFoundationStereoZeroShot2025}.}}{62}{}\protected@file@percent }
-\newlabel{fig:zeroShotFS}{{4.1}{62}{}{figure.4.1}{}}
-\newlabel{fig:zeroShotFS@cref}{{[figure][1][4]4.1}{[1][62][]62}{}{}{}}
 \citation{llorensGeoreferencedLiDAR3D2011}
 \citation{morenoOnGroundVineyardReconstruction2020}
 \citation{chakrabortyEvaluationMobile3D2019}
 \citation{tagarakisDigitalMappingPruning2026}
 \citation{pavoljozefsafarikuniversityinkosiceSynergisticUseLiDAR2025}
 \citation{zhanAgriLiRa4DMultiSensorUAV2026}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Dense LiDAR Mapping}{63}{}\protected@file@percent }
-\newlabel{subsec:dense-lidar-mapping}{{4.2.2}{63}{}{subsection.4.2.2}{}}
-\newlabel{subsec:dense-lidar-mapping@cref}{{[subsection][2][4,2]4.2.2}{[1][62][]63}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Zero-shot stereo depth predictions from FoundationStereo across diverse in-the-wild scenes, including indoor and outdoor environments, textureless and reflective surfaces, and challenging illumination conditions. No per-domain fine-tuning is performed \cite {wenFoundationStereoZeroShot2025}.}}{64}{}\protected@file@percent }
+\newlabel{fig:zeroShotFS}{{4.3}{64}{}{figure.4.3}{}}
+\newlabel{fig:zeroShotFS@cref}{{[figure][3][4]4.3}{[1][63][]64}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Dense LiDAR Mapping}{64}{}\protected@file@percent }
+\newlabel{subsec:dense-lidar-mapping}{{4.2.2}{64}{}{subsection.4.2.2}{}}
+\newlabel{subsec:dense-lidar-mapping@cref}{{[subsection][2][4,2]4.2.2}{[1][63][]64}{}{}{}}
 \citation{petrovicVineCanopyReconstruction2022}
 \citation{beslMethodRegistration3D1992a}
 \citation{chenObjectModelingRegistration1991}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Point Cloud Registration}{65}{}\protected@file@percent }
+\newlabel{subsec:point-cloud-registration}{{4.2.3}{65}{}{subsection.4.2.3}{}}
+\newlabel{subsec:point-cloud-registration@cref}{{[subsection][3][4,2]4.2.3}{[1][65][]65}{}{}{}}
 \citation{rusinkiewiczEfficientVariantsICP2001}
 \citation{huangComprehensiveSurveyPoint2021}
 \citation{segalGeneralizedICP2009}
 \citation{heIterativeClosestPoints2017}
 \citation{choiIterativeKClosestPoint2020}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Point Cloud Registration}{64}{}\protected@file@percent }
-\newlabel{subsec:point-cloud-registration}{{4.2.3}{64}{}{subsection.4.2.3}{}}
-\newlabel{subsec:point-cloud-registration@cref}{{[subsection][3][4,2]4.2.3}{[1][64][]64}{}{}{}}
-\newlabel{eq:icp}{{4.2}{64}{}{equation.4.2}{}}
-\newlabel{eq:icp@cref}{{[equation][2][4]4.2}{[1][64][]64}{}{}{}}
 \citation{chenSemanticICPIterativeClosest2025}
 \citation{vizzoKISSICPDefensePointtoPoint2023}
 \citation{melladoSuper4PCSFastGlobal2014}
 \citation{yangGoICPGloballyOptimal2016}
+\newlabel{eq:icp}{{4.2}{66}{}{equation.4.2}{}}
+\newlabel{eq:icp@cref}{{[equation][2][4]4.2}{[1][65][]66}{}{}{}}
 \citation{elbaz3DPointCloudRegistration2017}
 \citation{zhangDeepLearningBased2020}
 \citation{xuCross3DRegLargescaleRealworld2025}
 \citation{yinSurveyGlobalLiDAR2024}
 \citation{wenFoundationStereoZeroShot2025}
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Proposed Methods}{66}{}\protected@file@percent }
-\newlabel{sec:precise-alignment-methodology}{{4.3}{66}{}{section.4.3}{}}
-\newlabel{sec:precise-alignment-methodology@cref}{{[section][3][4]4.3}{[1][66][]66}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}System Overview}{66}{}\protected@file@percent }
-\newlabel{subsec:pa-system-overview}{{4.3.1}{66}{}{subsection.4.3.1}{}}
-\newlabel{subsec:pa-system-overview@cref}{{[subsection][1][4,3]4.3.1}{[1][66][]66}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces System-level dataflow of the precise-alignment pipeline. The stereo vision branch (left) and LiDAR branch (right) are shown in parallel; both converge on the shared ICP registration stage. The corrected pose is applied to the ROS~2 TF tree via the mechanism described in \cref  {subsec:pa-pose-correction}.}}{67}{}\protected@file@percent }
-\newlabel{fig:pa-pipeline-overview}{{4.2}{67}{}{figure.4.2}{}}
-\newlabel{fig:pa-pipeline-overview@cref}{{[figure][2][4]4.2}{[1][66][]67}{}{}{}}
-\citation{wenFoundationStereoZeroShot2025}
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Proposed Methods}{67}{}\protected@file@percent }
+\newlabel{sec:precise-alignment-methodology}{{4.3}{67}{}{section.4.3}{}}
+\newlabel{sec:precise-alignment-methodology@cref}{{[section][3][4]4.3}{[1][67][]67}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}System Overview}{67}{}\protected@file@percent }
+\newlabel{subsec:pa-system-overview}{{4.3.1}{67}{}{subsection.4.3.1}{}}
+\newlabel{subsec:pa-system-overview@cref}{{[subsection][1][4,3]4.3.1}{[1][67][]67}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Stereo vision preprocessing branch of the precise-alignment pipeline. Rectified image pairs from the ZED stereo camera(s) are processed through FoundationStereo depth estimation, back-projection, radius outlier removal, optional dual-camera fusion, and trunk segmentation to produce a filtered source point cloud passed to the shared ICP registration stage (\cref  {fig:pa-pipeline-icp}).}}{68}{}\protected@file@percent }
+\newlabel{fig:pa-pipeline-stereo}{{4.4}{68}{}{figure.4.4}{}}
+\newlabel{fig:pa-pipeline-stereo@cref}{{[figure][4][4]4.4}{[1][68][]68}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Reference Model: 3D Gaussian Splatting}{68}{}\protected@file@percent }
 \newlabel{subsec:pa-reference-model}{{4.3.2}{68}{}{subsection.4.3.2}{}}
-\newlabel{subsec:pa-reference-model@cref}{{[subsection][2][4,3]4.3.2}{[1][66][]68}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Stereo Vision Pipeline}{68}{}\protected@file@percent }
-\newlabel{subsec:pa-stereo-pipeline}{{4.3.3}{68}{}{subsection.4.3.3}{}}
-\newlabel{subsec:pa-stereo-pipeline@cref}{{[subsection][3][4,3]4.3.3}{[1][68][]68}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3.1}Depth Estimation}{68}{}\protected@file@percent }
-\newlabel{subsubsec:pa-depth-estimation}{{4.3.3.1}{68}{}{subsubsection.4.3.3.1}{}}
-\newlabel{subsubsec:pa-depth-estimation@cref}{{[subsubsection][1][4,3,3]4.3.3.1}{[1][68][]68}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3.2}Dual-Camera Point Cloud Fusion}{69}{}\protected@file@percent }
-\newlabel{subsubsec:pa-dual-camera}{{4.3.3.2}{69}{}{subsubsection.4.3.3.2}{}}
-\newlabel{subsubsec:pa-dual-camera@cref}{{[subsubsection][2][4,3,3]4.3.3.2}{[1][69][]69}{}{}{}}
-\newlabel{eq:dual-camera-extrinsic}{{4.4}{69}{}{equation.4.4}{}}
-\newlabel{eq:dual-camera-extrinsic@cref}{{[equation][4][4]4.4}{[1][69][]69}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3.3}Trunk Segmentation}{69}{}\protected@file@percent }
-\newlabel{subsubsec:pa-trunk-segmentation}{{4.3.3.3}{69}{}{subsubsection.4.3.3.3}{}}
-\newlabel{subsubsec:pa-trunk-segmentation@cref}{{[subsubsection][3][4,3,3]4.3.3.3}{[1][69][]69}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Dual-camera point cloud fusion. Both ZED cameras are mounted side by side on the vine-facing side of the robot, approximately 30\,cm apart with no rotation between them, and directed toward the same face of the vine (Part~A). The secondary camera's point cloud is transformed into the primary camera frame using $T_{\mathrm  {cam2} \to \mathrm  {cam1}}$ (\cref  {eq:dual-camera-extrinsic}), and the two clouds are concatenated (Part~B). The high degree of overlap between the clouds enables consistency-based outlier rejection before the merged cloud is passed to trunk segmentation.}}{70}{}\protected@file@percent }
-\newlabel{fig:pa-dual-camera}{{4.3}{70}{}{figure.4.3}{}}
-\newlabel{fig:pa-dual-camera@cref}{{[figure][3][4]4.3}{[1][69][]70}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Stereo trunk segmentation pipeline. The merged point cloud passes through three sequential stages --- morphological closing, DBSCAN clustering, and voxel density filtering --- to isolate the vine trunk from background vegetation, ground returns, and noise.}}{71}{}\protected@file@percent }
-\newlabel{fig:pa-trunk-segmentation}{{4.4}{71}{}{figure.4.4}{}}
-\newlabel{fig:pa-trunk-segmentation@cref}{{[figure][4][4]4.4}{[1][69][]71}{}{}{}}
+\newlabel{subsec:pa-reference-model@cref}{{[subsection][2][4,3]4.3.2}{[1][68][]68}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces LiDAR preprocessing branch of the precise-alignment pipeline. Dense scans from the Livox solid-state LiDAR are filtered through ground removal, statistical and angular outlier rejection, and normal-based processing to produce a filtered source point cloud passed to the shared ICP registration stage (\cref  {fig:pa-pipeline-icp}).}}{69}{}\protected@file@percent }
+\newlabel{fig:pa-pipeline-lidar}{{4.5}{69}{}{figure.4.5}{}}
+\newlabel{fig:pa-pipeline-lidar@cref}{{[figure][5][4]4.5}{[1][68][]69}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Shared ICP registration stage, common to both sensing modalities. Candidate viewpoints are sampled around the initial SLAM pose and rendered from the 3DGS model; each rendered target cloud is registered against the filtered source cloud from either preprocessing branch, and the best-fitting result is used to correct the robot pose in the ROS~2 TF tree via the mechanism described in \cref  {subsec:pa-pose-correction}.}}{70}{}\protected@file@percent }
+\newlabel{fig:pa-pipeline-icp}{{4.6}{70}{}{figure.4.6}{}}
+\newlabel{fig:pa-pipeline-icp@cref}{{[figure][6][4]4.6}{[1][68][]70}{}{}{}}
+\citation{wenFoundationStereoZeroShot2025}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Stereo Vision Pipeline}{71}{}\protected@file@percent }
+\newlabel{subsec:pa-stereo-pipeline}{{4.3.3}{71}{}{subsection.4.3.3}{}}
+\newlabel{subsec:pa-stereo-pipeline@cref}{{[subsection][3][4,3]4.3.3}{[1][71][]71}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3.1}Depth Estimation}{71}{}\protected@file@percent }
+\newlabel{subsubsec:pa-depth-estimation}{{4.3.3.1}{71}{}{subsubsection.4.3.3.1}{}}
+\newlabel{subsubsec:pa-depth-estimation@cref}{{[subsubsection][1][4,3,3]4.3.3.1}{[1][71][]71}{}{}{}}
 \citation{esterDensityBasedAlgorithmDiscovering1996}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3.2}Dual-Camera Point Cloud Fusion}{72}{}\protected@file@percent }
+\newlabel{subsubsec:pa-dual-camera}{{4.3.3.2}{72}{}{subsubsection.4.3.3.2}{}}
+\newlabel{subsubsec:pa-dual-camera@cref}{{[subsubsection][2][4,3,3]4.3.3.2}{[1][72][]72}{}{}{}}
+\newlabel{eq:dual-camera-extrinsic}{{4.4}{72}{}{equation.4.4}{}}
+\newlabel{eq:dual-camera-extrinsic@cref}{{[equation][4][4]4.4}{[1][72][]72}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3.3}Trunk Segmentation}{72}{}\protected@file@percent }
+\newlabel{subsubsec:pa-trunk-segmentation}{{4.3.3.3}{72}{}{subsubsection.4.3.3.3}{}}
+\newlabel{subsubsec:pa-trunk-segmentation@cref}{{[subsubsection][3][4,3,3]4.3.3.3}{[1][72][]72}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Dual-camera point cloud fusion. Both ZED cameras are mounted side by side on the vine-facing side of the robot, approximately 30\,cm apart with no rotation between them, and directed toward the same face of the vine (Part~A). The secondary camera's point cloud is transformed into the primary camera frame using $T_{\mathrm  {cam2} \to \mathrm  {cam1}}$ (\cref  {eq:dual-camera-extrinsic}), and the two clouds are concatenated (Part~B). The high degree of overlap between the clouds enables consistency-based outlier rejection before the merged cloud is passed to trunk segmentation.}}{73}{}\protected@file@percent }
+\newlabel{fig:pa-dual-camera}{{4.7}{73}{}{figure.4.7}{}}
+\newlabel{fig:pa-dual-camera@cref}{{[figure][7][4]4.7}{[1][72][]73}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Stereo trunk segmentation pipeline. The merged point cloud passes through three sequential stages --- morphological closing, DBSCAN clustering, and voxel density filtering --- to isolate the vine trunk from background vegetation, ground returns, and noise.}}{74}{}\protected@file@percent }
+\newlabel{fig:pa-trunk-segmentation}{{4.8}{74}{}{figure.4.8}{}}
+\newlabel{fig:pa-trunk-segmentation@cref}{{[figure][8][4]4.8}{[1][72][]74}{}{}{}}
 \citation{macenskiRobotOperatingSystem2022}
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Stereo vision pipeline parameters.}}{72}{}\protected@file@percent }
-\newlabel{tab:pa-stereo-params}{{4.1}{72}{}{table.4.1}{}}
-\newlabel{tab:pa-stereo-params@cref}{{[table][1][4]4.1}{[1][72][]72}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.4}LiDAR Pipeline}{72}{}\protected@file@percent }
-\newlabel{subsec:pa-lidar-pipeline}{{4.3.4}{72}{}{subsection.4.3.4}{}}
-\newlabel{subsec:pa-lidar-pipeline@cref}{{[subsection][4][4,3]4.3.4}{[1][72][]72}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Stereo vision pipeline parameters.}}{75}{}\protected@file@percent }
+\newlabel{tab:pa-stereo-params}{{4.1}{75}{}{table.4.1}{}}
+\newlabel{tab:pa-stereo-params@cref}{{[table][1][4]4.1}{[1][75][]75}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.4}LiDAR Pipeline}{75}{}\protected@file@percent }
+\newlabel{subsec:pa-lidar-pipeline}{{4.3.4}{75}{}{subsection.4.3.4}{}}
+\newlabel{subsec:pa-lidar-pipeline@cref}{{[subsection][4][4,3]4.3.4}{[1][75][]75}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4.1}Dense Scan Accumulation}{75}{}\protected@file@percent }
+\newlabel{subsubsec:pa-dense-accumulation}{{4.3.4.1}{75}{}{subsubsection.4.3.4.1}{}}
+\newlabel{subsubsec:pa-dense-accumulation@cref}{{[subsubsection][1][4,3,4]4.3.4.1}{[1][75][]75}{}{}{}}
 \citation{leePatchworkFastRobust2022}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4.1}Dense Scan Accumulation}{73}{}\protected@file@percent }
-\newlabel{subsubsec:pa-dense-accumulation}{{4.3.4.1}{73}{}{subsubsection.4.3.4.1}{}}
-\newlabel{subsubsec:pa-dense-accumulation@cref}{{[subsubsection][1][4,3,4]4.3.4.1}{[1][72][]73}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4.2}Ground Segmentation}{73}{}\protected@file@percent }
-\newlabel{subsubsec:pa-ground-segmentation}{{4.3.4.2}{73}{}{subsubsection.4.3.4.2}{}}
-\newlabel{subsubsec:pa-ground-segmentation@cref}{{[subsubsection][2][4,3,4]4.3.4.2}{[1][73][]73}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4.3}Point Cloud Processing}{73}{}\protected@file@percent }
-\newlabel{subsubsec:pa-lidar-processing}{{4.3.4.3}{73}{}{subsubsection.4.3.4.3}{}}
-\newlabel{subsubsec:pa-lidar-processing@cref}{{[subsubsection][3][4,3,4]4.3.4.3}{[1][73][]73}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces LiDAR point cloud filtering pipeline. Five sequential stages process the non-ground Livox cloud to isolate vine wood structure prior to ICP registration.}}{74}{}\protected@file@percent }
-\newlabel{fig:pa-lidar-filtering}{{4.5}{74}{}{figure.4.5}{}}
-\newlabel{fig:pa-lidar-filtering@cref}{{[figure][5][4]4.5}{[1][73][]74}{}{}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces LiDAR pipeline parameters.}}{75}{}\protected@file@percent }
-\newlabel{tab:pa-lidar-params}{{4.2}{75}{}{table.4.2}{}}
-\newlabel{tab:pa-lidar-params@cref}{{[table][2][4]4.2}{[1][75][]75}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4.2}Ground Segmentation}{76}{}\protected@file@percent }
+\newlabel{subsubsec:pa-ground-segmentation}{{4.3.4.2}{76}{}{subsubsection.4.3.4.2}{}}
+\newlabel{subsubsec:pa-ground-segmentation@cref}{{[subsubsection][2][4,3,4]4.3.4.2}{[1][76][]76}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4.3}Point Cloud Processing}{76}{}\protected@file@percent }
+\newlabel{subsubsec:pa-lidar-processing}{{4.3.4.3}{76}{}{subsubsection.4.3.4.3}{}}
+\newlabel{subsubsec:pa-lidar-processing@cref}{{[subsubsection][3][4,3,4]4.3.4.3}{[1][76][]76}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces LiDAR point cloud filtering pipeline. Five sequential stages process the non-ground Livox cloud to isolate vine wood structure prior to ICP registration.}}{77}{}\protected@file@percent }
+\newlabel{fig:pa-lidar-filtering}{{4.9}{77}{}{figure.4.9}{}}
+\newlabel{fig:pa-lidar-filtering@cref}{{[figure][9][4]4.9}{[1][76][]77}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces LiDAR pipeline parameters.}}{78}{}\protected@file@percent }
+\newlabel{tab:pa-lidar-params}{{4.2}{78}{}{table.4.2}{}}
+\newlabel{tab:pa-lidar-params@cref}{{[table][2][4]4.2}{[1][78][]78}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.5}ICP Registration Against the 3DGS Model}{78}{}\protected@file@percent }
+\newlabel{subsec:pa-icp-registration}{{4.3.5}{78}{}{subsection.4.3.5}{}}
+\newlabel{subsec:pa-icp-registration@cref}{{[subsection][5][4,3]4.3.5}{[1][78][]78}{}{}{}}
 \citation{zhouOpen3DModernLibrary2018}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.5}ICP Registration Against the 3DGS Model}{76}{}\protected@file@percent }
-\newlabel{subsec:pa-icp-registration}{{4.3.5}{76}{}{subsection.4.3.5}{}}
-\newlabel{subsec:pa-icp-registration@cref}{{[subsection][5][4,3]4.3.5}{[1][75][]76}{}{}{}}
-\newlabel{eq:cauchy-loss}{{4.5}{76}{}{equation.4.5}{}}
-\newlabel{eq:cauchy-loss@cref}{{[equation][5][4]4.5}{[1][76][]76}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces ICP candidate viewpoint sampling and selection. $N = 5$ candidate poses are sampled in the neighbourhood of the initial SLAM pose; the 3DGS model is rendered at each candidate to produce a reference point cloud. ICP is run independently for each candidate, and the result with the highest fitness score and lowest RMSE is selected as the final alignment.}}{77}{}\protected@file@percent }
-\newlabel{fig:pa-icp-candidates}{{4.6}{77}{}{figure.4.6}{}}
-\newlabel{fig:pa-icp-candidates@cref}{{[figure][6][4]4.6}{[1][76][]77}{}{}{}}
 \citation{macenskiRobotOperatingSystem2022}
-\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces ICP registration parameters.}}{78}{}\protected@file@percent }
-\newlabel{tab:pa-icp-params}{{4.3}{78}{}{table.4.3}{}}
-\newlabel{tab:pa-icp-params@cref}{{[table][3][4]4.3}{[1][76][]78}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.6}Coordinate Frames and Pose Correction}{78}{}\protected@file@percent }
-\newlabel{subsec:pa-pose-correction}{{4.3.6}{78}{}{subsection.4.3.6}{}}
-\newlabel{subsec:pa-pose-correction@cref}{{[subsection][6][4,3]4.3.6}{[1][78][]78}{}{}{}}
-\newlabel{eq:tf-correction}{{4.6}{79}{}{equation.4.6}{}}
-\newlabel{eq:tf-correction@cref}{{[equation][6][4]4.6}{[1][79][]79}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces ROS~2 TF transform tree before (left) and after (right) insertion of the pose correction frame. The correction is introduced between the SLAM-published \texttt  {odom} frame and downstream planning frames without modifying the SLAM system's own publications. $T_{\mathrm  {correction,base}}$ is derived from the ICP result via the extrinsic $T_{\mathrm  {base} \to \mathrm  {sensor}}$ (\cref  {eq:tf-correction}).}}{79}{}\protected@file@percent }
-\newlabel{fig:pa-tf-correction}{{4.7}{79}{}{figure.4.7}{}}
-\newlabel{fig:pa-tf-correction@cref}{{[figure][7][4]4.7}{[1][79][]79}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.7}Pipeline Execution Model}{79}{}\protected@file@percent }
-\newlabel{subsec:pa-execution-model}{{4.3.7}{79}{}{subsection.4.3.7}{}}
-\newlabel{subsec:pa-execution-model@cref}{{[subsection][7][4,3]4.3.7}{[1][79][]79}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Pipeline execution model. Each localisation request is dispatched as a sequence of \texttt  {AsyncCommand} objects to an asynchronous task queue, which executes them in a dedicated worker thread pool. GPU-resident stages (FoundationStereo inference and 3DGS rendering) are protected by a semaphore concurrency guard. Incoming requests are queued independently, ensuring each observation is processed in full.}}{80}{}\protected@file@percent }
-\newlabel{fig:pa-execution-model}{{4.8}{80}{}{figure.4.8}{}}
-\newlabel{fig:pa-execution-model@cref}{{[figure][8][4]4.8}{[1][80][]80}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Results}{80}{}\protected@file@percent }
-\newlabel{sec:precise-alignment-results}{{4.4}{80}{}{section.4.4}{}}
-\newlabel{sec:precise-alignment-results@cref}{{[section][4][4]4.4}{[1][80][]80}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.5}Discussion}{80}{}\protected@file@percent }
-\newlabel{sec:precise-alignment-discussion}{{4.5}{80}{}{section.4.5}{}}
-\newlabel{sec:precise-alignment-discussion@cref}{{[section][5][4]4.5}{[1][80][]80}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.6}Summary}{81}{}\protected@file@percent }
-\newlabel{sec:precise-alignment-summary}{{4.6}{81}{}{section.4.6}{}}
-\newlabel{sec:precise-alignment-summary@cref}{{[section][6][4]4.6}{[1][80][]81}{}{}{}}
+\newlabel{eq:cauchy-loss}{{4.5}{79}{}{equation.4.5}{}}
+\newlabel{eq:cauchy-loss@cref}{{[equation][5][4]4.5}{[1][79][]79}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.6}Coordinate Frames and Pose Correction}{79}{}\protected@file@percent }
+\newlabel{subsec:pa-pose-correction}{{4.3.6}{79}{}{subsection.4.3.6}{}}
+\newlabel{subsec:pa-pose-correction@cref}{{[subsection][6][4,3]4.3.6}{[1][79][]79}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces ICP candidate viewpoint sampling and selection. $N = 5$ candidate poses are sampled in the neighbourhood of the initial SLAM pose; the 3DGS model is rendered at each candidate to produce a reference point cloud. ICP is run independently for each candidate, and the result with the highest fitness score and lowest RMSE is selected as the final alignment.}}{80}{}\protected@file@percent }
+\newlabel{fig:pa-icp-candidates}{{4.10}{80}{}{figure.4.10}{}}
+\newlabel{fig:pa-icp-candidates@cref}{{[figure][10][4]4.10}{[1][79][]80}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces ICP registration parameters.}}{81}{}\protected@file@percent }
+\newlabel{tab:pa-icp-params}{{4.3}{81}{}{table.4.3}{}}
+\newlabel{tab:pa-icp-params@cref}{{[table][3][4]4.3}{[1][79][]81}{}{}{}}
+\newlabel{eq:tf-correction}{{4.6}{81}{}{equation.4.6}{}}
+\newlabel{eq:tf-correction@cref}{{[equation][6][4]4.6}{[1][81][]81}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces ROS~2 TF transform tree before (left) and after (right) insertion of the pose correction frame. The correction is introduced between the SLAM-published \texttt  {odom} frame and downstream planning frames without modifying the SLAM system's own publications. $T_{\mathrm  {correction,base}}$ is derived from the ICP result via the extrinsic $T_{\mathrm  {base} \to \mathrm  {sensor}}$ (\cref  {eq:tf-correction}).}}{82}{}\protected@file@percent }
+\newlabel{fig:pa-tf-correction}{{4.11}{82}{}{figure.4.11}{}}
+\newlabel{fig:pa-tf-correction@cref}{{[figure][11][4]4.11}{[1][81][]82}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.7}Pipeline Execution Model}{82}{}\protected@file@percent }
+\newlabel{subsec:pa-execution-model}{{4.3.7}{82}{}{subsection.4.3.7}{}}
+\newlabel{subsec:pa-execution-model@cref}{{[subsection][7][4,3]4.3.7}{[1][82][]82}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.12}{\ignorespaces Pipeline execution model. Each localisation request is dispatched as a sequence of \texttt  {AsyncCommand} objects to an asynchronous task queue, which executes them in a dedicated worker thread pool. GPU-resident stages (FoundationStereo inference and 3DGS rendering) are protected by a semaphore concurrency guard. Incoming requests are queued independently, ensuring each observation is processed in full.}}{83}{}\protected@file@percent }
+\newlabel{fig:pa-execution-model}{{4.12}{83}{}{figure.4.12}{}}
+\newlabel{fig:pa-execution-model@cref}{{[figure][12][4]4.12}{[1][82][]83}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Results}{83}{}\protected@file@percent }
+\newlabel{sec:precise-alignment-results}{{4.4}{83}{}{section.4.4}{}}
+\newlabel{sec:precise-alignment-results@cref}{{[section][4][4]4.4}{[1][83][]83}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.5}Discussion}{83}{}\protected@file@percent }
+\newlabel{sec:precise-alignment-discussion}{{4.5}{83}{}{section.4.5}{}}
+\newlabel{sec:precise-alignment-discussion@cref}{{[section][5][4]4.5}{[1][83][]83}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.6}Summary}{83}{}\protected@file@percent }
+\newlabel{sec:precise-alignment-summary}{{4.6}{83}{}{section.4.6}{}}
+\newlabel{sec:precise-alignment-summary@cref}{{[section][6][4]4.6}{[1][83][]83}{}{}{}}
 \@setckpt{4-precise-alignment/precise-alignment}{
-\setcounter{page}{82}
+\setcounter{page}{84}
 \setcounter{equation}{6}
 \setcounter{enumi}{4}
 \setcounter{enumii}{0}
@@ -173,7 +185,7 @@
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
-\setcounter{figure}{8}
+\setcounter{figure}{12}
 \setcounter{table}{3}
 \setcounter{parentequation}{0}
 \setcounter{caption@flags}{2}

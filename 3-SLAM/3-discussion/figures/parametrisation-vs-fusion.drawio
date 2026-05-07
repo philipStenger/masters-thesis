@@ -1,0 +1,30 @@
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="500" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="2" value="Comparison of SLAM Configurations: Parametrisation vs. Sensor Fusion" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="185" y="10" width="800" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="3" value="&lt;b&gt;Baseline GLIM&lt;/b&gt;&lt;br&gt;&lt;br&gt;Scan-matching odometry only&lt;br&gt;No external reference&lt;br&gt;&lt;br&gt;&lt;i&gt;Failure modes:&lt;/i&gt;&lt;br&gt;Unbounded planar drift&lt;br&gt;Row-skipping cascade&lt;br&gt;Unpredictable run-to-run behaviour&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#b85450&quot;&gt;&lt;b&gt;Error: 1.25–7.36 %/m&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+      <mxGeometry x="50" y="60" width="270" height="270" as="geometry" />
+    </mxCell>
+    <mxCell id="4" value="&lt;b&gt;Refined GLIM&lt;/b&gt;&lt;br&gt;&lt;br&gt;Same architecture&lt;br&gt;Parameters optimised via LHS&lt;br&gt;&lt;br&gt;&lt;i&gt;Improvements:&lt;/i&gt;&lt;br&gt;50–85% error reduction&lt;br&gt;Delayed onset of failure&lt;br&gt;&lt;br&gt;&lt;i&gt;Residual limitations:&lt;/i&gt;&lt;br&gt;Scan-matching instability persists&lt;br&gt;Occasional catastrophic failure&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#b8860b&quot;&gt;&lt;b&gt;Error: 0.61–3.62 %/m&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+      <mxGeometry x="450" y="60" width="270" height="270" as="geometry" />
+    </mxCell>
+    <mxCell id="5" value="&lt;b&gt;Proposed Method&lt;/b&gt;&lt;br&gt;&lt;br&gt;GNSS-augmented factor graph&lt;br&gt;LiDAR–inertial + sparse GNSS&lt;br&gt;&lt;br&gt;&lt;i&gt;Improvements:&lt;/i&gt;&lt;br&gt;97–99% error reduction&lt;br&gt;Near-deterministic behaviour&lt;br&gt;No catastrophic failure observed&lt;br&gt;&lt;br&gt;&lt;i&gt;Key property:&lt;/i&gt;&lt;br&gt;0.65–0.78% GNSS utilisation&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#82b366&quot;&gt;&lt;b&gt;Error: 0.015–0.050 %/m&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+      <mxGeometry x="850" y="60" width="270" height="270" as="geometry" />
+    </mxCell>
+    <mxCell id="6" value="Parameter Optimisation" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="3" target="4" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="7" value="Sensor Fusion" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#82b366;fontColor=#82b366;strokeWidth=2;fontStyle=1;" edge="1" source="4" target="5" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="8" value="Same modality — bounded gain" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="320" y="265" width="130" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="9" value="Independent modality — qualitative shift" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=2;fontColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="720" y="265" width="130" height="30" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>

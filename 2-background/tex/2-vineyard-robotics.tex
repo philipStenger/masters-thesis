@@ -1,7 +1,9 @@
 \section{Robot Localisation in Vineyard and Orchard Robotics}
 \label{sec:vineyard-robotics}
 
-Unlike structured industrial settings, agricultural environments are "semi-structured" environments characterised by homogeneous structures, seasonal variability, and dynamic occlusion \cite{hroobBenchmarkVisual3D2021}. Moreover, the reliance on Global Navigation Satellite Systems (GNSS) often falls short in orchards as dense canopies can attenuate satellite signals or induce multipath errors, making standard GNSS insufficient for centimetre-level precision tasks \cite{tangFruitTreeMappingSystem2024}. Therefore, research has focused on developing technologies that use semantic understanding, geometric constraints, and multi-sensor fusion to operate reliably in these GNSS-denied environments \cite{tangFruitTreeMappingSystem2024}.
+The preceding section established the algorithmic foundations of probabilistic localisation, sensor fusion, and graph-based optimisation. This section examines how these principles are applied and adapted within vineyard and orchard environments, where domain-specific constraints have motivated a distinct body of applied SLAM research.
+
+Unlike structured industrial settings, agricultural environments are ``semi-structured'' environments characterised by homogeneous structures, seasonal variability, and dynamic occlusion~\cite{hroobBenchmarkVisual3D2021}. The reliance on Global Navigation Satellite Systems (GNSS) often falls short in orchards as dense canopies can attenuate satellite signals or induce multipath errors, making standard GNSS insufficient for centimetre-level precision tasks~\cite{tangFruitTreeMappingSystem2024}. Therefore, research has focused on developing technologies that use semantic understanding, geometric constraints, and multi-sensor fusion to operate reliably in these GNSS-denied environments~\cite{tangFruitTreeMappingSystem2024}.
 
 \subsection{Environmental Constraints and Challenges}
 \label{subsec:env-constraints}
@@ -9,7 +11,7 @@ Semi-structured agricultural environments create unique constraints that pose a 
 
 \paragraph{Perceptual Aliasing and Geometric Repetitiveness}
 
-Commercial crops in vineyards and orchards are planted in long, parallel rows with uniform spacing to maximise yield and facilitate machine access. The long uniform rows create a ``corridor effect'', especially for LiDAR-based systems. The corridor effect is characterised by the absence of distinct geometric features along the longitudinal position of the robot (the direction of movement down the row), such that the longitudinal axis becomes unobservable, as illustrated in \cref{fig:corridorSingleDegree}. This can lead to significant drift in the estimated trajectory as the robot cannot determine if it has travelled one metre forward or five metres forward \cite{khanReviewSLAMTechniques2025}. Visual systems face a similar challenge wherein standard feature descriptors (e.g., ORB, SIFT) extracted from one part of a row are statistically indistinguishable from those in another, resulting in erroneous feature matching and false-positive loop closure \cite{papadimitriouLoopClosureDetection2022}.
+Commercial crops in vineyards and orchards are planted in long, parallel rows with uniform spacing to maximise yield and facilitate machine access. The long uniform rows create a ``corridor effect'', especially for LiDAR-based systems. The corridor effect is characterised by the absence of distinct geometric features along the longitudinal position of the robot (the direction of movement down the row), such that the longitudinal axis becomes unobservable, as illustrated in \cref{fig:corridorSingleDegree}. This can lead to significant drift in the estimated trajectory as the robot cannot determine if it has travelled one metre forward or five metres forward~\cite{khanReviewSLAMTechniques2025}. Visual systems face a similar challenge wherein standard feature descriptors (e.g., ORB, SIFT) extracted from one part of a row are statistically indistinguishable from those in another, resulting in erroneous feature matching and false-positive loop closure~\cite{papadimitriouLoopClosureDetection2022}.
 
 \begin{figure}
     \centering
@@ -19,7 +21,7 @@ Commercial crops in vineyards and orchards are planted in long, parallel rows wi
 \end{figure}
 
 \paragraph{Dynamic and Unstructured Environment}
-Many SLAM systems make an assumption of a static world, however orchards and vineyards are dynamic environments. Short-term dynamics such as wind-induced canopy motion, workers, and machines can pose challenges to mapping and loop closure. Long-term dynamics include seasonal changes, wherein a map constructed during the dormant winter season can differ greatly compared with the full-canopy summer season, as illustrated in \cref{fig:leafVsNoLeaf}. This can pose challenges to long-term localisation and map maintenance \cite{schmidtROVERMultiSeasonDataset2024}.
+Many SLAM systems make an assumption of a static world; however, orchards and vineyards are dynamic environments. Short-term dynamics such as wind-induced canopy motion, workers, and machines can pose challenges to mapping and loop closure. Long-term dynamics include seasonal changes, wherein a map constructed during the dormant winter season can differ greatly compared with the full-canopy summer season, as illustrated in \cref{fig:leafVsNoLeaf}. This can pose challenges to long-term localisation and map maintenance~\cite{schmidtROVERMultiSeasonDataset2024}.
 
 \begin{figure}
     \centering
@@ -28,16 +30,16 @@ Many SLAM systems make an assumption of a static world, however orchards and vin
     \label{fig:leafVsNoLeaf}
 \end{figure}
 
-Furthermore, the uneven terrain can cause camera shake and wheel slippage that introduces high-frequency noise into odometry estimates \cite{zhangKeyTechnologiesIntelligent2026}.
+Uneven terrain can also cause camera shake and wheel slippage that introduces high-frequency noise into odometry estimates~\cite{zhangKeyTechnologiesIntelligent2026}.
 
 \subsection{LiDAR SLAM}
 \label{subsec:lidar-slam-background}
 
 LiDAR SLAM is often favoured due to its illumination invariance, but standard scan-matching algorithms like ICP often fail in symmetric vineyard rows due to the aforementioned perceptual aliasing along the longitudinal axis. 
 
-VineSLAM tries to address the perceptual aliasing problem by grouping point clouds into specific vineyard features: semi-planes (for the continuous canopy/trellis) and points (for trunks/posts). It utilises a Particle Filter that fuses these features; semi-planes offer lateral constraints to keep the robot centred, and point features provide longitudinal constraints along the row. Comparative studies show VineSLAM outperforms general-purpose algorithms like LeGO-LOAM in symmetric corridors \cite{aguiarLocalizationMappingAgriculture2022}.
+VineSLAM tries to address the perceptual aliasing problem by grouping point clouds into specific vineyard features: semi-planes (for the continuous canopy/trellis) and points (for trunks/posts). It utilises a Particle Filter that fuses these features; semi-planes offer lateral constraints to keep the robot centred, and point features provide longitudinal constraints along the row. Comparative studies show VineSLAM outperforms general-purpose algorithms like LeGO-LOAM in symmetric corridors~\cite{aguiarLocalizationMappingAgriculture2022}.
 
-Tree-SLAM, deployed on a ground robot equipped with RGB-D cameras, RTK-GPS, and an IMU (\cref{fig:treeSlamRobotPlatform}), detects individual tree trunks within point clouds and maps the environment as a sparse graph of tree landmarks rather than a dense point cloud, as shown in \cref{fig:treeSLAMPipeline}. This method achieved localisation errors as low as 18 cm for individual trees (less than 20\% of standard planting distance) in apple and pear orchards \cite{rapado-rinconTreeSLAMSemanticObject2025a}. This object-level approach improves navigation but also facilitates agronomic tasks such as per-tree yield monitoring \cite{rapado-rinconTreeSLAMSemanticObject2025a}.
+Tree-SLAM, deployed on a ground robot equipped with RGB-D cameras, RTK-GPS, and an IMU (\cref{fig:treeSlamRobotPlatform}), detects individual tree trunks within point clouds and maps the environment as a sparse graph of tree landmarks rather than a dense point cloud, as shown in \cref{fig:treeSLAMPipeline}. This method achieved localisation errors as low as 18 cm for individual trees (less than 20\% of standard planting distance) in apple and pear orchards~\cite{rapado-rinconTreeSLAMSemanticObject2025a}. This object-level approach improves navigation but also facilitates agronomic tasks such as per-tree yield monitoring~\cite{rapado-rinconTreeSLAMSemanticObject2025a}.
 
 \begin{figure}
     \centering
@@ -53,18 +55,18 @@ Tree-SLAM, deployed on a ground robot equipped with RGB-D cameras, RTK-GPS, and 
     \label{fig:treeSLAMPipeline}
 \end{figure}
 
-The April-LIO-SAM framework tightly couples LiDAR-Inertial Odometry (LIO-SAM) with AprilTags acting as artificial landmarks. April tags provide absolute pose constraints that constrain the drift from LiDAR odometry. Experimental validation in orchards demonstrated that with tags spaced at 3 to 5 metres, the system achieves a root-mean-square error (RMSE) of approximately 0.057 m, maintaining stability even under occlusion and varying illumination \cite{guanResearchAgriculturalAutonomous2025}. Another multi-sensor system achieved positioning errors of 0.57 cm in pear orchards, using visual data for loop closure and LiDAR for geometric structure \cite{tangFruitTreeMappingSystem2024}.
+The April-LIO-SAM framework tightly couples LiDAR-Inertial Odometry (LIO-SAM) with AprilTags acting as artificial landmarks. AprilTags provide absolute pose constraints that constrain the drift from LiDAR odometry. Experimental validation in orchards demonstrated that with tags spaced at 3 to 5 metres, the system achieves a root-mean-square error (RMSE) of approximately 0.057 m, maintaining stability even under occlusion and varying illumination~\cite{guanResearchAgriculturalAutonomous2025}. Another multi-sensor system fusing visual loop closure with LiDAR geometric structure achieved an odometry RMSE of 6.04\,cm and fruit tree positioning errors of 0.57\,cm in pear orchards~\cite{tangFruitTreeMappingSystem2024}.
 
 \paragraph{Benchmarking Datasets}
 Progress in the field is accelerated by open-source datasets tailored to agricultural challenges:
 \begin{itemize}
-    \item \textbf{MAgro Dataset:} Collected in apple and pear orchards using LiDAR, stereo cameras, and RTK-GPS. It is designed to benchmark loop closure and localisation under varying weather and illumination conditions \cite{schmidtROVERMultiSeasonDataset2024} \cite{marzoatancoMAgroDatasetDataset2024}.
-    \item \textbf{Bacchus Long-Term (BLT) Dataset:} A unique dataset capturing a vineyard over a 7-month period. It supports research into "lifelong SLAM," challenging algorithms to handle the drastic morphological changes of the canopy from winter dormancy to summer harvest \cite{polvaraBacchusLongTermBLT2024}.
-    \item \textbf{AgriLiRa4D:} A recent multi-modal dataset (LiDAR, Camera, 4D Radar) collected via UAV over diverse terrains (flat, hilly), facilitating research into radar-based fusion and aerial coverage paths \cite{zhanAgriLiRa4DMultiSensorUAV2026}.
+    \item \textbf{MAgro Dataset:} Collected in apple and pear orchards using LiDAR, stereo cameras, and RTK-GPS. It is designed to benchmark loop closure and localisation under varying weather and illumination conditions~\cite{schmidtROVERMultiSeasonDataset2024, marzoatancoMAgroDatasetDataset2024}.
+    \item \textbf{Bacchus Long-Term (BLT) Dataset:} A unique dataset capturing a vineyard over a 7-month period. It supports research into ``lifelong SLAM,'' challenging algorithms to handle the drastic morphological changes of the canopy from winter dormancy to summer harvest~\cite{polvaraBacchusLongTermBLT2024}.
+    \item \textbf{AgriLiRa4D:} A recent multi-modal dataset (LiDAR, Camera, 4D Radar) collected via UAV over diverse terrains (flat, hilly), facilitating research into radar-based fusion and aerial coverage paths~\cite{zhanAgriLiRa4DMultiSensorUAV2026}.
 \end{itemize}
 
 \subsection{Summary}
 \label{subsec:vineyard-robotics-summary}
-The development of SLAM for orchards and vineyards has evolved from the application of generic algorithms to the design of domain-specific architectures. Current research prioritises semantic SLAM to filter dynamic agricultural noise and object-level mapping (e.g., Tree-SLAM) to resolve geometric ambiguity. Furthermore, the integration of multi-sensor fusion (e.g., April-LIO-SAM) has proven essential for achieving the centimetre-level accuracy required for precision tasks. Future work is increasingly driven by long-term autonomy, leveraging datasets like BLT to enable robots that can adapt to the seasonal morphological changes of the canopy \cite{tangFruitTreeMappingSystem2024, polvaraBacchusLongTermBLT2024}.
+The development of SLAM for orchards and vineyards has evolved from the application of generic algorithms to the design of domain-specific architectures. Current research prioritises semantic SLAM to filter dynamic agricultural noise and object-level mapping (e.g., Tree-SLAM) to resolve geometric ambiguity. The integration of multi-sensor fusion (e.g., April-LIO-SAM) has also proven essential for achieving the centimetre-level accuracy required for precision tasks. Future work is increasingly driven by long-term autonomy, leveraging datasets like BLT to enable robots that can adapt to the seasonal morphological changes of the canopy~\cite{tangFruitTreeMappingSystem2024, polvaraBacchusLongTermBLT2024}.
 
 Within vineyard robotics, pruning represents the most demanding localisation sub-problem. In addition to the perceptual aliasing and sensor-fusion challenges described above, it imposes explicit millimetre-level accuracy requirements on pose estimation and introduces constraints particular to the dormant season, reviewed in \cref{sec:vineyard-pruning}.

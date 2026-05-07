@@ -1,0 +1,92 @@
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- Node 1: Input (orange) -->
+    <mxCell id="2" value="Non-Ground Cloud (from Patchwork++)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="283" y="30" width="240" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Node 2: Statistical Outlier Removal -->
+    <mxCell id="3" value="1. Statistical Outlier Removal" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+      <mxGeometry x="283" y="130" width="240" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="4" value="k = 16 neighbours, &#955; = 2.0 std dev" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#666666;fillColor=#f5f5f5;strokeColor=none;" vertex="1" parent="1">
+      <mxGeometry x="545" y="130" width="210" height="22" as="geometry" />
+    </mxCell>
+    <mxCell id="5" value="Removes: isolated Livox streak artefacts" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#d79b00;fillColor=none;strokeColor=none;" vertex="1" parent="1">
+      <mxGeometry x="545" y="154" width="210" height="22" as="geometry" />
+    </mxCell>
+
+    <!-- Node 3: Angular Filtering -->
+    <mxCell id="6" value="2. Angular Filtering" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+      <mxGeometry x="283" y="230" width="240" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="7" value="retain azimuth &#8722;180&#176; to 0&#176;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#666666;fillColor=#f5f5f5;strokeColor=none;" vertex="1" parent="1">
+      <mxGeometry x="545" y="230" width="210" height="22" as="geometry" />
+    </mxCell>
+    <mxCell id="8" value="Removes: returns from robot body / opposing row" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#d79b00;fillColor=none;strokeColor=none;" vertex="1" parent="1">
+      <mxGeometry x="545" y="254" width="210" height="26" as="geometry" />
+    </mxCell>
+
+    <!-- Node 4: Radial Outlier Removal -->
+    <mxCell id="9" value="3. Radial Outlier Removal" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+      <mxGeometry x="283" y="330" width="240" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="10" value="radius = 0.05 m, min 30 neighbours" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#666666;fillColor=#f5f5f5;strokeColor=none;" vertex="1" parent="1">
+      <mxGeometry x="545" y="330" width="210" height="22" as="geometry" />
+    </mxCell>
+    <mxCell id="11" value="Removes: sparse clusters not forming coherent surfaces" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#d79b00;fillColor=none;strokeColor=none;" vertex="1" parent="1">
+      <mxGeometry x="545" y="354" width="210" height="26" as="geometry" />
+    </mxCell>
+
+    <!-- Node 5: Normal-Based Filtering -->
+    <mxCell id="12" value="4. Normal-Based Filtering" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+      <mxGeometry x="283" y="430" width="240" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="13" value="k = 75, threshold 100&#176;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#666666;fillColor=#f5f5f5;strokeColor=none;" vertex="1" parent="1">
+      <mxGeometry x="545" y="430" width="210" height="22" as="geometry" />
+    </mxCell>
+    <mxCell id="14" value="Removes: points with inverted / pathological normals" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#d79b00;fillColor=none;strokeColor=none;" vertex="1" parent="1">
+      <mxGeometry x="545" y="454" width="210" height="26" as="geometry" />
+    </mxCell>
+
+    <!-- Node 6: Normal-Based Smoothing -->
+    <mxCell id="15" value="5. Normal-Based Smoothing" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+      <mxGeometry x="283" y="530" width="240" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="16" value="k = 30, threshold 25&#176;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#666666;fillColor=#f5f5f5;strokeColor=none;" vertex="1" parent="1">
+      <mxGeometry x="545" y="530" width="210" height="22" as="geometry" />
+    </mxCell>
+    <mxCell id="17" value="Removes: boundary noise; enforces local normal consistency" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;fontColor=#d79b00;fillColor=none;strokeColor=none;" vertex="1" parent="1">
+      <mxGeometry x="545" y="554" width="210" height="26" as="geometry" />
+    </mxCell>
+
+    <!-- Node 7: Output (green) -->
+    <mxCell id="18" value="Filtered Vine Point Cloud &#8594; ICP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="283" y="650" width="240" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Connectors -->
+    <mxCell id="19" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="2" target="3" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="20" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="3" target="6" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="21" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="6" target="9" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="22" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="9" target="12" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="23" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="12" target="15" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="24" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="15" target="18" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>

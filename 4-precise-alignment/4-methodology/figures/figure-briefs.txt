@@ -1,0 +1,440 @@
+FIGURE BRIEFS FOR CHAPTER 4 — SECTION 4.3 PROPOSED METHODS
+============================================================
+All figures are intended for draw.io (drawio skill).
+Each brief gives: placement context, suggested label, suggested caption,
+content description, and draw.io diagram type.
+
+================================================================
+FIGURE 1 — System-Level Pipeline Dataflow
+================================================================
+
+PLACEMENT
+  After the System Overview subsection (§4.3.1), immediately after line:
+  "The initial pose estimate consumed by the pipeline is provided by the
+   ENU-aligned SLAM system described in §4.2."
+  A commented-out TODO placeholder already exists in the source:
+    % TODO: insert system-level pipeline dataflow figure here
+    % \label{fig:pa-pipeline-overview}
+
+SUGGESTED LABEL
+  fig:pa-pipeline-overview
+
+SUGGESTED CAPTION
+  "System-level dataflow of the precise-alignment pipeline. The stereo
+   vision branch (left) and LiDAR branch (right) are shown in parallel;
+   both converge on the shared ICP registration stage. The corrected pose
+   is applied to the ROS 2 TF tree via the mechanism described in
+   §4.3.5."
+
+DRAW.IO DIAGRAM TYPE
+  Flowchart / architecture diagram with two parallel vertical lanes
+
+CONTENT
+  Top-level input node:
+    [Initial Pose (from SLAM, §4.2)]
+
+  Split into two parallel lanes:
+
+  LEFT LANE — Stereo Vision Branch:
+    [ZED Stereo Camera(s)]
+      → [FoundationStereo Depth Estimation]  (§4.3.3.1)
+         (annotate: disparity → metric depth Z = fB/d, z_far = 1.0 m)
+      → [Back-project to 3D Point Cloud + RGB]
+      → [Radius Outlier Removal]
+      → (diamond) [Dual-Camera Config?]
+            Yes → [Transform Rear Cloud → Front Frame (T_back→front)]
+                  → [Concatenate Front + Rear Clouds]
+            No  → (pass through)
+      → [Trunk Segmentation]  (§4.3.3.3)
+           • Morphological Closing (voxel 0.02 m, radius 0.005 m)
+           • DBSCAN Clustering (ε=0.05 m, m_min=200)
+           • Voxel Density Filtering (0.02 m, min 20 pts/voxel)
+      → [Filtered Source Cloud (Stereo)]
+
+  RIGHT LANE — LiDAR Branch:
+    [Livox Solid-State LiDAR]
+      → [Dense Scan Accumulation]  (§4.3.4.1)
+         (non-repetitive pattern, commanded interval)
+      → [Patchwork++ Ground Removal]  (§4.3.4.2)
+         (sensor height 0.88 m, threshold 0.125 m, RNR+RVPF enabled)
+      → [Statistical Outlier Removal (k=16, λ=2.0)]
+      → [Angular Filtering (−180° to 0°)]
+      → [Radial Outlier Removal (r=0.05 m, min 30 neighbours)]
+      → [Normal-Based Filtering (k=75, threshold 100°)]
+      → [Normal-Based Smoothing (k=30, threshold 25°)]
+      → [Filtered Source Cloud (LiDAR)]
+
+  MERGE — Shared ICP Registration Stage (§4.3.5):
+    Both lanes feed into:
+    [Candidate Viewpoint Sampling (N=5)]
+      → [3DGS Rendering at Each Candidate]  (§4.3.2)
+         (GPU, taichi-splatting, depth-filtered target clouds)
+      → [Voxel Downsampling (v=0.0075 m) — source & each target]
+      → [ICP: source vs. each of N target clouds (Open3D tensor)]
+         (stereo: standard L2; LiDAR: Cauchy robust kernel k=0.15)
+      → [Select Best: highest fitness + lowest RMSE]
+      → [Pose Correction + TF Broadcast]  (§4.3.5)
+
+  STYLING NOTES
+    - Use distinct background fill colours for the two lanes
+      (e.g. light blue for stereo, light orange for LiDAR).
+    - Use a darker colour for shared components (ICP onwards).
+    - Section references (§4.3.x) can appear as small annotations
+      below each block.
+
+
+================================================================
+FIGURE 2 — Dual-Camera Point Cloud Fusion
+================================================================
+
+PLACEMENT
+  Inside §4.3.3.2 "Dual-Camera Point Cloud Fusion", after the equation:
+    T_{back→front} = T_{front→ref}^{-1} · T_{back→ref}
+  and before the sentence beginning "The merged cloud provides greater
+  angular coverage …"
+
+SUGGESTED LABEL
+  fig:pa-dual-camera
+
+SUGGESTED CAPTION
+  "Dual-camera point cloud fusion. The rear ZED camera's point cloud is
+   transformed into the front camera frame using the extrinsic
+   T_{back→front}, and the two clouds are concatenated. The merged cloud
+   provides wider angular coverage of the vine trunk than either camera
+   alone."
+
+DRAW.IO DIAGRAM TYPE
+  Simple geometry / top-down schematic diagram
+
+CONTENT
+  Draw a top-down view of the robot platform (simple rectangle).
+
+  On the FRONT of the robot:
+    - A camera icon labelled "ZED Front Camera"
+    - An arc/cone showing its field of view facing the vine
+    - Label: "Point Cloud A (front frame)"
+
+  On the REAR of the robot:
+    - A camera icon labelled "ZED Rear Camera"
+    - An arc/cone showing its field of view facing the same vine
+      (from the opposite side)
+    - Label: "Point Cloud B (rear frame)"
+
+  Between the two cameras, show a vine (simple vertical cylinder/trunk
+  shape) in the centre.
+
+  Below the robot diagram, show the transform chain:
+    T_{back→ref}  and  T_{front→ref}
+    combined via equation to yield  T_{back→front}
+
+  Then show a merge step:
+    [Point Cloud A]  +  [Point Cloud B transformed by T_{back→front}]
+    → [Merged Cloud (front frame)]
+
+  STYLING NOTES
+    - Keep the robot as a plain rectangle labelled "Robot Platform".
+    - FOV cones should be dashed or semi-transparent.
+    - The vine trunk can be a small filled ellipse or cylinder icon.
+    - The transform equation can be shown as a text box beneath the
+      geometry diagram.
+
+
+================================================================
+FIGURE 3 — Trunk Segmentation Pipeline (Stereo)
+================================================================
+
+PLACEMENT
+  Opening §4.3.3.3 "Trunk Segmentation", before the three bold-stage
+  descriptions, replacing or accompanying the paragraph:
+  "A custom trunk segmentation pipeline developed for this work is applied
+  to the merged (or single-camera) point cloud…"
+
+SUGGESTED LABEL
+  fig:pa-trunk-segmentation
+
+SUGGESTED CAPTION
+  "Stereo trunk segmentation pipeline. The merged point cloud passes
+   through three sequential stages — morphological closing, DBSCAN
+   clustering, and voxel density filtering — to isolate the vine trunk
+   from background vegetation, ground returns, and noise."
+
+DRAW.IO DIAGRAM TYPE
+  Linear process flowchart (left to right or top to bottom)
+
+CONTENT
+  Five nodes connected by arrows:
+
+  [Raw / Merged Point Cloud]
+    ↓
+  [1. Morphological Closing]
+    Annotate: voxel size 0.02 m, closing kernel radius 0.005 m
+    Purpose: fills gaps from specular reflections / missing depth
+    ↓
+  [2. DBSCAN Clustering]
+    Annotate: ε = 0.05 m, m_min = 200
+    Action: retain dominant cluster → vine trunk
+    Discard: noise + small clusters
+    ↓
+  [3. Voxel Density Filtering]
+    Annotate: voxel size 0.02 m, min 20 pts/voxel
+    Purpose: remove sparsely populated surface regions
+    ↓
+  [Trunk Point Cloud → ICP]
+
+  Optionally, add a small side note next to the DBSCAN node:
+    "Dominant cluster = vine trunk; noise points discarded"
+
+  STYLING NOTES
+    - Each stage block can include a small icon:
+        Closing: grid/mesh icon
+        DBSCAN: scatter dots with cluster circles
+        Density filter: voxel grid icon
+    - Use a consistent accent colour for the trunk output node to
+      visually mark it as the output delivered to ICP.
+
+
+================================================================
+FIGURE 4 — LiDAR Point Cloud Filtering Pipeline
+================================================================
+
+PLACEMENT
+  Opening §4.3.4.3 "Point Cloud Processing", before the five bold-stage
+  descriptions, replacing or accompanying the sentence:
+  "Following ground removal, the non-ground point cloud is passed through
+  a custom multi-stage filtering pipeline…"
+
+SUGGESTED LABEL
+  fig:pa-lidar-filtering
+
+SUGGESTED CAPTION
+  "LiDAR point cloud filtering pipeline. Five sequential stages process
+   the non-ground Livox cloud to isolate vine wood structure prior to ICP
+   registration."
+
+DRAW.IO DIAGRAM TYPE
+  Linear process flowchart (top to bottom)
+
+CONTENT
+  Seven nodes:
+
+  [Non-Ground Cloud (from Patchwork++)]
+    ↓
+  [1. Statistical Outlier Removal]
+    Annotate: k = 16 neighbours, λ = 2.0 std dev
+    Removes: isolated Livox streak artefacts
+    ↓
+  [2. Angular Filtering]
+    Annotate: retain azimuth −180° to 0°
+    Removes: returns from robot body / opposing vineyard row
+    ↓
+  [3. Radial Outlier Removal]
+    Annotate: radius = 0.05 m, min 30 neighbours
+    Removes: sparse point clusters not forming coherent surfaces
+    ↓
+  [4. Normal-Based Filtering]
+    Annotate: k = 75, threshold 100°
+    Removes: points with inverted / pathological normals
+    ↓
+  [5. Normal-Based Smoothing]
+    Annotate: k = 30, threshold 25°
+    Removes: boundary noise; enforces local normal consistency
+    ↓
+  [Filtered Vine Point Cloud → ICP]
+
+  STYLING NOTES
+    - Place parameter annotations to the right of each stage block.
+    - Use a light red/amber tint for the "Removes" annotations to
+      visually distinguish what is discarded vs. retained.
+    - The final output node should match the styling used in
+      Figure 1 (system overview) for the LiDAR filtered cloud.
+
+
+================================================================
+FIGURE 5 — ICP Candidate Viewpoint Sampling and Selection
+================================================================
+
+PLACEMENT
+  Inside §4.3.5 "ICP Registration Against the 3DGS Model", after
+  step (c) "Reference cloud rendering" and before step (d)
+  "Downsampling":
+  "…yielding N target point clouds."  ← insert figure here.
+
+SUGGESTED LABEL
+  fig:pa-icp-candidates
+
+SUGGESTED CAPTION
+  "ICP candidate viewpoint sampling and selection. N = 5 candidate poses
+   are sampled in the neighbourhood of the initial SLAM pose; the 3DGS
+   model is rendered at each candidate to produce a reference point cloud.
+   ICP is run independently for each candidate, and the result with the
+   highest fitness score and lowest RMSE is selected as the final
+   alignment."
+
+DRAW.IO DIAGRAM TYPE
+  Two-part figure: (top) spatial sampling diagram; (bottom) selection
+  flowchart. Can be combined in one draw.io canvas.
+
+TOP PART — Spatial diagram (top-down view):
+  - Central circle/cross labelled "Initial SLAM Pose (x₀)"
+  - Five surrounding smaller circles labelled "Candidate 1" … "Candidate 5"
+    arranged in a loose cluster around x₀ (not a perfect grid — suggests
+    perturbation sampling)
+  - A vine trunk icon at a fixed location in the scene
+  - For each candidate, a dashed arrow pointing toward the vine to
+    suggest "rendered view from this pose"
+  - Label the cluster: "Perturbed poses sampled around x₀"
+
+BOTTOM PART — Selection flowchart:
+  [Source Cloud (stereo or LiDAR)]
+    ↓  (voxel downsample v = 0.0075 m)
+  [Downsampled Source Cloud]
+
+  [3DGS Model] → rendered at each candidate →
+  [Target Cloud 1] … [Target Cloud N]
+    ↓  (voxel downsample v = 0.0075 m each)
+
+  Run ICP independently:
+  [ICP(source, target_1)] → (fitness_1, RMSE_1)
+  [ICP(source, target_2)] → (fitness_2, RMSE_2)
+  …
+  [ICP(source, target_N)] → (fitness_N, RMSE_N)
+
+  → [Select: max fitness + min RMSE]
+  → [Best Transformation T*]
+  → [Pose Correction]
+
+  STYLING NOTES
+    - The spatial diagram is the key differentiator of this method;
+      make it prominent (larger than the flowchart part).
+    - The five candidate nodes can be styled as small robot icons or
+      simple labelled circles.
+    - Use a dashed border for the "candidate" cluster bounding box.
+    - In the selection step, highlight the winning candidate in a
+      distinct accent colour.
+
+
+================================================================
+FIGURE 6 — ROS 2 TF Tree Correction Mechanism
+================================================================
+
+PLACEMENT
+  Inside §4.3.5 "Coordinate Frames and Pose Correction", after the
+  equation for T_{correction, base} (Eq. 4.x) and before the sentence:
+  "Because the correction is published as a static transform…"
+  A commented-out TODO placeholder already exists in the source:
+    % TODO: insert TF tree diagram showing the original and corrected
+    %        transform chains
+    % \label{fig:pa-tf-correction}
+
+SUGGESTED LABEL
+  fig:pa-tf-correction
+
+SUGGESTED CAPTION
+  "ROS 2 TF transform tree before (left) and after (right) insertion of
+   the pose correction frame. The correction is introduced between the
+   SLAM-published odom frame and downstream planning frames without
+   modifying the SLAM system's own publications. T_{correction,base} is
+   derived from the ICP result via the extrinsic T_{base→sensor}."
+
+DRAW.IO DIAGRAM TYPE
+  Tree / hierarchy diagram (two side-by-side trees)
+
+LEFT TREE — Before correction:
+  [local_enu]
+    └─ [map]  (published by SLAM)
+         └─ [odom]  (published by SLAM)
+              └─ [base_link]
+                   └─ [sensor_frame]  (e.g. camera / LiDAR)
+
+RIGHT TREE — After correction:
+  [local_enu]
+    └─ [map]  (published by SLAM — unchanged)
+         └─ [odom]  (published by SLAM — unchanged)
+              └─ [base_link_corrected]  ← NEW: static correction frame
+                   (annotate: T_{correction,base}, published as static TF)
+                   └─ [base_link]
+                        └─ [sensor_frame]
+
+  Between left and right trees, place a large horizontal arrow labelled
+  "ICP convergence → correction applied"
+
+  Below the right tree, add a small note box:
+    "T_{correction,base} =
+       T_{base→sensor}^{-1} · T_{correction,sensor} · T_{base→sensor}"
+    (reference Eq. 4.x in the thesis)
+
+  STYLING NOTES
+    - Use grey/faded styling for unchanged nodes to draw attention to
+      the new correction frame.
+    - Highlight the new correction frame node in a bright accent colour
+      (e.g., green or gold).
+    - Frame labels should match the exact strings used in the thesis
+      text: local_enu, map, odom, base_link, sensor_frame.
+
+
+================================================================
+FIGURE 7 — Pipeline Execution Model (AsyncCommand Architecture)
+================================================================
+
+PLACEMENT
+  Inside §4.3.6 "Pipeline Execution Model", after the sentence:
+  "Each localisation request is encapsulated as an ordered sequence of
+   command objects following the command design pattern."
+  and before the description of the semaphore-based concurrency guard.
+
+SUGGESTED LABEL
+  fig:pa-execution-model
+
+SUGGESTED CAPTION
+  "Pipeline execution model. Each localisation request is dispatched as
+   a sequence of AsyncCommand objects to an asynchronous task queue,
+   which executes them in a dedicated worker thread pool. GPU-resident
+   stages (FoundationStereo inference and 3DGS rendering) are protected
+   by a semaphore concurrency guard. Incoming requests are queued
+   independently, ensuring each observation is processed in full."
+
+DRAW.IO DIAGRAM TYPE
+  Architecture / sequence-style diagram with swim lanes
+
+CONTENT
+  Three horizontal swim lanes:
+
+  LANE 1 — ROS 2 Executor:
+    [Sensor Callback: new image / LiDAR scan received]
+      → [Create AsyncCommand sequence for modality]
+         (stereo sequence: depth-est → fusion? → segmentation → render → ICP → correct)
+         (LiDAR sequence: accumulation → ground-removal → filtering → render → ICP → correct)
+      → [Submit sequence to Task Queue]
+
+  LANE 2 — Task Queue (Worker Thread Pool):
+    [Queue: Job 1 → Job 2 → …]
+    (show that jobs are processed sequentially — one at a time)
+    For each job:
+      → Execute AsyncCommand 1 (CPU stage)
+      → Execute AsyncCommand 2 (GPU stage — acquire semaphore)
+           [GPU Semaphore: max 1 concurrent GPU job]
+      → Execute AsyncCommand 3 (ICP — CPU/GPU)
+      → Execute AsyncCommand 4 (Pose Correction)
+      → Release semaphore
+      → Job complete
+
+  LANE 3 — GPU:
+    [FoundationStereo Inference]   ← guarded by semaphore
+    [3DGS Rendering (taichi-splatting)]  ← guarded by semaphore
+    (show these as non-overlapping in time — semaphore prevents
+     simultaneous GPU kernel execution)
+
+  STYLING NOTES
+    - Use a different fill colour for GPU-resident stages
+      (e.g., light purple) to distinguish them from CPU stages.
+    - Draw the semaphore as a lock icon beside the GPU stages.
+    - Show a "new request arrives while Job 1 in progress" annotation
+      with a curved arrow going to the back of the queue, to illustrate
+      the non-blocking queueing behaviour.
+    - Keep the diagram relatively simple — the key insight is:
+      (a) ROS 2 is not blocked, (b) GPU work is serialised.
+
+
+================================================================
+END OF FIGURE BRIEFS
+================================================================

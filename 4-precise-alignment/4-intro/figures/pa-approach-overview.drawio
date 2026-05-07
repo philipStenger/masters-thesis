@@ -1,0 +1,75 @@
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- Stage 1: Point Cloud Acquisition -->
+    <mxCell id="2" value="1. Point Cloud Acquisition" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="435" y="60" width="300" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="3" value="stereo camera or spinning LiDAR" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
+      <mxGeometry x="435" y="113" width="300" height="16" as="geometry" />
+    </mxCell>
+
+    <!-- Stage 2: Point Cloud Preprocessing -->
+    <mxCell id="4" value="2. Point Cloud Preprocessing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="435" y="200" width="300" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="5" value="noise filtering · ground plane removal · voxel downsampling" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
+      <mxGeometry x="435" y="253" width="300" height="16" as="geometry" />
+    </mxCell>
+
+    <!-- Stage 3: ICP Registration -->
+    <mxCell id="6" value="3. ICP Registration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="435" y="340" width="300" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="7" value="minimises sum of squared source-to-target point distances" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
+      <mxGeometry x="435" y="393" width="300" height="16" as="geometry" />
+    </mxCell>
+
+    <!-- Stage 4: Pose Update -->
+    <mxCell id="8" value="4. Pose Update" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="435" y="480" width="300" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="9" value="rigid transform (R, t) applied to robot pose estimate" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
+      <mxGeometry x="435" y="533" width="300" height="16" as="geometry" />
+    </mxCell>
+
+    <!-- Output: Arm Path Planner -->
+    <mxCell id="10" value="Arm Path Planner" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="435" y="620" width="300" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="11" value="consumes corrected pose for pruning motion" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666;" vertex="1" parent="1">
+      <mxGeometry x="435" y="673" width="300" height="16" as="geometry" />
+    </mxCell>
+
+    <!-- Side input: 3DGS Model / SfM Point Cloud -->
+    <mxCell id="12" value="3DGS Model&lt;br&gt;SfM Point Cloud&lt;br&gt;(ENU frame)" style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+      <mxGeometry x="820" y="315" width="200" height="100" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════ EDGES ═══════════ -->
+
+    <mxCell id="13" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="2" target="4" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="14" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="4" target="6" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="15" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="6" target="8" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="16" value="" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="8" target="10" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- 3DGS side input to ICP Registration -->
+    <mxCell id="17" value="target cloud" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="12" target="6" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>

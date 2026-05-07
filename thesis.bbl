@@ -201,6 +201,12 @@
   (2024), `A {{Real-time Degeneracy Sensing}} and {{Compensation Method}} for
   {{Enhanced LiDAR SLAM}}', December.
 
+\bibitem[{Lingua\ {\citeetal}}~{2025}]{linguaImprovingImageAlignment2025}
+{\sc Lingua, A.M., Manca, S., Gallitto, F. and Chiabrando, F.} (2025),
+  `Improving {{Image Alignment}} in vineyard environment with deep learning
+  image matching', {\it Int. Arch. Photogramm. Remote Sens. Spatial Inf. Sci.},
+  Vol.\,XLVIII-1/W5-2025, November, pp.\,61--67.
+
 \bibitem[{Llorens\ {\citeetal}}~{2011}]{llorensGeoreferencedLiDAR3D2011}
 {\sc Llorens, J., Gil, E., Llop, J. and Queralt{\'o}, M.} (2011),
   `Georeferenced {{LiDAR 3D Vine Plantation Map Generation}}', {\it Sensors},

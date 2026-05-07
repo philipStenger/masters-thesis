@@ -3,18 +3,33 @@
 
 The main objective of this research is to develop a precise localisation system for autonomous vineyard robots that enables accurate spatial alignment between the robot, the 3D models, and the environment.
 
-Sub-objectives include:
+To achieve this, the following sub-objectives are defined:
 
-\begin{itemize}
+\begin{enumerate}
 
-    \item Quantify the localisation accuracy required for robotic pruning.
+    \item Develop a LiDAR-inertial SLAM system that achieves sub-decimetre absolute trajectory error in GNSS-degraded vineyard environments, addressing the structural ambiguity of row-crop corridors.
 
-   \item Design scientific experiments and establish quantitative performance metrics to evaluate localisation accuracy. 
-   
-   \item Achieve the necessary localisation accuracy from sub-objective 1 in vineyard environments.
-   
-   \item Demonstrate the practical application of the developed system by enabling precise robotic manipulation tasks such as pruning within the vineyard environment.
-   
-   \item Validate localisation performance under varying vineyard conditions including GNSS dropout, lighting changes, and seasonal variations.
-   
-\end{itemize}
+    \item Design a precise-alignment pipeline that refines the SLAM pose to sub-centimetre accuracy by registering live sensor data against a 3D Gaussian Splatting reference model using point cloud registration.
+
+    \item Evaluate two sensing modalities --- stereo vision and LiDAR --- for the precise-alignment stage, comparing their registration accuracy and failure modes under vineyard field conditions.
+
+    \item Integrate both localisation stages into a hierarchical architecture that provides pose estimates suitable for downstream robotic manipulation, such that the corrected pose feeds directly into the pruning arm's path planner.
+
+\end{enumerate}
+
+\subsection{Contributions}
+\label{subsec:contributions}
+
+This thesis makes the following contributions:
+
+\begin{enumerate}
+    % TODO: Fill in contributions once results and discussion chapters are complete.
+    % Each item should state an accomplished outcome with quantitative evidence where possible.
+    % Suggested structure:
+    %   1. A multi-sensor SLAM system for [context], achieving [metric].
+    %   2. A precise-alignment pipeline that [does X], demonstrating [Y].
+    %   3. An experimental evaluation showing [Z].
+    \item \textbf{TODO:} Contribution 1 --- SLAM system contribution and headline result.
+    \item \textbf{TODO:} Contribution 2 --- Precise-alignment pipeline contribution and headline result.
+    \item \textbf{TODO:} Contribution 3 --- Experimental evaluation or additional contribution.
+\end{enumerate}

@@ -15,7 +15,7 @@ The transition to tight-coupling was facilitated by the advancement of IMU Pre-i
     \label{fig:imuPreintegration}
 \end{figure}
 
-The result of this evolution is LIO-SAM \cite{shanLIOSAMTightlycoupledLidar2020}, which established the feature-based factor graph benchmark for global consistency, as shown in \cref{fig:liosamArchitecture}. LIO-SAM builds a factor graph incorporating LiDAR odometry, IMU pre-integration, and explicit loop closure factors. To manage computational complexity, it employs a ``sliding window'' local map for scan-to-map matching. Despite its accuracy and robustness compared to predecessors, its reliance on LOAM-style feature extraction and a standard KD-tree for neighbour searching limits its performance in geometrically degenerate environments.
+The result of this evolution is LIO-SAM \cite{shanLIOSAMTightlycoupledLidar2020}, which established the feature-based factor graph benchmark for global consistency, as shown in \cref{fig:liosamArchitecture}. LIO-SAM builds a factor graph incorporating LiDAR odometry, IMU pre-integration, and explicit loop closure factors. To manage computational complexity, it employs a ``sliding window'' local map for scan-to-map matching. Despite its accuracy and robustness compared with its predecessors, its reliance on LOAM-style feature extraction and a standard KD-tree for neighbour searching limits its performance in geometrically degenerate environments.
 
 \begin{figure}[htbp]
     \centering
@@ -24,15 +24,15 @@ The result of this evolution is LIO-SAM \cite{shanLIOSAMTightlycoupledLidar2020}
     \label{fig:liosamArchitecture}
 \end{figure}
 
-The current state of the art is defined by two architectural tracks: those prioritising extreme computational efficiency via filtering, and those prioritising global consistency and robustness via dense graph optimisation.
+At the time of writing, the state of the art is defined by two architectural tracks: those prioritising extreme computational efficiency via filtering, and those prioritising global consistency and robustness via dense graph optimisation.
 
 \paragraph{Filter-Based Direct Odometry}
-Algorithms in the embedded track are designed to minimize CPU usage, making them suitable for low-power ARM processors on platforms like small drones. These systems rely on the Error-State Kalman Filter (ESKF) and are primarily odometry engines that estimate state and covariance, but are susceptible to drift over time as past states are marginalized.
+Algorithms in the embedded track are designed to minimise CPU usage, making them suitable for low-power ARM processors on platforms like small drones. These systems rely on the Error-State Kalman Filter (ESKF) and are primarily odometry engines that estimate state and covariance, but are susceptible to drift over time as past states are marginalised.
 
 FAST-LIO2 \cite{xuFASTLIO2FastDirect2022} is a widely adopted benchmark for computational efficiency, eschewing feature extraction in favour of registering raw points directly. Its two principal innovations are the Incremental KD-Tree (iKD-Tree), which supports dynamic map updates with amortised $O(\log N)$ complexity, and a Kalman Gain Inversion that reduces the filter update cost from the measurement dimension to the 18-dimensional state vector, enabling kHz-rate processing on modest hardware. Point-LIO \cite{hePointLIORobustHighBandwidth2023} extends this paradigm by updating the EKF state for every individual point as it arrives from the sensor, yielding a processing bandwidth bounded only by the sensor's sampling rate. This point-wise update strategy enables tracking under aggressive motion where conventional scan-accumulation methods fail due to intra-frame distortion. Super-LIO \cite{wangSuperLIORobustEfficient2025} represents the most recent advance in this track, targeting the map data structure rather than the estimator itself. It introduces the \textbf{OctVox} representation — a hybrid combining a spatial hash map with internal octrees — to enforce strict point density constraints, and pairs this with a Heuristic-Guided $k$-Nearest Neighbour (HKNN) search that further reduces per-scan processing time. Reported benchmarks indicate lower CPU utilisation than FAST-LIO2, suggesting OctVox-based representations may define the next generation of resource-constrained LIO.
 
 \paragraph{Graph-Based Global Consistency}
-Systems in this track prioritize long-term mapping quality and robustness by leveraging high-performance hardware, particularly embedded GPUs.
+Systems in this track prioritise long-term mapping quality and robustness by leveraging high-performance hardware, particularly embedded GPUs.
 
 GLIM (Global LiDAR Inertial Mapping) \cite{koideGLIM3DRangeInertial2024} represents a distinct departure from CPU-centric design, instead leveraging GPU parallelism to achieve dense, globally consistent mapping, as shown in \cref{fig:glimFramework}. Scan matching in GLIM is implemented via GPU-accelerated Voxelised Generalised Iterative Closest Point (VGICP) factors, which allow the system to incorporate nearly all points per frame and thereby retain geometric constraints that feature-based methods routinely discard. A further key contribution is the Submap Endpoint Mechanism, in which IMU pre-integration factors are inserted as stiff constraints on unobservable degrees of freedom within each submap. This structural guarantee preserves registration quality even when the LiDAR geometry is degenerate — for example in featureless tunnels or elevator shafts. For back-end estimation, GLIM employs a fixed-lag smoother that continuously optimises a bounded window of recent poses, combining the accuracy benefits of iterative re-linearisation with bounded memory consumption, in contrast to full-history SLAM approaches.
 
@@ -43,7 +43,7 @@ GLIM (Global LiDAR Inertial Mapping) \cite{koideGLIM3DRangeInertial2024} represe
     \label{fig:glimFramework}
 \end{figure}
 
-This trade-off between computational efficiency and global consistency is summarized in the comparison table below. The most significant recent innovations have occurred in the map data structure domain (iKD-Tree, OctVox) for the filter-based track, and in hardware-software co-design (GLIM's GPU acceleration) for the graph-based track.
+This trade-off between computational efficiency and global consistency is summarised in the comparison table below. The most significant recent innovations have occurred in the map data structure domain (iKD-Tree, OctVox) for the filter-based track, and in hardware-software co-design (GLIM's GPU acceleration) for the graph-based track.
 
 \begin{table}[htbp]
 \centering
@@ -51,7 +51,7 @@ This trade-off between computational efficiency and global consistency is summar
 \label{tab:comparison}
 \small 
 \renewcommand{\arraystretch}{1.3} 
-\begin{tabular}{@{} l l l c l l @{}} % Added columns to match your data
+\begin{tabular}{@{} l l l c l l @{}}
 \toprule
 \textbf{Algorithm} & \textbf{Backend} & \textbf{Map Structure} & \begin{tabular}[c]{@{}c@{}}\textbf{Loop}\\\textbf{Closure}\end{tabular} & \begin{tabular}[c]{@{}l@{}}\textbf{Robustness}\\\textbf{(Degeneracy)}\end{tabular} & \begin{tabular}[c]{@{}l@{}}\textbf{Efficiency}\\\textbf{(CPU)}\end{tabular} \\
 \midrule
@@ -80,8 +80,8 @@ each $n$ sample point is the only representative in each axis-aligned hyperplane
 
 \begin{table}[h]
 \centering
-\small % Slightly smaller font to fit columns comfortably
-\renewcommand{\arraystretch}{1.5} % Improves row spacing
+\small
+\renewcommand{\arraystretch}{1.5}
 \begin{tabularx}{\textwidth}{@{} >{\bfseries}l X X X @{}}
 \toprule
 Sampling Attribute & \textbf{Monte Carlo (MCS)} & \textbf{Grid Search} & \textbf{Latin Hypercube (LHS)} \\ 
@@ -149,4 +149,4 @@ High Speed & Motion blur \cite{xuTKOSLAMVisualSLAM2024} & Point cloud skew \cite
 \label{tab:slam_failure_modes}
 \end{table}
 
-Traditional optimisation focuses on minimising a scalar error metric, such as Absolute Trajectory Error (ATE), on a single ``representative'' dataset -- typically one of the prevailing SLAM benchmark datasets such as KITTI or TUM RGB-D. Yet this approach tends to ``chase'' the noise of that specific trajectory \cite{kandasamyTuningHyperparametersGrad}, resulting in parameters that are essentially ``hard-coded'' to that specific sequence of sensor observations and noise realisations of the training data. 
+Traditional optimisation focuses on minimising a scalar error metric, such as Absolute Trajectory Error (ATE), on a single ``representative'' dataset --- typically one of the prevailing SLAM benchmark datasets such as KITTI or TUM RGB-D. Yet this approach tends to ``chase'' the noise of that specific trajectory \cite{kandasamyTuningHyperparametersGrad}, resulting in parameters that are essentially ``hard-coded'' to that specific sequence of sensor observations and noise realisations of the training data. 

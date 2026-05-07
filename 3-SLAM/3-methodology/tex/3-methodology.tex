@@ -198,7 +198,7 @@ Given a submap pose $\mathbf{T}_{\text{map}}^{\text{sub}} \in SE(3)$, the predic
 \label{eq:predicted_gps}
 \hat{\mathbf{p}}_{\text{map}} = \mathbf{T}_{\text{map}}^{\text{sub}} \, \mathbf{p}_{\text{imu}}^{\text{gps}}.
 \end{equation}
-This formulation is valid as the GLIM submap origin is defined at the IMU centre, such that the extrinsic offset $\mathbf{p}_{\text{imu}}^{\text{gps}}$ represents the antenna position relative to the submap origin. An expression-based factor is then constructed to minimise the residual between the predicted and measured positions under the noise model $\mathcal{N}(\mathbf{0}, \boldsymbol{\Sigma}_{\text{gps}})$:
+This formulation is valid because the GLIM submap origin is defined at the IMU centre, such that the extrinsic offset $\mathbf{p}_{\text{imu}}^{\text{gps}}$ represents the antenna position relative to the submap origin. An expression-based factor is then constructed to minimise the residual between the predicted and measured positions under the noise model $\mathcal{N}(\mathbf{0}, \boldsymbol{\Sigma}_{\text{gps}})$:
 \begin{equation}
 \label{eq:gnss_factor}
 \mathbf{r}(\mathbf{T}_{\text{map}}^{\text{sub}}) = \left\| \hat{\mathbf{p}}_{\text{map}} - \mathbf{p}_{\text{map}} \right\|^2_{\boldsymbol{\Sigma}_{\text{gps}}}.
@@ -237,7 +237,7 @@ where $\theta_{j, \min}$ and $\theta_{j, \max}$ represent the physical lower and
 \subsubsection{The Multi-Dataset Consensus Framework}
 A primary challenge in SLAM optimisation is the risk of ``over-specialisation'', where parameters become overfitted to the unique noise characteristics of a single trajectory \cite{soaresVARSLAMVisualAdaptive2025}. We implement a Consensus Survival Framework to prioritise reliability across datasets.
 
-In some situations, standard ``Mean-Performance Optimisation'' can hide brittle configurations that perform well on average but fail catastrophically on a single sequence \cite{kandasamyTuningHyperparametersGrad}. In this setting, though, catastrophic failure typically results in excessively high amplitude errors, which effectively inflate the mean normalised error. That being said, some particular parameter configurations can lead to excessive GPU draw, resulting in a runtime CUDA out-of-memory error. If the parameter set does not complete processing the trajectory on any dataset $k$, the framework assigns it an infinite cost and discards it from the survivor pool. This ensures the survival of only those configurations that meet the computational requirements of the system.
+In some situations, standard ``Mean-Performance Optimisation'' can hide brittle configurations that perform well on average but fail catastrophically on a single sequence \cite{kandasamyTuningHyperparametersGrad}. In this setting, though, catastrophic failure typically results in excessively high-amplitude errors, which effectively inflate the mean normalised error. That being said, some particular parameter configurations can lead to excessive GPU draw, resulting in a runtime CUDA out-of-memory error. If the parameter set does not complete processing the trajectory on any dataset $k$, the framework assigns it an infinite cost and discards it from the survivor pool. This ensures the survival of only those configurations that meet the computational requirements of the system.
 
 \paragraph{Formal Objective Function}
 For the ``surviving'' configurations, the objective function $J(\theta)$ is defined as the mean normalised error across the valid sequences \eqref{eq:piecewise_success}:
@@ -313,7 +313,7 @@ The $TEP$ effectively measures the per cent drift per metre of motion.
 For the optimisation of GLIM-GNSS, the cost function is a custom metric referred to as Global Alignment and Smoothness Profile ($GASP$). This is calculated by taking the weighted sum of the $ATE$ per metre and the standard deviation of the translational Relative Pose Error ($RPE$), as defined in Equation \eqref{eq:gasp}:
 \begin{equation}
 \label{eq:gasp}
-\text{GASP} = w_{\text{drift}} \cdot \left( \frac{ATE}{L} \right) + w_{\text{smoothness}} \cdot \text{Translational RPE}.
+\text{GASP} = w_{\text{drift}} \cdot \left( \frac{\mathrm{ATE}}{\mathrm{L}} \right) + w_{\text{smoothness}} \cdot \text{Translational RPE}.
 \end{equation}
 The weights $w_{\text{drift}}$ and $w_{\text{smoothness}}$ were chosen to normalise the differing magnitudes of the two component metrics, such that each term contributes approximately equally to the total cost under representative operating conditions. Because the weighted sum mixes quantities with different units, GASP serves as a relative performance index; its values are meaningful only when compared within the same experimental framework.
 

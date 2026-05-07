@@ -144,15 +144,14 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
 
 \begin{figure}[htbp]
      \centering
-     % Increased width to 0.8 to make them larger now that they are stacked
      \begin{subfigure}[b]{0.8\textwidth}
          \centering
          \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png}
-         \caption{Baseline glim tuning.}
+         \caption{Baseline GLIM tuning.}
          \label{fig:baseline_error_dist}
      \end{subfigure}
      
-     \vspace{1em} % Adds a little vertical space between the two images
+     \vspace{1em}
      
      \begin{subfigure}[b]{0.8\textwidth}
          \centering
@@ -169,7 +168,6 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
 
 \begin{figure}[htbp]
      \centering
-     % Increased width from 0.48 to 0.8 for better visibility
      \begin{subfigure}[b]{0.8\textwidth}
          \centering
          \includegraphics[width=\textwidth]{3-SLAM/3-results/figures/glim_consensus_progression.png}
@@ -177,7 +175,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
          \label{fig:baseline_progression}
      \end{subfigure}
 
-     \vspace{1.5em} % Adds vertical breathing room between the two plots
+     \vspace{1.5em}
 
      \begin{subfigure}[b]{0.8\textwidth}
          \centering
@@ -192,7 +190,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
 
 \subsection{Multi-Metric Radar Comparison}
 
-\cref{fig:comparison_spider} presents four radar plots comparing the baseline, refined, and GLIM-GNSSs across all five datasets. The four metrics displayed are error per metre, error percentage per metre, ATE, and RPE 1\,m translation standard deviation. Radial axes are plotted on a logarithmic scale.
+\cref{fig:comparison_spider} presents four radar plots comparing the baseline GLIM, refined GLIM, and GLIM-GNSS across all five datasets. The four metrics displayed are error per metre, error percentage per metre, ATE, and RPE 1\,m translation standard deviation. Radial axes are plotted on a logarithmic scale.
 
 \begin{figure}[htbp]
      \centering
@@ -223,7 +221,7 @@ Percent of GNSS points used & 0.69 & 0.72 & 0.65 & 0.78 & 0.75 \\ \bottomrule
          \caption{RPE (translation only) standard deviation.} 
          \label{fig:spider_RPE_std}
      \end{subfigure}
-     \caption{Spider plot comparisons of the GLIM baseline, refined, and GLIM-GNSSs for key performance metrics.}
+     \caption{Spider plot comparisons of the baseline GLIM, refined GLIM, and GLIM-GNSS configurations for key performance metrics.}
      \label{fig:comparison_spider}
 \end{figure}
 

@@ -1,10 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.10)  7 MAY 2026 21:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.10)  7 MAY 2026 22:14
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/PSTENGE/Documents/misc/thesis/thesis.tex
-(c:/Users/PSTENGE/Documents/misc/thesis/thesis.tex
+**./thesis.tex
+(thesis.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
 (electhesis.cls
@@ -32,11 +31,13 @@ File: bk11.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen148
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
 )) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\lmodern.sty
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\lmodern.sty
 Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
@@ -70,9 +71,11 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
 Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \col@sep=\dimen149
 \ar@mcellbox=\box53
@@ -89,7 +92,8 @@ Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \TX@delta=\dimen155
 \TX@cols=\count284
 \TX@ftn=\toks18
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen156
 \lightrulewidth=\dimen157
@@ -115,18 +119,20 @@ Elec. Eng. Citation Style File `eleccite' <1994/11/10>.
 ) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
 Package: amsmath 2025/07/09 v2.17z AMS math features
 \@mathmargin=\skip53
-
 For additional information on amsmath, use the `?' option.
 (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
 Package: amstext 2024/11/17 v2.01 AMS text
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks19
 \ex@=\dimen169
-)) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+))
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen170
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
 \inf@bad=\count289
@@ -176,42 +182,52 @@ LaTeX Info: Redefining \Relbar on input line 970.
 \mathdisplay@stack=\toks23
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks24
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics
+.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.d
+ef
 File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen178
 \Gin@req@width=\dimen179
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
 \multirow@colwidth=\skip56
 \multirow@cntb=\count301
 \multirow@dima=\skip57
 \bigstrutjot=\dimen180
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.st
+y
 Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
  (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@tempdima=\dimen181
 \captionmargin=\dimen182
@@ -223,7 +239,11 @@ Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@hangindent=\dimen188
 Package caption Info: Unknown document class (or package),
 (caption)             standard defaults will be used.
-Package caption Info: \@makecaption = \long macro:#1#2-> \vskip \abovecaptionskip \sbox \@tempboxa {\footnotesize {\bfseries #1}\hskip 1em #2} \ifdim \wd \@tempboxa >\hsize \footnotesize {\bfseries #1}\hskip 1em #2\par \else \hbox to\hsize {\hfil \box \@tempboxa \hfil }\fi \vskip \belowcaptionskip  on input line 1175.
+Package caption Info: \@makecaption = \long macro:#1#2-> \vskip \abovecaptionsk
+ip \sbox \@tempboxa {\footnotesize {\bfseries #1}\hskip 1em #2} \ifdim \wd \@te
+mpboxa >\hsize \footnotesize {\bfseries #1}\hskip 1em #2\par \else \hbox to\hsi
+ze {\hfil \box \@tempboxa \hfil }\fi \vskip \belowcaptionskip  on input line 11
+75.
 )
 
 Package caption Warning: Unknown document class (or package),
@@ -244,15 +264,18 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box57
 \@float@everytoks=\toks26
 \@floatcapt=\box58
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/cleveref\cleveref.sty
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/cleveref\cleveref.sty
 Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
 )
 ==> First Aid for cleveref.sty applied!
+
 (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
 ))
 \Gm@cnth=\count307
@@ -267,14 +290,22 @@ Package: iftex 2024/12/12 v1.0g TeX engine tests
 \Gm@layouthoffset=\dimen195
 \Gm@layoutvoffset=\dimen196
 \Gm@dimlist=\toks27
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 22.
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg
+))
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 22
+.
  (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-p
+dftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count310
-) (thesis.aux (abstract.aux) (acknowledgements.aux) (preface.aux) (ai-disclosure.aux) (notation.aux) (1-intro/introduction.aux) (2-background/background.aux) (3-SLAM/SLAM.aux) (4-precise-alignment/precise-alignment.aux
+) (thesis.aux (abstract.aux) (acknowledgements.aux) (preface.aux)
+(ai-disclosure.aux) (notation.aux) (1-intro/introduction.aux)
+(2-background/background.aux) (3-SLAM/SLAM.aux)
+(4-precise-alignment/precise-alignment.aux
 
 LaTeX Warning: Label `subsec:point-cloud-registration' multiply defined.
 
@@ -298,7 +329,9 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
 LaTeX Font Info:    ... okay on input line 22.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
 LaTeX Font Info:    ... okay on input line 22.
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.
+mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count311
 \scratchdimen=\dimen197
@@ -311,10 +344,15 @@ LaTeX Font Info:    ... okay on input line 22.
 \MPnumerator=\count315
 \makeMPintoPDFobject=\count316
 \everyMPtoPDFconversion=\toks29
-) (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+)
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf
+-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys
+.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 Package caption Info: Begin \AtBeginDocument code.
@@ -355,20 +393,27 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 31.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 3
+1.
 (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 31.
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 3
+1.
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 31.
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
+31.
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 31.
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
+31.
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -378,20 +423,27 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <12> on input line 31.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 31.
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 31.
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+[1
 
 
 
-{C:/Users/PSTENGE/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}]
+{C:/Users/PSTENGE/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/PS
+TENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}]
 \openout2 = `abstract.aux'.
 
- (abstract.tex) [2
+
+(abstract.tex) [2
 
 
 ] (thesis.toc
@@ -450,7 +502,9 @@ Chapter 1.
 
 
 
-]) (1-intro/tex/1-motivation.tex) (1-intro/tex/1-research-objectives.tex [2]) (1-intro/tex/1-thesis-structure.tex)) [3]
+]) (1-intro/tex/1-motivation.tex)
+(1-intro/tex/1-research-objectives.tex [2]) (1-intro/tex/1-thesis-structure.tex
+)) [3]
 \openout2 = `2-background/background.aux'.
 
  (2-background/background.tex
@@ -461,71 +515,109 @@ Chapter 2.
 
 
 ]
-<2-background/figures/OccupancyGridSensorFusion.png, id=46, 322.20375pt x 576.65437pt>
-File: 2-background/figures/OccupancyGridSensorFusion.png Graphic file (type png)
+<2-background/figures/OccupancyGridSensorFusion.png, id=46, 322.20375pt x 576.6
+5437pt>
+File: 2-background/figures/OccupancyGridSensorFusion.png Graphic file (type png
+)
 <use 2-background/figures/OccupancyGridSensorFusion.png>
-Package pdftex.def Info: 2-background/figures/OccupancyGridSensorFusion.png  used on input line 24.
+Package pdftex.def Info: 2-background/figures/OccupancyGridSensorFusion.png  us
+ed on input line 28.
 (pdftex.def)             Requested size: 226.48395pt x 405.35352pt.
- [5] [6 <./2-background/figures/OccupancyGridSensorFusion.png>]) (2-background/tex/2-vineyard-robotics.tex [7]
-<2-background/figures/corridorSingleDegree.png, id=59, 594.72188pt x 233.37187pt>
+ [5] [6 <./2-background/figures/OccupancyGridSensorFusion.png>]) (2-background/
+tex/2-vineyard-robotics.tex
+[7]
+<2-background/figures/corridorSingleDegree.png, id=59, 594.72188pt x 233.37187p
+t>
 File: 2-background/figures/corridorSingleDegree.png Graphic file (type png)
 <use 2-background/figures/corridorSingleDegree.png>
-Package pdftex.def Info: 2-background/figures/corridorSingleDegree.png  used on input line 18.
+Package pdftex.def Info: 2-background/figures/corridorSingleDegree.png  used on
+ input line 18.
 (pdftex.def)             Requested size: 385.02547pt x 151.08455pt.
 <2-background/figures/leafvsnoleafpear.png, id=60, 687.16725pt x 389.65575pt>
 File: 2-background/figures/leafvsnoleafpear.png Graphic file (type png)
 <use 2-background/figures/leafvsnoleafpear.png>
-Package pdftex.def Info: 2-background/figures/leafvsnoleafpear.png  used on input line 28.
+Package pdftex.def Info: 2-background/figures/leafvsnoleafpear.png  used on inp
+ut line 28.
 (pdftex.def)             Requested size: 407.66833pt x 231.16727pt.
- [8] [9{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc} <./2-background/figures/corridorSingleDegree.png> <./2-background/figures/leafvsnoleafpear.png>]
-<2-background/figures/treeSlamRobotPlatform.png, id=70, 305.34074pt x 418.56375pt>
+ [8] [9{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ma
+thit.enc} <./2-background/figures/corridorSingleDegree.png> <./2-background/fig
+ures/leafvsnoleafpear.png>]
+<2-background/figures/treeSlamRobotPlatform.png, id=70, 305.34074pt x 418.56375
+pt>
 File: 2-background/figures/treeSlamRobotPlatform.png Graphic file (type png)
 <use 2-background/figures/treeSlamRobotPlatform.png>
-Package pdftex.def Info: 2-background/figures/treeSlamRobotPlatform.png  used on input line 46.
+Package pdftex.def Info: 2-background/figures/treeSlamRobotPlatform.png  used o
+n input line 46.
 (pdftex.def)             Requested size: 226.48395pt x 310.47318pt.
 <2-background/figures/TreeSLAMPipeline.png, id=71, 958.782pt x 380.622pt>
 File: 2-background/figures/TreeSLAMPipeline.png Graphic file (type png)
 <use 2-background/figures/TreeSLAMPipeline.png>
-Package pdftex.def Info: 2-background/figures/TreeSLAMPipeline.png  used on input line 53.
+Package pdftex.def Info: 2-background/figures/TreeSLAMPipeline.png  used on inp
+ut line 53.
 (pdftex.def)             Requested size: 407.66833pt x 161.8406pt.
- [10 <./2-background/figures/treeSlamRobotPlatform.png>]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 63.
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 6
+3.
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [11{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc} <./2-background/figures/TreeSLAMPipeline.png>]) (2-background/tex/2-vineyard-pruning.tex
+)
+[10{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.en
+c}] [11 <./2-background/figures/treeSlamRobotPlatform.png> <./2-background/figu
+res/TreeSLAMPipeline.png>]) (2-background/tex/2-vineyard-pruning.tex
 <2-background/figures/botterilRobot.png, id=82, 611.886pt x 251.13824pt>
 File: 2-background/figures/botterilRobot.png Graphic file (type png)
 <use 2-background/figures/botterilRobot.png>
-Package pdftex.def Info: 2-background/figures/botterilRobot.png  used on input line 11.
+Package pdftex.def Info: 2-background/figures/botterilRobot.png  used on input 
+line 11.
 (pdftex.def)             Requested size: 385.02547pt x 158.02632pt.
- [12] [13{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc} <./2-background/figures/botterilRobot.png>])) [14]
+ [12]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[13{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc
+}{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.e
+nc} <./2-background/figures/botterilRobot.png>])) [14]
 \openout2 = `3-SLAM/SLAM.aux'.
 
  (3-SLAM/SLAM.tex
 Chapter 3.
-(3-SLAM/3-intro/tex/3-intro.tex [15
+(3-SLAM/3-intro/tex/3-intro.tex
+
+LaTeX Warning: Reference `chap:background' on page 1 undefined on input line 3.
+
+
+[15
 
 
 
 
 ]) [16] (3-SLAM/3-related-work/tex/3-related-work.tex
-<3-SLAM/3-related-work/figures/imuPreintegration.png, id=102, 969.6225pt x 272.81924pt>
-File: 3-SLAM/3-related-work/figures/imuPreintegration.png Graphic file (type png)
+<3-SLAM/3-related-work/figures/imuPreintegration.png, id=102, 969.6225pt x 272.
+81924pt>
+File: 3-SLAM/3-related-work/figures/imuPreintegration.png Graphic file (type pn
+g)
 <use 3-SLAM/3-related-work/figures/imuPreintegration.png>
-Package pdftex.def Info: 3-SLAM/3-related-work/figures/imuPreintegration.png  used on input line 13.
+Package pdftex.def Info: 3-SLAM/3-related-work/figures/imuPreintegration.png  u
+sed on input line 13.
 (pdftex.def)             Requested size: 452.9679pt x 127.45076pt.
-<3-SLAM/3-related-work/figures/LIO_SAM_Archictecture.png, id=103, 1064.17575pt x 341.47575pt>
-File: 3-SLAM/3-related-work/figures/LIO_SAM_Archictecture.png Graphic file (type png)
+<3-SLAM/3-related-work/figures/LIO_SAM_Archictecture.png, id=103, 1064.17575pt 
+x 341.47575pt>
+File: 3-SLAM/3-related-work/figures/LIO_SAM_Archictecture.png Graphic file (typ
+e png)
 <use 3-SLAM/3-related-work/figures/LIO_SAM_Archictecture.png>
-Package pdftex.def Info: 3-SLAM/3-related-work/figures/LIO_SAM_Archictecture.png  used on input line 22.
+Package pdftex.def Info: 3-SLAM/3-related-work/figures/LIO_SAM_Archictecture.pn
+g  used on input line 22.
 (pdftex.def)             Requested size: 385.02547pt x 123.546pt.
  [17
 
-] [18 <./3-SLAM/3-related-work/figures/imuPreintegration.png> <./3-SLAM/3-related-work/figures/LIO_SAM_Archictecture.png>]
-<3-SLAM/3-related-work/figures/glimFramework.png, id=115, 1052.13075pt x 163.20975pt>
+] [18 <./3-SLAM/3-related-work/figures/imuPreintegration.png> <./3-SLAM/3-relat
+ed-work/figures/LIO_SAM_Archictecture.png>]
+<3-SLAM/3-related-work/figures/glimFramework.png, id=115, 1052.13075pt x 163.20
+975pt>
 File: 3-SLAM/3-related-work/figures/glimFramework.png Graphic file (type png)
 <use 3-SLAM/3-related-work/figures/glimFramework.png>
-Package pdftex.def Info: 3-SLAM/3-related-work/figures/glimFramework.png  used on input line 41.
+Package pdftex.def Info: 3-SLAM/3-related-work/figures/glimFramework.png  used 
+on input line 41.
 (pdftex.def)             Requested size: 407.66833pt x 63.23813pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 54.
@@ -576,14 +668,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 97--97
 <3-SLAM/3-related-work/figures/MC_dist.png, id=123, 226.446pt x 103.587pt>
 File: 3-SLAM/3-related-work/figures/MC_dist.png Graphic file (type png)
 <use 3-SLAM/3-related-work/figures/MC_dist.png>
-Package pdftex.def Info: 3-SLAM/3-related-work/figures/MC_dist.png  used on input line 106.
+Package pdftex.def Info: 3-SLAM/3-related-work/figures/MC_dist.png  used on inp
+ut line 106.
 (pdftex.def)             Requested size: 217.42265pt x 99.46135pt.
 <3-SLAM/3-related-work/figures/LHS_dist.png, id=124, 221.02576pt x 101.178pt>
 File: 3-SLAM/3-related-work/figures/LHS_dist.png Graphic file (type png)
 <use 3-SLAM/3-related-work/figures/LHS_dist.png>
-Package pdftex.def Info: 3-SLAM/3-related-work/figures/LHS_dist.png  used on input line 113.
+Package pdftex.def Info: 3-SLAM/3-related-work/figures/LHS_dist.png  used on in
+put line 113.
 (pdftex.def)             Requested size: 217.42265pt x 99.53198pt.
-[21{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc} <./3-SLAM/3-related-work/figures/MC_dist.png> <./3-SLAM/3-related-work/figures/LHS_dist.png>]
+[21{C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex
+.enc} <./3-SLAM/3-related-work/figures/MC_dist.png> <./3-SLAM/3-related-work/fi
+gures/LHS_dist.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 147--147
 []|\T1/lmr/bx/n/10 VSLAM Fail-ure
  []
@@ -647,45 +743,63 @@ Underfull \hbox (badness 10000) in paragraph at lines 147--147
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 ) [22] [23] (3-SLAM/3-methodology/tex/3-methodology.tex
-<3-SLAM/3-methodology/figures/time-matching.png, id=139, 941.5175pt x 311.1625pt>
+<3-SLAM/3-methodology/figures/time-matching.png, id=139, 941.5175pt x 311.1625p
+t>
 File: 3-SLAM/3-methodology/figures/time-matching.png Graphic file (type png)
 <use 3-SLAM/3-methodology/figures/time-matching.png>
-Package pdftex.def Info: 3-SLAM/3-methodology/figures/time-matching.png  used on input line 14.
+Package pdftex.def Info: 3-SLAM/3-methodology/figures/time-matching.png  used o
+n input line 14.
 (pdftex.def)             Requested size: 452.9679pt x 149.7029pt.
-<3-SLAM/3-methodology/figures/system-pipeline.png, id=140, 870.25125pt x 847.165pt>
+<3-SLAM/3-methodology/figures/system-pipeline.png, id=140, 870.25125pt x 847.16
+5pt>
 File: 3-SLAM/3-methodology/figures/system-pipeline.png Graphic file (type png)
 <use 3-SLAM/3-methodology/figures/system-pipeline.png>
-Package pdftex.def Info: 3-SLAM/3-methodology/figures/system-pipeline.png  used on input line 23.
+Package pdftex.def Info: 3-SLAM/3-methodology/figures/system-pipeline.png  used
+ on input line 23.
 (pdftex.def)             Requested size: 452.9679pt x 440.95491pt.
  [24
 
-] [25 <./3-SLAM/3-methodology/figures/time-matching.png (PNG copy)>] [26 <./3-SLAM/3-methodology/figures/system-pipeline.png (PNG copy)>]
-<3-SLAM/3-methodology/figures/outlier-rejection.png, id=151, 976.64874pt x 595.22375pt>
-File: 3-SLAM/3-methodology/figures/outlier-rejection.png Graphic file (type png)
+] [25 <./3-SLAM/3-methodology/figures/time-matching.png (PNG copy)>] [26 <./3-S
+LAM/3-methodology/figures/system-pipeline.png (PNG copy)>]
+<3-SLAM/3-methodology/figures/outlier-rejection.png, id=151, 976.64874pt x 595.
+22375pt>
+File: 3-SLAM/3-methodology/figures/outlier-rejection.png Graphic file (type png
+)
 <use 3-SLAM/3-methodology/figures/outlier-rejection.png>
-Package pdftex.def Info: 3-SLAM/3-methodology/figures/outlier-rejection.png  used on input line 60.
+Package pdftex.def Info: 3-SLAM/3-methodology/figures/outlier-rejection.png  us
+ed on input line 60.
 (pdftex.def)             Requested size: 339.72592pt x 207.05081pt.
  [27 <./3-SLAM/3-methodology/figures/outlier-rejection.png (PNG copy)>]
-<3-SLAM/3-methodology/figures/geometry-quality.png, id=156, 878.28125pt x 518.93875pt>
+<3-SLAM/3-methodology/figures/geometry-quality.png, id=156, 878.28125pt x 518.9
+3875pt>
 File: 3-SLAM/3-methodology/figures/geometry-quality.png Graphic file (type png)
+
 <use 3-SLAM/3-methodology/figures/geometry-quality.png>
-Package pdftex.def Info: 3-SLAM/3-methodology/figures/geometry-quality.png  used on input line 105.
+Package pdftex.def Info: 3-SLAM/3-methodology/figures/geometry-quality.png  use
+d on input line 105.
 (pdftex.def)             Requested size: 385.02547pt x 227.50232pt.
  [28] [29 <./3-SLAM/3-methodology/figures/geometry-quality.png (PNG copy)>]
-<3-SLAM/3-methodology/figures/kabsch-alignment.png, id=166, 1067.99pt x 554.07pt>
+<3-SLAM/3-methodology/figures/kabsch-alignment.png, id=166, 1067.99pt x 554.07p
+t>
 File: 3-SLAM/3-methodology/figures/kabsch-alignment.png Graphic file (type png)
+
 <use 3-SLAM/3-methodology/figures/kabsch-alignment.png>
-Package pdftex.def Info: 3-SLAM/3-methodology/figures/kabsch-alignment.png  used on input line 173.
+Package pdftex.def Info: 3-SLAM/3-methodology/figures/kabsch-alignment.png  use
+d on input line 173.
 (pdftex.def)             Requested size: 452.9679pt x 234.99896pt.
  [30 <./3-SLAM/3-methodology/figures/kabsch-alignment.png (PNG copy)>]
-<3-SLAM/3-methodology/figures/factor-graph.png, id=170, 1046.91125pt x 356.33125pt>
+<3-SLAM/3-methodology/figures/factor-graph.png, id=170, 1046.91125pt x 356.3312
+5pt>
 File: 3-SLAM/3-methodology/figures/factor-graph.png Graphic file (type png)
 <use 3-SLAM/3-methodology/figures/factor-graph.png>
-Package pdftex.def Info: 3-SLAM/3-methodology/figures/factor-graph.png  used on input line 211.
+Package pdftex.def Info: 3-SLAM/3-methodology/figures/factor-graph.png  used on
+ input line 211.
 (pdftex.def)             Requested size: 385.02547pt x 131.04666pt.
  [31 <./3-SLAM/3-methodology/figures/factor-graph.png (PNG copy)>] [32]
 Overfull \hbox (1.60901pt too wide) in paragraph at lines 259--260
- \T1/lmr/bx/n/10.95 Sta-tis-ti-cal Search Space Con-trac-tion[] \T1/lmr/m/n/10.95 At the con-clu-sion of each phase $\OML/lmm/m/it/10.95 i$\T1/lmr/m/n/10.95 , the top-performing
+ \T1/lmr/bx/n/10.95 Sta-tis-ti-cal Search Space Con-trac-tion[] \T1/lmr/m/n/10.
+95 At the con-clu-sion of each phase $\OML/lmm/m/it/10.95 i$\T1/lmr/m/n/10.95 ,
+ the top-performing
  []
 
 
@@ -700,14 +814,19 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <3-SLAM/3-methodology/figures/irr-funnel.png, id=181, 969.6225pt x 702.625pt>
 File: 3-SLAM/3-methodology/figures/irr-funnel.png Graphic file (type png)
 <use 3-SLAM/3-methodology/figures/irr-funnel.png>
-Package pdftex.def Info: 3-SLAM/3-methodology/figures/irr-funnel.png  used on input line 289.
+Package pdftex.def Info: 3-SLAM/3-methodology/figures/irr-funnel.png  used on i
+nput line 289.
 (pdftex.def)             Requested size: 258.195pt x 187.0953pt.
 <3-SLAM/3-methodology/figures/irr-flowchart.png, id=182, 572.1375pt x 746.79pt>
+
 File: 3-SLAM/3-methodology/figures/irr-flowchart.png Graphic file (type png)
 <use 3-SLAM/3-methodology/figures/irr-flowchart.png>
-Package pdftex.def Info: 3-SLAM/3-methodology/figures/irr-flowchart.png  used on input line 296.
+Package pdftex.def Info: 3-SLAM/3-methodology/figures/irr-flowchart.png  used o
+n input line 296.
 (pdftex.def)             Requested size: 181.18439pt x 236.49355pt.
- [34 <./3-SLAM/3-methodology/figures/irr-funnel.png (PNG copy)> <./3-SLAM/3-methodology/figures/irr-flowchart.png (PNG copy)>] [35]) [36] (3-SLAM/3-results/tex/3-results.tex
+ [34 <./3-SLAM/3-methodology/figures/irr-funnel.png (PNG copy)> <./3-SLAM/3-met
+hodology/figures/irr-flowchart.png (PNG copy)>] [35]) [36]
+(3-SLAM/3-results/tex/3-results.tex
 Underfull \hbox (badness 10000) in paragraph at lines 32--32
 []|\T1/lmr/bx/n/10.95 Dataset
  []
@@ -847,153 +966,210 @@ Underfull \hbox (badness 10000) in paragraph at lines 138--138
 []|\T1/lmr/bx/n/10.95 Dataset
  []
 
-<3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png, id=198, 1003.75pt x 602.25pt>
-File: 3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png Graphic file (type png)
+<3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png, id=198, 100
+3.75pt x 602.25pt>
+File: 3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png Graphic
+ file (type png)
 <use 3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png  used on input line 150.
+Package pdftex.def Info: 3-SLAM/3-results/figures/glim_error_distribution_by_st
+age_log.png  used on input line 149.
 (pdftex.def)             Requested size: 362.37569pt x 217.42552pt.
-<3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png, id=199, 1003.75pt x 602.25pt>
-File: 3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png Graphic file (type png)
+<3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png, id=199,
+ 1003.75pt x 602.25pt>
+File: 3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png Gra
+phic file (type png)
 <use 3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png  used on input line 159.
+Package pdftex.def Info: 3-SLAM/3-results/figures/proposed_error_distribution_b
+y_stage_log.png  used on input line 158.
 (pdftex.def)             Requested size: 362.37569pt x 217.42552pt.
-[38] [39] [40 <./3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.png> <./3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png>]
-<3-SLAM/3-results/figures/glim_consensus_progression.png, id=211, 1003.75pt x 602.25pt>
-File: 3-SLAM/3-results/figures/glim_consensus_progression.png Graphic file (type png)
+[38] [39] [40 <./3-SLAM/3-results/figures/glim_error_distribution_by_stage_log.
+png> <./3-SLAM/3-results/figures/proposed_error_distribution_by_stage_log.png>]
+<3-SLAM/3-results/figures/glim_consensus_progression.png, id=211, 1003.75pt x 6
+02.25pt>
+File: 3-SLAM/3-results/figures/glim_consensus_progression.png Graphic file (typ
+e png)
 <use 3-SLAM/3-results/figures/glim_consensus_progression.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/glim_consensus_progression.png  used on input line 175.
+Package pdftex.def Info: 3-SLAM/3-results/figures/glim_consensus_progression.pn
+g  used on input line 173.
 (pdftex.def)             Requested size: 362.37569pt x 217.42552pt.
-<3-SLAM/3-results/figures/proposed_consensus_progression.png, id=212, 1003.75pt x 602.25pt>
-File: 3-SLAM/3-results/figures/proposed_consensus_progression.png Graphic file (type png)
+<3-SLAM/3-results/figures/proposed_consensus_progression.png, id=212, 1003.75pt
+ x 602.25pt>
+File: 3-SLAM/3-results/figures/proposed_consensus_progression.png Graphic file 
+(type png)
 <use 3-SLAM/3-results/figures/proposed_consensus_progression.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/proposed_consensus_progression.png  used on input line 184.
+Package pdftex.def Info: 3-SLAM/3-results/figures/proposed_consensus_progressio
+n.png  used on input line 182.
 (pdftex.def)             Requested size: 362.37569pt x 217.42552pt.
-<3-SLAM/3-results/figures/spider_error_per_m.png, id=213, 793.96625pt x 642.4pt>
+<3-SLAM/3-results/figures/spider_error_per_m.png, id=213, 793.96625pt x 642.4pt
+>
 File: 3-SLAM/3-results/figures/spider_error_per_m.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/spider_error_per_m.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/spider_error_per_m.png  used on input line 201.
+Package pdftex.def Info: 3-SLAM/3-results/figures/spider_error_per_m.png  used 
+on input line 199.
 (pdftex.def)             Requested size: 217.42265pt x 175.91068pt.
-<3-SLAM/3-results/figures/spider_error_pct.png, id=214, 795.97375pt x 639.38875pt>
+<3-SLAM/3-results/figures/spider_error_pct.png, id=214, 795.97375pt x 639.38875
+pt>
 File: 3-SLAM/3-results/figures/spider_error_pct.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/spider_error_pct.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/spider_error_pct.png  used on input line 208.
+Package pdftex.def Info: 3-SLAM/3-results/figures/spider_error_pct.png  used on
+ input line 206.
 (pdftex.def)             Requested size: 217.42265pt x 174.64705pt.
-<3-SLAM/3-results/figures/spider_mean_abs_pos_err.png, id=215, 787.94376pt x 637.38126pt>
-File: 3-SLAM/3-results/figures/spider_mean_abs_pos_err.png Graphic file (type png)
+<3-SLAM/3-results/figures/spider_mean_abs_pos_err.png, id=215, 787.94376pt x 63
+7.38126pt>
+File: 3-SLAM/3-results/figures/spider_mean_abs_pos_err.png Graphic file (type p
+ng)
 <use 3-SLAM/3-results/figures/spider_mean_abs_pos_err.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/spider_mean_abs_pos_err.png  used on input line 215.
+Package pdftex.def Info: 3-SLAM/3-results/figures/spider_mean_abs_pos_err.png  
+used on input line 213.
 (pdftex.def)             Requested size: 217.42265pt x 175.86879pt.
-<3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png, id=216, 787.94376pt x 634.37pt>
-File: 3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png Graphic file (type png)
+<3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png, id=216, 787.94376pt x 63
+4.37pt>
+File: 3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png Graphic file (type p
+ng)
 <use 3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png  used on input line 222.
+Package pdftex.def Info: 3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png  
+used on input line 220.
 (pdftex.def)             Requested size: 217.42265pt x 175.0379pt.
- [41 <./3-SLAM/3-results/figures/glim_consensus_progression.png> <./3-SLAM/3-results/figures/proposed_consensus_progression.png>] [42 <./3-SLAM/3-results/figures/spider_error_per_m.png> <./3-SLAM/3-results/figures/spider_error_pct.png> <./3-SLAM/3-results/figures/spider_mean_abs_pos_err.png> <./3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png>]
-<3-SLAM/3-results/figures/ds0_xy.png, id=230, 803.0pt x 228.855pt>
+[41 <./3-SLAM/3-results/figures/glim_consensus_progression.png> <./3-SLAM/3-res
+ults/figures/proposed_consensus_progression.png>]
+<3-SLAM/3-results/figures/ds0_xy.png, id=223, 803.0pt x 228.855pt>
 File: 3-SLAM/3-results/figures/ds0_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds0_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds0_xy.png  used on input line 239.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds0_xy.png  used on input lin
+e 237.
 (pdftex.def)             Requested size: 217.42265pt x 61.96626pt.
-<3-SLAM/3-results/figures/pds0_xy.png, id=231, 803.0pt x 220.825pt>
+<3-SLAM/3-results/figures/pds0_xy.png, id=224, 803.0pt x 220.825pt>
 File: 3-SLAM/3-results/figures/pds0_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds0_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds0_xy.png  used on input line 246.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds0_xy.png  used on input li
+ne 244.
 (pdftex.def)             Requested size: 217.42265pt x 59.792pt.
-<3-SLAM/3-results/figures/ds1_xy.png, id=232, 803.0pt x 602.25pt>
+<3-SLAM/3-results/figures/ds1_xy.png, id=225, 803.0pt x 602.25pt>
 File: 3-SLAM/3-results/figures/ds1_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds1_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds1_xy.png  used on input line 255.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds1_xy.png  used on input lin
+e 253.
 (pdftex.def)             Requested size: 217.42265pt x 163.06914pt.
-<3-SLAM/3-results/figures/pds1_xy.png, id=233, 803.0pt x 602.25pt>
+<3-SLAM/3-results/figures/pds1_xy.png, id=226, 803.0pt x 602.25pt>
 File: 3-SLAM/3-results/figures/pds1_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds1_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds1_xy.png  used on input line 261.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds1_xy.png  used on input li
+ne 259.
 (pdftex.def)             Requested size: 217.42265pt x 163.06914pt.
-<3-SLAM/3-results/figures/ds2_xy.png, id=234, 803.0pt x 247.92625pt>
+<3-SLAM/3-results/figures/ds2_xy.png, id=227, 803.0pt x 247.92625pt>
 File: 3-SLAM/3-results/figures/ds2_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds2_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds2_xy.png  used on input line 270.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds2_xy.png  used on input lin
+e 268.
 (pdftex.def)             Requested size: 217.42265pt x 67.13013pt.
-<3-SLAM/3-results/figures/pds2_xy.png, id=235, 803.0pt x 191.71625pt>
+<3-SLAM/3-results/figures/pds2_xy.png, id=228, 803.0pt x 191.71625pt>
 File: 3-SLAM/3-results/figures/pds2_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds2_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds2_xy.png  used on input line 276.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds2_xy.png  used on input li
+ne 274.
 (pdftex.def)             Requested size: 217.42265pt x 51.91034pt.
-<3-SLAM/3-results/figures/ds3_xy.png, id=236, 803.0pt x 246.9225pt>
+<3-SLAM/3-results/figures/ds3_xy.png, id=229, 803.0pt x 246.9225pt>
 File: 3-SLAM/3-results/figures/ds3_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds3_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds3_xy.png  used on input line 285.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds3_xy.png  used on input lin
+e 283.
 (pdftex.def)             Requested size: 217.42265pt x 66.85834pt.
-<3-SLAM/3-results/figures/pds3_xy.png, id=237, 803.0pt x 249.93375pt>
+<3-SLAM/3-results/figures/pds3_xy.png, id=230, 803.0pt x 249.93375pt>
 File: 3-SLAM/3-results/figures/pds3_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds3_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds3_xy.png  used on input line 291.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds3_xy.png  used on input li
+ne 289.
 (pdftex.def)             Requested size: 217.42265pt x 67.67369pt.
-<3-SLAM/3-results/figures/ds4_xy.png, id=238, 803.0pt x 190.7125pt>
+<3-SLAM/3-results/figures/ds4_xy.png, id=231, 803.0pt x 190.7125pt>
 File: 3-SLAM/3-results/figures/ds4_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds4_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds4_xy.png  used on input line 300.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds4_xy.png  used on input lin
+e 298.
 (pdftex.def)             Requested size: 217.42265pt x 51.63855pt.
-<3-SLAM/3-results/figures/pds4_xy.png, id=239, 803.0pt x 183.68625pt>
+<3-SLAM/3-results/figures/pds4_xy.png, id=232, 803.0pt x 183.68625pt>
 File: 3-SLAM/3-results/figures/pds4_xy.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds4_xy.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds4_xy.png  used on input line 306.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds4_xy.png  used on input li
+ne 304.
 (pdftex.def)             Requested size: 217.42265pt x 49.73608pt.
-<3-SLAM/3-results/figures/ds0_z.png, id=240, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/ds0_z.png, id=233, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/ds0_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds0_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds0_z.png  used on input line 321.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds0_z.png  used on input line
+ 319.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/pds0_z.png, id=241, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/pds0_z.png, id=234, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/pds0_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds0_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds0_z.png  used on input line 327.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds0_z.png  used on input lin
+e 325.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/ds1_z.png, id=242, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/ds1_z.png, id=235, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/ds1_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds1_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds1_z.png  used on input line 336.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds1_z.png  used on input line
+ 334.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/pds1_z.png, id=243, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/pds1_z.png, id=236, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/pds1_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds1_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds1_z.png  used on input line 342.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds1_z.png  used on input lin
+e 340.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/ds2_z.png, id=244, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/ds2_z.png, id=237, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/ds2_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds2_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds2_z.png  used on input line 351.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds2_z.png  used on input line
+ 349.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/pds2_z.png, id=245, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/pds2_z.png, id=238, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/pds2_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds2_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds2_z.png  used on input line 357.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds2_z.png  used on input lin
+e 355.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/ds3_z.png, id=246, 578.16pt x 289.08pt>
+<3-SLAM/3-results/figures/ds3_z.png, id=239, 578.16pt x 289.08pt>
 File: 3-SLAM/3-results/figures/ds3_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds3_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds3_z.png  used on input line 366.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds3_z.png  used on input line
+ 364.
 (pdftex.def)             Requested size: 217.42265pt x 108.70908pt.
-<3-SLAM/3-results/figures/pds3_z.png, id=247, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/pds3_z.png, id=240, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/pds3_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds3_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds3_z.png  used on input line 372.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds3_z.png  used on input lin
+e 370.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
-<3-SLAM/3-results/figures/ds4_z.png, id=248, 578.16pt x 289.08pt>
+<3-SLAM/3-results/figures/ds4_z.png, id=241, 578.16pt x 289.08pt>
 File: 3-SLAM/3-results/figures/ds4_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/ds4_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/ds4_z.png  used on input line 381.
+Package pdftex.def Info: 3-SLAM/3-results/figures/ds4_z.png  used on input line
+ 379.
 (pdftex.def)             Requested size: 217.42265pt x 108.70908pt.
-<3-SLAM/3-results/figures/pds4_z.png, id=249, 803.0pt x 401.5pt>
+<3-SLAM/3-results/figures/pds4_z.png, id=242, 803.0pt x 401.5pt>
 File: 3-SLAM/3-results/figures/pds4_z.png Graphic file (type png)
 <use 3-SLAM/3-results/figures/pds4_z.png>
-Package pdftex.def Info: 3-SLAM/3-results/figures/pds4_z.png  used on input line 388.
+Package pdftex.def Info: 3-SLAM/3-results/figures/pds4_z.png  used on input lin
+e 386.
 (pdftex.def)             Requested size: 217.42265pt x 108.71275pt.
 
 
-LaTeX Warning: Float too large for page by 8.05324pt on input line 394.
+LaTeX Warning: Float too large for page by 8.05324pt on input line 392.
 
-[43] [44 <./3-SLAM/3-results/figures/ds0_xy.png> <./3-SLAM/3-results/figures/pds0_xy.png> <./3-SLAM/3-results/figures/ds1_xy.png> <./3-SLAM/3-results/figures/pds1_xy.png> <./3-SLAM/3-results/figures/ds2_xy.png> <./3-SLAM/3-results/figures/pds2_xy.png> <./3-SLAM/3-results/figures/ds3_xy.png> <./3-SLAM/3-results/figures/pds3_xy.png> <./3-SLAM/3-results/figures/ds4_xy.png> <./3-SLAM/3-results/figures/pds4_xy.png>] [45 <./3-SLAM/3-results/figures/ds0_z.png> <./3-SLAM/3-results/figures/pds0_z.png> <./3-SLAM/3-results/figures/ds1_z.png> <./3-SLAM/3-results/figures/pds1_z.png> <./3-SLAM/3-results/figures/ds2_z.png> <./3-SLAM/3-results/figures/pds2_z.png> <./3-SLAM/3-results/figures/ds3_z.png> <./3-SLAM/3-results/figures/pds3_z.png> <./3-SLAM/3-results/figures/ds4_z.png> <./3-SLAM/3-results/figures/pds4_z.png>] [46] [47]) [48] (3-SLAM/3-discussion/tex/3-discussion.tex [49
+[42 <./3-SLAM/3-results/figures/spider_error_per_m.png> <./3-SLAM/3-results/fig
+ures/spider_error_pct.png> <./3-SLAM/3-results/figures/spider_mean_abs_pos_err.
+png> <./3-SLAM/3-results/figures/spider_rpe_1m_trans_std.png>] [43 <./3-SLAM/3-
+results/figures/ds0_xy.png> <./3-SLAM/3-results/figures/pds0_xy.png> <./3-SLAM/
+3-results/figures/ds1_xy.png> <./3-SLAM/3-results/figures/pds1_xy.png> <./3-SLA
+M/3-results/figures/ds2_xy.png> <./3-SLAM/3-results/figures/pds2_xy.png> <./3-S
+LAM/3-results/figures/ds3_xy.png> <./3-SLAM/3-results/figures/pds3_xy.png> <./3
+-SLAM/3-results/figures/ds4_xy.png> <./3-SLAM/3-results/figures/pds4_xy.png>]
+[44 <./3-SLAM/3-results/figures/ds0_z.png> <./3-SLAM/3-results/figures/pds0_z.p
+ng> <./3-SLAM/3-results/figures/ds1_z.png> <./3-SLAM/3-results/figures/pds1_z.p
+ng> <./3-SLAM/3-results/figures/ds2_z.png> <./3-SLAM/3-results/figures/pds2_z.p
+ng> <./3-SLAM/3-results/figures/ds3_z.png> <./3-SLAM/3-results/figures/pds3_z.p
+ng> <./3-SLAM/3-results/figures/ds4_z.png> <./3-SLAM/3-results/figures/pds4_z.p
+ng>] [45] [46] [47]) [48] (3-SLAM/3-discussion/tex/3-discussion.tex [49
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 43--43
@@ -1020,7 +1196,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 43--43
 []|\T1/lmr/bx/n/10.95 Dataset
  []
 
-[50] [51] [52] [53] [54] [55]) [56] [57] (3-SLAM/3-summary/tex/3-summary.tex)) [58
+[50] [51] [52] [53] [54] [55]) [56] [57] (3-SLAM/3-summary/tex/3-summary.tex))
+[58
 
 ]
 \openout2 = `4-precise-alignment/precise-alignment.aux'.
@@ -1033,86 +1210,142 @@ Chapter 4.
 
 
 ]
-<4-precise-alignment/4-intro/figures/pa-system-context.png, id=324, 1128.215pt x 726.715pt>
-File: 4-precise-alignment/4-intro/figures/pa-system-context.png Graphic file (type png)
+<4-precise-alignment/4-intro/figures/pa-system-context.png, id=324, 1128.215pt 
+x 726.715pt>
+File: 4-precise-alignment/4-intro/figures/pa-system-context.png Graphic file (t
+ype png)
 <use 4-precise-alignment/4-intro/figures/pa-system-context.png>
-Package pdftex.def Info: 4-precise-alignment/4-intro/figures/pa-system-context.png  used on input line 17.
+Package pdftex.def Info: 4-precise-alignment/4-intro/figures/pa-system-context.
+png  used on input line 17.
 (pdftex.def)             Requested size: 452.9679pt x 291.76755pt.
  [60 <./4-precise-alignment/4-intro/figures/pa-system-context.png (PNG copy)>]
-<4-precise-alignment/4-intro/figures/pa-approach-overview.png, id=328, 611.28375pt x 657.45625pt>
-File: 4-precise-alignment/4-intro/figures/pa-approach-overview.png Graphic file (type png)
+<4-precise-alignment/4-intro/figures/pa-approach-overview.png, id=328, 611.2837
+5pt x 657.45625pt>
+File: 4-precise-alignment/4-intro/figures/pa-approach-overview.png Graphic file
+ (type png)
 <use 4-precise-alignment/4-intro/figures/pa-approach-overview.png>
-Package pdftex.def Info: 4-precise-alignment/4-intro/figures/pa-approach-overview.png  used on input line 43.
+Package pdftex.def Info: 4-precise-alignment/4-intro/figures/pa-approach-overvi
+ew.png  used on input line 43.
 (pdftex.def)             Requested size: 294.42636pt x 316.65887pt.
-) [61 <./4-precise-alignment/4-intro/figures/pa-approach-overview.png (PNG copy)>] (4-precise-alignment/4-related-work/tex/4-related-work.tex [62]
-<4-precise-alignment/4-related-work/figures/zeroShotFSImages.png, id=335, 1120.78725pt x 419.76825pt>
-File: 4-precise-alignment/4-related-work/figures/zeroShotFSImages.png Graphic file (type png)
+) [61 <./4-precise-alignment/4-intro/figures/pa-approach-overview.png (PNG copy
+)>]
+(4-precise-alignment/4-related-work/tex/4-related-work.tex [62]
+<4-precise-alignment/4-related-work/figures/zeroShotFSImages.png, id=335, 1120.
+78725pt x 419.76825pt>
+File: 4-precise-alignment/4-related-work/figures/zeroShotFSImages.png Graphic f
+ile (type png)
 <use 4-precise-alignment/4-related-work/figures/zeroShotFSImages.png>
-Package pdftex.def Info: 4-precise-alignment/4-related-work/figures/zeroShotFSImages.png  used on input line 26.
+Package pdftex.def Info: 4-precise-alignment/4-related-work/figures/zeroShotFSI
+mages.png  used on input line 26.
 (pdftex.def)             Requested size: 407.66833pt x 152.6793pt.
- [63] [64 <./4-precise-alignment/4-related-work/figures/zeroShotFSImages.png>] [65] [66]) (4-precise-alignment/4-methodology/tex/4-methodology.tex [67]
-<4-precise-alignment/4-methodology/figures/pa-pipeline-stereo.png, id=353, 786.94pt x 837.1275pt>
-File: 4-precise-alignment/4-methodology/figures/pa-pipeline-stereo.png Graphic file (type png)
+ [63] [64 <./4-precise-alignment/4-related-work/figures/zeroShotFSImages.png>] 
+[65] [66])
+(4-precise-alignment/4-methodology/tex/4-methodology.tex [67]
+<4-precise-alignment/4-methodology/figures/pa-pipeline-stereo.png, id=353, 495.
+8525pt x 807.015pt>
+File: 4-precise-alignment/4-methodology/figures/pa-pipeline-stereo.png Graphic 
+file (type png)
 <use 4-precise-alignment/4-methodology/figures/pa-pipeline-stereo.png>
-Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-pipeline-stereo.png  used on input line 22.
-(pdftex.def)             Requested size: 294.42636pt x 313.19395pt.
-<4-precise-alignment/4-methodology/figures/pa-pipeline-lidar.png, id=354, 786.94pt x 837.1275pt>
-File: 4-precise-alignment/4-methodology/figures/pa-pipeline-lidar.png Graphic file (type png)
+Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-pipeline-
+stereo.png  used on input line 22.
+(pdftex.def)             Requested size: 294.42636pt x 479.18861pt.
+<4-precise-alignment/4-methodology/figures/pa-pipeline-lidar.png, id=354, 475.7
+775pt x 817.0525pt>
+File: 4-precise-alignment/4-methodology/figures/pa-pipeline-lidar.png Graphic f
+ile (type png)
 <use 4-precise-alignment/4-methodology/figures/pa-pipeline-lidar.png>
-Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-pipeline-lidar.png  used on input line 34.
-(pdftex.def)             Requested size: 294.42636pt x 313.19395pt.
-<4-precise-alignment/4-methodology/figures/pa-pipeline-icp.png, id=355, 827.09pt x 626.34pt>
-File: 4-precise-alignment/4-methodology/figures/pa-pipeline-icp.png Graphic file (type png)
+Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-pipeline-
+lidar.png  used on input line 34.
+(pdftex.def)             Requested size: 294.42636pt x 505.64476pt.
+<4-precise-alignment/4-methodology/figures/pa-pipeline-icp.png, id=355, 582.175
+pt x 596.2275pt>
+File: 4-precise-alignment/4-methodology/figures/pa-pipeline-icp.png Graphic fil
+e (type png)
 <use 4-precise-alignment/4-methodology/figures/pa-pipeline-icp.png>
-Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-pipeline-icp.png  used on input line 45.
-(pdftex.def)             Requested size: 385.02547pt x 291.57957pt.
- [68 <./4-precise-alignment/4-methodology/figures/pa-pipeline-stereo.png (PNG copy)>] [69 <./4-precise-alignment/4-methodology/figures/pa-pipeline-lidar.png (PNG copy)>] [70 <./4-precise-alignment/4-methodology/figures/pa-pipeline-icp.png (PNG copy)>] [71]
+Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-pipeline-
+icp.png  used on input line 45.
+(pdftex.def)             Requested size: 385.02547pt x 394.33015pt.
+ [68] [69 <./4-precise-alignment/4-methodology/figures/pa-pipeline-stereo.png (
+PNG copy)>]
+[70 <./4-precise-alignment/4-methodology/figures/pa-pipeline-lidar.png (PNG cop
+y)>] [71 <./4-precise-alignment/4-methodology/figures/pa-pipeline-icp.png (PNG 
+copy)>] [72]
 Overfull \hbox (9.5263pt too wide) in paragraph at lines 107--110
-\T1/lmr/m/n/10.95 The sec-ondary cam-era point cloud is trans-formed into the pri-mary cam-era frame us-ing $\OML/lmm/m/it/10.95 T[]$\T1/lmr/m/n/10.95 ,
+\T1/lmr/m/n/10.95 The sec-ondary cam-era point cloud is trans-formed into the p
+ri-mary cam-era frame us-ing $\OML/lmm/m/it/10.95 T[]$\T1/lmr/m/n/10.95 ,
  []
 
-<4-precise-alignment/4-methodology/figures/pa-dual-camera.png, id=369, 1284.8pt x 1257.69875pt>
-File: 4-precise-alignment/4-methodology/figures/pa-dual-camera.png Graphic file (type png)
+<4-precise-alignment/4-methodology/figures/pa-dual-camera.png, id=372, 628.3475
+pt x 615.29875pt>
+File: 4-precise-alignment/4-methodology/figures/pa-dual-camera.png Graphic file
+ (type png)
 <use 4-precise-alignment/4-methodology/figures/pa-dual-camera.png>
-Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-dual-camera.png  used on input line 113.
-(pdftex.def)             Requested size: 452.9679pt x 443.40604pt.
-<4-precise-alignment/4-methodology/figures/pa-trunk-segmentation.png, id=370, 502.87875pt x 546.04pt>
-File: 4-precise-alignment/4-methodology/figures/pa-trunk-segmentation.png Graphic file (type png)
+Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-dual-came
+ra.png  used on input line 113.
+(pdftex.def)             Requested size: 452.9679pt x 443.5593pt.
+[73 <./4-precise-alignment/4-methodology/figures/pa-dual-camera.png (PNG copy)>
+]
+<4-precise-alignment/4-methodology/figures/pa-trunk-segmentation.png, id=376, 5
+02.87875pt x 546.04pt>
+File: 4-precise-alignment/4-methodology/figures/pa-trunk-segmentation.png Graph
+ic file (type png)
 <use 4-precise-alignment/4-methodology/figures/pa-trunk-segmentation.png>
-Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-trunk-segmentation.png  used on input line 132.
+Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-trunk-seg
+mentation.png  used on input line 132.
 (pdftex.def)             Requested size: 339.72592pt x 368.8777pt.
-[72] [73 <./4-precise-alignment/4-methodology/figures/pa-dual-camera.png (PNG copy)>] [74 <./4-precise-alignment/4-methodology/figures/pa-trunk-segmentation.png (PNG copy)>] [75]
-<4-precise-alignment/4-methodology/figures/pa-lidar-filtering.png, id=383, 477.785pt x 676.5275pt>
-File: 4-precise-alignment/4-methodology/figures/pa-lidar-filtering.png Graphic file (type png)
+ [74 <./4-precise-alignment/4-methodology/figures/pa-trunk-segmentation.png (PN
+G copy)>] [75]
+<4-precise-alignment/4-methodology/figures/pa-lidar-filtering.png, id=383, 477.
+785pt x 676.5275pt>
+File: 4-precise-alignment/4-methodology/figures/pa-lidar-filtering.png Graphic 
+file (type png)
 <use 4-precise-alignment/4-methodology/figures/pa-lidar-filtering.png>
-Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-lidar-filtering.png  used on input line 214.
+Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-lidar-fil
+tering.png  used on input line 214.
 (pdftex.def)             Requested size: 339.72592pt x 481.03984pt.
- [76] [77 <./4-precise-alignment/4-methodology/figures/pa-lidar-filtering.png (PNG copy)>] [78]
-<4-precise-alignment/4-methodology/figures/pa-icp-candidates.png, id=394, 1081.03876pt x 1496.59125pt>
-File: 4-precise-alignment/4-methodology/figures/pa-icp-candidates.png Graphic file (type png)
+ [76] [77 <./4-precise-alignment/4-methodology/figures/pa-lidar-filtering.png (
+PNG copy)>] [78]
+<4-precise-alignment/4-methodology/figures/pa-icp-candidates.png, id=394, 1081.
+03876pt x 1496.59125pt>
+File: 4-precise-alignment/4-methodology/figures/pa-icp-candidates.png Graphic f
+ile (type png)
 <use 4-precise-alignment/4-methodology/figures/pa-icp-candidates.png>
-Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-icp-candidates.png  used on input line 294.
+Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-icp-candi
+dates.png  used on input line 294.
 (pdftex.def)             Requested size: 452.9679pt x 627.0797pt.
- (C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd)
+
+(C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd)
 Underfull \hbox (badness 7047) in paragraph at lines 344--344
 []|\T1/lmr/m/n/10.95 Downsampling res-o-lu-tion ap-plied to
  []
 
-[79] [80 <./4-precise-alignment/4-methodology/figures/pa-icp-candidates.png (PNG copy)>] [81]
-<4-precise-alignment/4-methodology/figures/pa-tf-correction.png, id=405, 1011.78pt x 492.84125pt>
-File: 4-precise-alignment/4-methodology/figures/pa-tf-correction.png Graphic file (type png)
+[79] [80 <./4-precise-alignment/4-methodology/figures/pa-icp-candidates.png (PN
+G copy)>] [81]
+<4-precise-alignment/4-methodology/figures/pa-tf-correction.png, id=405, 1013.7
+875pt x 494.84875pt>
+File: 4-precise-alignment/4-methodology/figures/pa-tf-correction.png Graphic fi
+le (type png)
 <use 4-precise-alignment/4-methodology/figures/pa-tf-correction.png>
-Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-tf-correction.png  used on input line 379.
-(pdftex.def)             Requested size: 452.9679pt x 220.64096pt.
-<4-precise-alignment/4-methodology/figures/pa-execution-model.png, id=406, 1607.00375pt x 754.82pt>
-File: 4-precise-alignment/4-methodology/figures/pa-execution-model.png Graphic file (type png)
+Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-tf-correc
+tion.png  used on input line 379.
+(pdftex.def)             Requested size: 452.9679pt x 221.10176pt.
+<4-precise-alignment/4-methodology/figures/pa-execution-model.png, id=406, 1610
+.015pt x 756.8275pt>
+File: 4-precise-alignment/4-methodology/figures/pa-execution-model.png Graphic 
+file (type png)
 <use 4-precise-alignment/4-methodology/figures/pa-execution-model.png>
-Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-execution-model.png  used on input line 400.
-(pdftex.def)             Requested size: 452.9679pt x 212.76483pt.
- [82 <./4-precise-alignment/4-methodology/figures/pa-tf-correction.png>]) (4-precise-alignment/4-results/tex/4-results.tex) (4-precise-alignment/4-discussion/tex/4-discussion.tex) (4-precise-alignment/4-summary/tex/4-summary.tex)) [83 <./4-precise-alignment/4-methodology/figures/pa-execution-model.png>]
+Package pdftex.def Info: 4-precise-alignment/4-methodology/figures/pa-execution
+-model.png  used on input line 400.
+(pdftex.def)             Requested size: 452.9679pt x 212.9265pt.
+ [82 <./4-precise-alignment/4-methodology/figures/pa-tf-correction.png (PNG cop
+y)>]) (4-precise-alignment/4-results/tex/4-results.tex)
+(4-precise-alignment/4-discussion/tex/4-discussion.tex)
+(4-precise-alignment/4-summary/tex/4-summary.tex)) [83 <./4-precise-alignment/4
+-methodology/figures/pa-execution-model.png (PNG copy)>]
 \openout2 = `5-conclusion/conclusion.aux'.
 
- (5-conclusion/conclusion.tex
+
+(5-conclusion/conclusion.tex
 Chapter 5.
 (5-conclusion/tex/5-future-work.tex)) [84
 
@@ -1127,7 +1360,8 @@ Chapter 6.
 
 ] [86]
 Underfull \hbox (badness 10000) in paragraph at lines 150--154
-\T1/lmr/m/n/10.95 https://www.mpi.govt.nz/resources-and-forms/economic-intelligence/situation-and-
+\T1/lmr/m/n/10.95 https://www.mpi.govt.nz/resources-and-forms/economic-intellig
+ence/situation-and-
  []
 
 [87] [88] [89] [90] [91]) [92]
@@ -1137,11 +1371,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 150--154
 
 
 
-] (thesis.aux (abstract.aux) (acknowledgements.aux) (preface.aux) (ai-disclosure.aux) (notation.aux) (1-intro/introduction.aux) (2-background/background.aux) (3-SLAM/SLAM.aux) (4-precise-alignment/precise-alignment.aux) (5-conclusion/conclusion.aux) (appendix-a.aux))
+] (thesis.aux (abstract.aux) (acknowledgements.aux) (preface.aux) (ai-disclosur
+e.aux) (notation.aux)
+(1-intro/introduction.aux) (2-background/background.aux) (3-SLAM/SLAM.aux)
+(4-precise-alignment/precise-alignment.aux) (5-conclusion/conclusion.aux)
+(appendix-a.aux))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
+
+
+LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -1149,16 +1390,37 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  8232 strings out of 467867
- 182356 string characters out of 5417366
+ 182298 string characters out of 5417366
  583999 words of memory out of 5000000
- 36819 multiletter control sequences out of 15000+600000
+ 36821 multiletter control sequences out of 15000+600000
  738117 words of font info for 121 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,14n,77p,1882b,523s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmib10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (101 pages, 9163854 bytes).
+ 67i,14n,77p,1845b,523s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.
+pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx1
+2.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb
+x8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lm
+csc10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm
+/lmex10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/public/
+lm/lmmi10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/lm/lmmi7.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/lm/lmmi8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/lm/lmmib10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/lm/lmr10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type1
+/public/lm/lmr12.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/lm/lmr6.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/lm/lmr7.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/lm/lmr8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/lm/lmr9.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/lm/lmri10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/lm/lmsy10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/lm/lmsy7.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fonts
+/type1/public/lm/lmsy8.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/font
+s/type1/public/lm/lmtt10.pfb><C:/Users/PSTENGE/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on thesis.pdf (101 pages, 9182654 bytes).
 PDF statistics:
- 551 PDF objects out of 1000 (max. 8388607)
+ 549 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  296 words of extra memory for PDF output out of 10000 (max. 10000000)
 

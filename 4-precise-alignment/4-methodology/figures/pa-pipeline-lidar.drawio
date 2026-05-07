@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="wH2nrGRuotsdEf5t8-GY" name="Page-1">
-        <mxGraphModel dx="653" dy="1098" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="820" pageHeight="900" math="0" shadow="0">
+        <mxGraphModel dx="1324" dy="867" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="820" pageHeight="900" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -8,81 +8,81 @@
                     <mxGeometry x="290" y="30" width="240" height="50" as="geometry"/>
                 </mxCell>
                 <mxCell id="15" value="LiDAR Branch" style="swimlane;startSize=30;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=12;" parent="1" vertex="1">
-                    <mxGeometry x="30" y="110" width="760" height="730" as="geometry"/>
-                </mxCell>
-                <mxCell id="16" value="Livox Solid-State LiDAR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="40" width="630" height="45" as="geometry"/>
-                </mxCell>
-                <mxCell id="17" value="Dense Scan Accumulation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="103" width="630" height="45" as="geometry"/>
+                    <mxGeometry x="240" y="110" width="380" height="730" as="geometry"/>
                 </mxCell>
                 <mxCell id="18" value="non-repetitive pattern, commanded interval" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="151" width="630" height="16" as="geometry"/>
-                </mxCell>
-                <mxCell id="19" value="Patchwork++ Ground Removal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="174" width="630" height="45" as="geometry"/>
+                    <mxGeometry x="65" y="151" width="405" height="16" as="geometry"/>
                 </mxCell>
                 <mxCell id="20" value="height 0.88 m, thresh 0.125 m, RNR+RVPF" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="222" width="630" height="16" as="geometry"/>
-                </mxCell>
-                <mxCell id="21" value="Statistical Outlier Removal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="245" width="630" height="45" as="geometry"/>
+                    <mxGeometry x="65" y="222" width="405" height="16" as="geometry"/>
                 </mxCell>
                 <mxCell id="22" value="k=16, λ=2.0" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="293" width="630" height="16" as="geometry"/>
-                </mxCell>
-                <mxCell id="23" value="Angular Filtering (−180° to 0°)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="316" width="630" height="45" as="geometry"/>
-                </mxCell>
-                <mxCell id="24" value="Radial Outlier Removal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="378" width="630" height="45" as="geometry"/>
+                    <mxGeometry x="65" y="293" width="305" height="16" as="geometry"/>
                 </mxCell>
                 <mxCell id="25" value="r=0.05 m, min 30 neighbours" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="426" width="630" height="16" as="geometry"/>
-                </mxCell>
-                <mxCell id="26" value="Normal-Based Filtering" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="449" width="630" height="45" as="geometry"/>
+                    <mxGeometry x="65" y="426" width="355" height="16" as="geometry"/>
                 </mxCell>
                 <mxCell id="27" value="k=75, threshold 100°" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="497" width="630" height="16" as="geometry"/>
-                </mxCell>
-                <mxCell id="28" value="Normal-Based Smoothing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="520" width="630" height="45" as="geometry"/>
+                    <mxGeometry x="65" y="497" width="325" height="16" as="geometry"/>
                 </mxCell>
                 <mxCell id="29" value="k=30, threshold 25°" style="text;html=1;align=center;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="568" width="630" height="16" as="geometry"/>
+                    <mxGeometry x="65" y="568" width="325" height="16" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="Livox Solid-State LiDAR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
+                    <mxGeometry x="40" y="50" width="255" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="Dense Scan Accumulation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
+                    <mxGeometry x="40" y="113" width="255" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="Patchwork++ Ground Removal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
+                    <mxGeometry x="40" y="184" width="255" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="Statistical Outlier Removal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
+                    <mxGeometry x="40" y="255" width="255" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="Angular Filtering (−180° to 0°)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
+                    <mxGeometry x="40" y="326" width="255" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="Radial Outlier Removal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
+                    <mxGeometry x="40" y="388" width="255" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="Normal-Based Filtering" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
+                    <mxGeometry x="40" y="459" width="255" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="Normal-Based Smoothing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="15" vertex="1">
+                    <mxGeometry x="40" y="530" width="255" height="45" as="geometry"/>
                 </mxCell>
                 <mxCell id="30" value="Filtered Source Cloud (LiDAR)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" parent="15" vertex="1">
-                    <mxGeometry x="65" y="600" width="630" height="45" as="geometry"/>
+                    <mxGeometry x="40" y="610" width="255" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="15" source="16" target="17" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="15" source="17" target="19" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="15" source="19" target="21" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="15" source="21" target="23" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="15" source="23" target="24" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="15" source="24" target="26" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="15" source="26" target="28" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="15" source="28" target="30" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="41" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="1" source="2" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="410" y="110" as="targetPoint"/>
                     </mxGeometry>
-                </mxCell>
-                <mxCell id="51" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="1" source="16" target="17" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="52" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="1" source="17" target="19" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="53" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="1" source="19" target="21" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="54" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="1" source="21" target="23" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="55" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="1" source="23" target="24" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="56" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="1" source="24" target="26" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="57" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="1" source="26" target="28" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="58" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="1" source="28" target="30" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

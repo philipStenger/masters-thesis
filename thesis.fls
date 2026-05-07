@@ -243,11 +243,6 @@ INPUT .\1-intro\tex\1-research-objectives.tex
 INPUT .\1-intro\tex\1-research-objectives.tex
 INPUT .\1-intro\tex\1-research-objectives.tex
 INPUT 1-intro\tex\1-research-objectives.tex
-INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex\latex\lm\ts1lmr.fd
-INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex\latex\lm\ts1lmr.fd
-INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex\latex\lm\ts1lmr.fd
-INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\ts1-lmr10.tfm
-INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\lm\lm-ts1.enc
 INPUT .\1-intro\tex\1-thesis-structure.tex
 INPUT .\1-intro\tex\1-thesis-structure.tex
 INPUT .\1-intro\tex\1-thesis-structure.tex
@@ -305,6 +300,11 @@ INPUT .\2-background\figures\TreeSLAMPipeline.png
 INPUT .\2-background\figures\TreeSLAMPipeline.png
 INPUT .\2-background\figures\TreeSLAMPipeline.png
 INPUT .\2-background\figures\TreeSLAMPipeline.png
+INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex\latex\lm\ts1lmr.fd
+INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex\latex\lm\ts1lmr.fd
+INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\tex\latex\lm\ts1lmr.fd
+INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\ts1-lmr10.tfm
+INPUT C:\Users\PSTENGE\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\lm\lm-ts1.enc
 INPUT .\2-background\tex\2-vineyard-pruning.tex
 INPUT .\2-background\tex\2-vineyard-pruning.tex
 INPUT .\2-background\tex\2-vineyard-pruning.tex

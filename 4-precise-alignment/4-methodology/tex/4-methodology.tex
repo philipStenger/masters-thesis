@@ -1,7 +1,7 @@
 \section{Proposed Methods}
 \label{sec:precise-alignment-methodology}
 
-The relocalisation pipeline described in this section refines the coarse initial pose estimate delivered by the SLAM system presented in \cref{chap:SLAM} through point cloud registration against a pre-built 3D Gaussian Splatting reference model. Two independent sensing modalities --- stereo vision and dense LiDAR --- are evaluated within a common architectural framework; both converge on a shared ICP registration back-end, the output of which is used to correct the robot's estimated pose in the ROS~2 transform tree. The approach is outlined in \cref{subsec:approach-overview}; the following subsections present each component in detail.
+The relocalisation pipeline described in this section refines the coarse initial pose estimate delivered by the SLAM system presented in \cref{chap:SLAM} through point cloud registration against a pre-built 3D Gaussian Splatting reference model. Two independent sensing modalities --- stereo vision and dense LiDAR --- are evaluated within a common architectural framework; both feed into a shared ICP registration backend, the output of which is used to correct the robot's estimated pose in the ROS~2 transform tree. The approach is outlined in \cref{subsec:approach-overview}; the following subsections present each component in detail.
 
 % ---------------------------------------------------------------
 \subsection{System Overview}
@@ -11,7 +11,7 @@ The relocalisation pipeline described in this section refines the coarse initial
 The precise-alignment pipeline operates as a one-shot refinement: when the robot halts in front of a target vine, a single localisation correction is computed and applied before any manipulation motion is initiated. The pipeline consists of three cooperating components: a sensor-specific preprocessing stage that transforms raw sensor data into a filtered, downsampled point cloud; a GPU-accelerated rendering stage that synthesises a target point cloud from the 3D Gaussian Splatting (3DGS) model at candidate viewpoints near the initial pose; and a shared ICP registration stage that searches for the optimal rigid alignment between the sensor observation and the rendered reference. The corrected pose is subsequently propagated to the robot's transform tree without modifying the SLAM system's own published transforms.
 
 Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or two ZED stereo cameras, applies the FoundationStereo foundation model~\cite{wenFoundationStereoZeroShot2025}
-to estimate dense disparity maps, and derives coloured 3D point clouds that are segmented to retain vine trunk structure. The LiDAR pipeline operates on dense point clouds accumulated from a Livox solid-state sensor over a commanded interval, removing the ground plane with Patchwork++ and applying a multi-stage filtering sequence to isolate vine wood. Both pipelines share the same ICP registration module and the same pose correction mechanism; they differ only in their preprocessing steps, which are tailored to the noise characteristics and geometric coverage of the respective sensor.
+to estimate dense disparity maps, and derives coloured 3D point clouds that are segmented to retain vine trunk structure. The LiDAR pipeline operates on dense point clouds accumulated from a Livox solid-state sensor over a commanded interval, using Patchwork++ for ground plane removal, and applying a multi-stage filtering sequence to isolate vine wood. Both pipelines share the same ICP registration module and the same pose correction mechanism; they differ only in their preprocessing steps, which are tailored to the noise characteristics and geometric coverage of the respective sensor.
 
 The initial pose estimate consumed by the pipeline is provided by the ENU-aligned SLAM system described in \cref{sec:slam-methodology}. This pose locates the robot within the global coordinate frame and is used both to select candidate viewpoints for 3DGS rendering and to anchor the final corrected transform in the global frame. The pipeline dataflow for each sensing modality is illustrated in
 \cref{fig:pa-pipeline-stereo,fig:pa-pipeline-lidar}; the shared ICP
@@ -76,7 +76,7 @@ The stereo vision pipeline converts raw rectified image pairs from the ZED stere
 \label{subsubsec:pa-depth-estimation}
 
 Dense depth estimation is performed using FoundationStereo~\cite{wenFoundationStereoZeroShot2025},
-a stereo foundation model that produces disparity maps with strong zero-shot generalisation across sensor configurations and scene types (see \cref{subsec:stereo-depth} for a description of the model and its benchmarked performance). % TODO: clarify which FoundationStereo checkpoint is used and whether any fine-tuning was applied, or whether inference is purely zero-shot (OQ4)
+a stereo foundation model that produces disparity maps with strong zero-shot generalisation across sensor configurations and scene types (see \cref{subsec:stereo-depth} for a description of the model and its benchmark performance). % TODO: clarify which FoundationStereo checkpoint is used and whether any fine-tuning was applied, or whether inference is purely zero-shot (OQ4)
 FoundationStereo is applied to rectified image pairs from the ZED Mini stereo camera. Prior to inference, the input images are downscaled by a factor of 0.7 relative to the original sensor resolution.
 % TODO: review justification: downscale factor 0.7 was chosen to reduce inference time while retaining sufficient spatial resolution for vine trunk geometry; review against the specific ZED Mini resolution used
 
@@ -97,7 +97,7 @@ Each pixel for which a valid depth estimate is available is back-projected into 
 
 The system supports an optional dual-camera configuration in which a second ZED stereo camera (ZED~2) is mounted alongside the primary camera (ZED~1) on the vine-facing side of the robot platform, approximately 30\,cm laterally offset with no rotation between the two units. Both cameras are directed toward the same face of the vine structure, producing overlapping point clouds from slightly different lateral vantage points.
 
-This configuration serves two complementary purposes. First, the lateral offset provides marginally different viewing angles of the vine surface, yielding a denser and more representative composite point cloud than either camera alone. Second, the substantial overlap between the two clouds enables consistency-based outlier rejection: depth estimates that appear in one cloud but are absent or inconsistent in the other are likely to represent erroneous stereo returns and can be discarded before registration. This stands in contrast to a configuration in which the two cameras view the vine from opposite or widely separated directions, where each cloud would need to be trusted independently with no means of cross-validation.
+This configuration serves two complementary purposes. First, the lateral offset provides marginally different viewing angles of the vine surface, yielding a denser and more representative composite point cloud than either camera alone. Second, the substantial overlap between the two clouds enables consistency-based outlier rejection: depth estimates that appear in one cloud but are absent or inconsistent in the other are likely to represent erroneous stereo returns and can be discarded before registration. This stands in contrast to a configuration in which the two cameras view the vine from opposite or widely separated directions, where each cloud would have to be accepted independently, with no means of cross-validation.
 
 The extrinsic relationship between the two cameras is expressed as a rigid transform from the secondary camera frame (ZED~2) to the primary camera frame (ZED~1). Given the transform from the primary camera to a common reference frame, $T_{\mathrm{cam1} \to \mathrm{ref}}$, and the corresponding transform from the secondary camera, $T_{\mathrm{cam2} \to \mathrm{ref}}$, the inter-camera transform is computed as:
 %
@@ -137,7 +137,8 @@ A custom trunk segmentation pipeline developed for this work is applied to the m
   \label{fig:pa-trunk-segmentation}
 \end{figure}
 
-The pipeline comprises three sequential stages.
+The pipeline comprises three sequential stages. Prior to the first stage, the combined cloud is capped at 600,000 points by random subsampling, bounding the worst-case computation time independently of sensor resolution or accumulation duration.
+% TODO: review whether 600,000 is the tightest practical cap; review against observed input sizes
 
 \textbf{Morphological closing.} A voxel-based morphological closing operation fills gaps in the trunk surface caused by specular reflections or missing depth estimates. The input cloud is voxelised at a resolution of 0.02\,m, and a spherical closing kernel of radius 0.005\,m is applied.
 % TODO: review parameter justification: voxel size 0.02 m and closing radius 0.005 m were selected to bridge typical surface gaps in stereo depth reconstructions of vine bark; review against observed gap statistics
@@ -150,9 +151,6 @@ the dominant cluster --- corresponding to the vine trunk --- is retained, and al
 \textbf{Voxel density filtering.} The retained cluster is passed through a voxel density filter that partitions the cloud into voxels of side length 0.02\,m and discards any voxel containing fewer than 20 points.
 % TODO: review parameter justification: voxel size 0.02 m and min count 20 eliminate residual sparse regions that survived clustering; review against observed point density at typical vine-to-sensor distances
 This step removes sparsely populated surface regions whose geometric contribution to the ICP objective would otherwise be disproportionate to their informational content.
-
-The combined cloud is capped at 600,000 points by random subsampling prior to the first stage, bounding the worst-case computation time independently of sensor resolution or accumulation duration.
-% TODO: review whether 600,000 is the tightest practical cap; review against observed input sizes
 
 The parameters for the stereo preprocessing pipeline are summarised in \cref{tab:pa-stereo-params}.
 
@@ -352,7 +350,7 @@ The parameters for the ICP registration stage are summarised in \cref{tab:pa-icp
 \label{subsec:pa-pose-correction}
 % ---------------------------------------------------------------
 
-The ICP registration stage returns a rigid transformation expressed in the sensor frame --- that is, the frame of the camera or LiDAR sensor from which the source cloud was acquired. Before this result can be applied to the robot's localisation, it must be expressed in the base link frame that serves as the canonical reference for all downstream planning and control components, and it must be introduced into the ROS~2 transform tree~\cite{macenskiRobotOperatingSystem2022} in a manner that does not disturb the SLAM system's own transform publications.
+The ICP registration stage returns a rigid transformation expressed in the sensor frame --- that is, the frame of the camera or LiDAR sensor from which the source cloud was acquired. Before this result can be applied to the robot's localisation, it must be expressed in the base-link frame that serves as the canonical reference for all downstream planning and control components. It must also be introduced into the ROS~2 transform tree~\cite{macenskiRobotOperatingSystem2022} without disturbing the SLAM system's own transform publications.
 
 \subsubsection*{Coordinate Frame Hierarchy}
 
@@ -395,7 +393,7 @@ Because the correction is published as a static transform, it does not require a
 \label{subsec:pa-execution-model}
 % ---------------------------------------------------------------
 
-Each localisation request is encapsulated as an ordered sequence of command objects following the command design pattern. Each processing stage --- depth estimation, point cloud preprocessing, 3DGS rendering, ICP registration, and pose correction --- is implemented as an \texttt{AsyncCommand} with a well-defined input contract and output contract. Commands are submitted to an asynchronous task queue, which executes them sequentially within a dedicated worker thread pool. This design decouples the processing pipeline from the ROS~2 executor event loop: computationally intensive operations such as FoundationStereo inference and Open3D ICP run in non-blocking threads, avoiding latency spikes in the ROS~2 message-handling callbacks. The execution architecture is illustrated in \cref{fig:pa-execution-model}.
+Each localisation request is encapsulated as an ordered sequence of command objects following the Command design pattern. Each processing stage --- depth estimation, point cloud preprocessing, 3DGS rendering, ICP registration, and pose correction --- is implemented as an \texttt{AsyncCommand} with a well-defined input contract and output contract. Commands are submitted to an asynchronous task queue, which executes them sequentially within a dedicated worker thread pool. This design decouples the processing pipeline from the ROS~2 executor event loop: computationally intensive operations such as FoundationStereo inference and Open3D ICP run in non-blocking threads, avoiding latency spikes in the ROS~2 message-handling callbacks. The execution architecture is illustrated in \cref{fig:pa-execution-model}.
 
 \begin{figure}[htbp]
   \centering

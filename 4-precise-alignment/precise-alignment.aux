@@ -111,6 +111,7 @@
 \newlabel{fig:pa-trunk-segmentation}{{4.8}{74}{}{figure.4.8}{}}
 \newlabel{fig:pa-trunk-segmentation@cref}{{[figure][8][4]4.8}{[1][72][]74}{}{}{}}
 \citation{macenskiRobotOperatingSystem2022}
+\citation{leePatchworkFastRobust2022}
 \@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Stereo vision pipeline parameters.}}{75}{}\protected@file@percent }
 \newlabel{tab:pa-stereo-params}{{4.1}{75}{}{table.4.1}{}}
 \newlabel{tab:pa-stereo-params@cref}{{[table][1][4]4.1}{[1][75][]75}{}{}{}}
@@ -120,10 +121,9 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4.1}Dense Scan Accumulation}{75}{}\protected@file@percent }
 \newlabel{subsubsec:pa-dense-accumulation}{{4.3.4.1}{75}{}{subsubsection.4.3.4.1}{}}
 \newlabel{subsubsec:pa-dense-accumulation@cref}{{[subsubsection][1][4,3,4]4.3.4.1}{[1][75][]75}{}{}{}}
-\citation{leePatchworkFastRobust2022}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4.2}Ground Segmentation}{76}{}\protected@file@percent }
 \newlabel{subsubsec:pa-ground-segmentation}{{4.3.4.2}{76}{}{subsubsection.4.3.4.2}{}}
-\newlabel{subsubsec:pa-ground-segmentation@cref}{{[subsubsection][2][4,3,4]4.3.4.2}{[1][76][]76}{}{}{}}
+\newlabel{subsubsec:pa-ground-segmentation@cref}{{[subsubsection][2][4,3,4]4.3.4.2}{[1][75][]76}{}{}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4.3}Point Cloud Processing}{76}{}\protected@file@percent }
 \newlabel{subsubsec:pa-lidar-processing}{{4.3.4.3}{76}{}{subsubsection.4.3.4.3}{}}
 \newlabel{subsubsec:pa-lidar-processing@cref}{{[subsubsection][3][4,3,4]4.3.4.3}{[1][76][]76}{}{}{}}
@@ -132,28 +132,28 @@
 \newlabel{fig:pa-lidar-filtering@cref}{{[figure][9][4]4.9}{[1][76][]77}{}{}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces LiDAR pipeline parameters.}}{78}{}\protected@file@percent }
 \newlabel{tab:pa-lidar-params}{{4.2}{78}{}{table.4.2}{}}
-\newlabel{tab:pa-lidar-params@cref}{{[table][2][4]4.2}{[1][78][]78}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.5}ICP Registration Against the 3DGS Model}{78}{}\protected@file@percent }
-\newlabel{subsec:pa-icp-registration}{{4.3.5}{78}{}{subsection.4.3.5}{}}
-\newlabel{subsec:pa-icp-registration@cref}{{[subsection][5][4,3]4.3.5}{[1][78][]78}{}{}{}}
+\newlabel{tab:pa-lidar-params@cref}{{[table][2][4]4.2}{[1][76][]78}{}{}{}}
 \citation{zhouOpen3DModernLibrary2018}
-\citation{macenskiRobotOperatingSystem2022}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.5}ICP Registration Against the 3DGS Model}{79}{}\protected@file@percent }
+\newlabel{subsec:pa-icp-registration}{{4.3.5}{79}{}{subsection.4.3.5}{}}
+\newlabel{subsec:pa-icp-registration@cref}{{[subsection][5][4,3]4.3.5}{[1][76][]79}{}{}{}}
 \newlabel{eq:cauchy-loss}{{4.5}{79}{}{equation.4.5}{}}
 \newlabel{eq:cauchy-loss@cref}{{[equation][5][4]4.5}{[1][79][]79}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.6}Coordinate Frames and Pose Correction}{79}{}\protected@file@percent }
-\newlabel{subsec:pa-pose-correction}{{4.3.6}{79}{}{subsection.4.3.6}{}}
-\newlabel{subsec:pa-pose-correction@cref}{{[subsection][6][4,3]4.3.6}{[1][79][]79}{}{}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces ICP candidate viewpoint sampling and selection. $N = 5$ candidate poses are sampled in the neighbourhood of the initial SLAM pose; the 3DGS model is rendered at each candidate to produce a reference point cloud. ICP is run independently for each candidate, and the result with the highest fitness score and lowest RMSE is selected as the final alignment.}}{80}{}\protected@file@percent }
 \newlabel{fig:pa-icp-candidates}{{4.10}{80}{}{figure.4.10}{}}
 \newlabel{fig:pa-icp-candidates@cref}{{[figure][10][4]4.10}{[1][79][]80}{}{}{}}
+\citation{macenskiRobotOperatingSystem2022}
 \@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces ICP registration parameters.}}{81}{}\protected@file@percent }
 \newlabel{tab:pa-icp-params}{{4.3}{81}{}{table.4.3}{}}
 \newlabel{tab:pa-icp-params@cref}{{[table][3][4]4.3}{[1][79][]81}{}{}{}}
-\newlabel{eq:tf-correction}{{4.6}{81}{}{equation.4.6}{}}
-\newlabel{eq:tf-correction@cref}{{[equation][6][4]4.6}{[1][81][]81}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.6}Coordinate Frames and Pose Correction}{81}{}\protected@file@percent }
+\newlabel{subsec:pa-pose-correction}{{4.3.6}{81}{}{subsection.4.3.6}{}}
+\newlabel{subsec:pa-pose-correction@cref}{{[subsection][6][4,3]4.3.6}{[1][81][]81}{}{}{}}
+\newlabel{eq:tf-correction}{{4.6}{82}{}{equation.4.6}{}}
+\newlabel{eq:tf-correction@cref}{{[equation][6][4]4.6}{[1][82][]82}{}{}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces ROS~2 TF transform tree before (left) and after (right) insertion of the pose correction frame. The correction is introduced between the SLAM-published \texttt  {odom} frame and downstream planning frames without modifying the SLAM system's own publications. $T_{\mathrm  {correction,base}}$ is derived from the ICP result via the extrinsic $T_{\mathrm  {base} \to \mathrm  {sensor}}$ (\cref  {eq:tf-correction}).}}{82}{}\protected@file@percent }
 \newlabel{fig:pa-tf-correction}{{4.11}{82}{}{figure.4.11}{}}
-\newlabel{fig:pa-tf-correction@cref}{{[figure][11][4]4.11}{[1][81][]82}{}{}{}}
+\newlabel{fig:pa-tf-correction@cref}{{[figure][11][4]4.11}{[1][82][]82}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.7}Pipeline Execution Model}{82}{}\protected@file@percent }
 \newlabel{subsec:pa-execution-model}{{4.3.7}{82}{}{subsection.4.3.7}{}}
 \newlabel{subsec:pa-execution-model@cref}{{[subsection][7][4,3]4.3.7}{[1][82][]82}{}{}{}}

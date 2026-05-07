@@ -385,6 +385,12 @@
   {{Estimation}} of {{Spatial Uncertainty}}', {\it The International Journal of
   Robotics Research}, Vol.\,5, February.
 
+\bibitem[{Smith\ {\citeetal}}~{2013}]{smithEstimatingUncertainSpatial2013}
+{\sc Smith, R., Self, M. and Cheeseman, P.} (2013), `Estimating {{Uncertain
+  Spatial Relationships}} in {{Robotics}}', March.
+\newblock Comment: Appears in Proceedings of the Second Conference on
+  Uncertainty in Artificial Intelligence (UAI1986).
+
 \bibitem[{Soares\ {\citeetal}}~{2025}]{soaresVARSLAMVisualAdaptive2025}
 {\sc Soares, J.C.V., Abati, G.F. and Semini, C.} (2025), `{{VAR-SLAM}}:
   {{Visual Adaptive}} and {{Robust SLAM}} for {{Dynamic Environments}}',

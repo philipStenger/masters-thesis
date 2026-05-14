@@ -1,0 +1,27 @@
+{
+  "job_id": "567ae4d8-fede-4058-87d2-414935519e95",
+  "camera_source": "BACK",
+  "status": "COMPLETED",
+  "timestamp": {
+    "sec": 1776049056,
+    "nanosec": 889796497
+  },
+  "stage_timings_seconds": {
+    "StereoDepthCommand": 1.2206,
+    "PointcloudCombine": 0.0
+  },
+  "total_time_seconds": 1.2206,
+  "pointcloud_statistics": {
+    "raw_depth_points": 1604
+  },
+  "icp_result": null,
+  "stage_results": {
+    "PointcloudCombine": {
+      "camera_source": "BACK",
+      "stored_for_pairing": true,
+      "timestamp_key": 1776049056.8897965,
+      "execution_time": 1.4066696166992188e-05
+    }
+  },
+  "error_message": null
+}

@@ -32,9 +32,9 @@ When the robot arrives at a target vine during an autonomous pruning mission, it
 The precise-alignment pipeline proceeds through the following stages, as illustrated schematically in \cref{fig:pa-approach-overview}:
 
 \begin{enumerate}
-    \item The robot halts in front of the target vine and acquires a dense point cloud of the vine structure. Two sensing modalities are evaluated in this chapter: depth point clouds generated from a stereo camera, and dense maps built from a spinning LiDAR sensor.
+    \item The robot halts in front of the target vine and acquires a dense point cloud of the vine structure. Two sensing modalities are evaluated in this chapter: depth point clouds generated from a stereo camera, and dense maps built from a solid-state LiDAR sensor.
     \item The acquired point cloud is passed through a preprocessing pipeline that filters noise, removes the ground plane and non-structural clutter, and voxel-downsamples the data to a resolution suitable for registration.
-    \item The preprocessed source cloud is registered against the target cloud derived from the SfM reconstruction of the 3DGS model using the Iterative Closest Point (ICP) algorithm \cite{beslMethodRegistration3D1992a}. ICP iteratively solves for the rigid transformation — a rotation $\mathbf{R} \in SO(3)$ and translation $\mathbf{t} \in \mathbb{R}^3$ — that minimises the sum of squared distances between corresponding point pairs in the two clouds.
+    \item The preprocessed source cloud is registered against the target cloud derived from the SfM reconstruction of the 3DGS model using the Generalised Iterative Closest Point (GICP) algorithm \cite{segalGeneralizedICP2009}. GICP reformulates the classical ICP objective as a probabilistic plane-to-plane metric, modelling local surface patches as Gaussian distributions to iteratively solve for the rigid transformation — a rotation $\mathbf{R} \in SO(3)$ and translation $\mathbf{t} \in \mathbb{R}^3$ — that minimises the geometric discrepancy between the two clouds.
     \item The recovered transformation is applied to update the robot's internal localisation, correcting its estimated pose relative to the vine. This updated pose is consumed by the arm path planner, ensuring that simulated cut-points correspond to their physical counterparts.
 \end{enumerate}
 
@@ -44,7 +44,7 @@ The precise-alignment pipeline proceeds through the following stages, as illustr
   \caption{Overview of the four-stage precise-alignment pipeline. A live point
            cloud is acquired from the physical vine (\emph{Stage~1}), passed
            through a preprocessing pipeline (\emph{Stage~2}), registered against
-           the SfM target cloud derived from the 3DGS model using ICP
+           the SfM target cloud derived from the 3DGS model using GICP
            (\emph{Stage~3}), and the recovered rigid transform is applied to
            update the robot pose estimate (\emph{Stage~4}), which is consumed
            by the arm path planner.}

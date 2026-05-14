@@ -1,0 +1,141 @@
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- Subtitle -->
+    <mxCell id="2" value="(Top-down view)" style="text;html=1;align=center;fontSize=9;fontColor=#888888;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="334" y="42" width="160" height="16" as="geometry" />
+    </mxCell>
+
+    <!-- Legend box -->
+    <mxCell id="3" value="d : sensor-to-vine distance&lt;br&gt;&#x3b8; : lateral approach angle&lt;br&gt;relative to vine normal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontSize=9;fontColor=#666666;align=left;spacingLeft=6;" vertex="1" parent="1">
+      <mxGeometry x="60" y="60" width="185" height="52" as="geometry" />
+    </mxCell>
+
+    <!-- Vine trunk (brown circle, cross-section) -->
+    <mxCell id="4" value="Vine&lt;br&gt;Trunk" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d4a373;strokeColor=#8B6914;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="389" y="65" width="50" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Vine normal dashed line (0&#176; direction, downward from vine) -->
+    <mxCell id="5" value="" style="endArrow=none;dashed=1;dashPattern=5 5;strokeColor=#bbbbbb;strokeWidth=1;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="414" y="120" as="sourcePoint" />
+        <mxPoint x="414" y="650" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+
+    <!-- -15&#176; angle line (dashed, from vine to bottom-left) -->
+    <mxCell id="6" value="" style="endArrow=none;dashed=1;dashPattern=5 5;strokeColor=#bbbbbb;strokeWidth=1;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="414" y="120" as="sourcePoint" />
+        <mxPoint x="272" y="650" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+
+    <!-- +15&#176; angle line (dashed, from vine to bottom-right) -->
+    <mxCell id="7" value="" style="endArrow=none;dashed=1;dashPattern=5 5;strokeColor=#bbbbbb;strokeWidth=1;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="414" y="120" as="sourcePoint" />
+        <mxPoint x="556" y="650" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Vine normal label -->
+    <mxCell id="8" value="vine normal" style="text;html=1;align=left;fontSize=8;fontColor=#aaaaaa;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="420" y="160" width="68" height="14" as="geometry" />
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- Row 1: d = 40 cm (scale: 6 px/cm = 240 px)  -->
+    <!-- ============================================ -->
+    <mxCell id="10" value="D40A-15" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="312" y="318" width="80" height="28" as="geometry" />
+    </mxCell>
+    <mxCell id="11" value="D40A0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="374" y="326" width="80" height="28" as="geometry" />
+    </mxCell>
+    <mxCell id="12" value="D40A15" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="436" y="318" width="80" height="28" as="geometry" />
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- Row 2: d = 60 cm (scale: 6 px/cm = 360 px)  -->
+    <!-- ============================================ -->
+    <mxCell id="13" value="D60A-15" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="281" y="434" width="80" height="28" as="geometry" />
+    </mxCell>
+    <mxCell id="14" value="D60A0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="374" y="446" width="80" height="28" as="geometry" />
+    </mxCell>
+    <mxCell id="15" value="D60A15" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="467" y="434" width="80" height="28" as="geometry" />
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- Row 3: d = 80 cm (scale: 6 px/cm = 480 px)  -->
+    <!-- ============================================ -->
+    <mxCell id="16" value="D80A-15" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="250" y="550" width="80" height="28" as="geometry" />
+    </mxCell>
+    <mxCell id="17" value="D80A0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="374" y="566" width="80" height="28" as="geometry" />
+    </mxCell>
+    <mxCell id="18" value="D80A15" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="498" y="550" width="80" height="28" as="geometry" />
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- Distance dimension arrows (right side)       -->
+    <!-- ============================================ -->
+    <mxCell id="20" value="" style="endArrow=block;startArrow=block;endFill=1;startFill=1;strokeColor=#aaaaaa;strokeWidth=1;startSize=4;endSize=4;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="548" y="100" as="sourcePoint" />
+        <mxPoint x="548" y="335" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="21" value="" style="endArrow=block;startArrow=block;endFill=1;startFill=1;strokeColor=#aaaaaa;strokeWidth=1;startSize=4;endSize=4;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="578" y="100" as="sourcePoint" />
+        <mxPoint x="578" y="451" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="22" value="" style="endArrow=block;startArrow=block;endFill=1;startFill=1;strokeColor=#aaaaaa;strokeWidth=1;startSize=4;endSize=4;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="608" y="100" as="sourcePoint" />
+        <mxPoint x="608" y="567" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Distance labels (beside arrows) -->
+    <mxCell id="23" value="d = 40 cm" style="text;html=1;align=left;fontSize=10;fontColor=#555555;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="556" y="325" width="80" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="24" value="d = 60 cm" style="text;html=1;align=left;fontSize=10;fontColor=#555555;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="586" y="441" width="80" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="25" value="d = 80 cm" style="text;html=1;align=left;fontSize=10;fontColor=#555555;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="616" y="557" width="80" height="20" as="geometry" />
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- Angle labels (bottom of angle lines)         -->
+    <!-- ============================================ -->
+    <mxCell id="30" value="&#x3b8; = &#x2212;15&#176;" style="text;html=1;align=center;fontSize=10;fontColor=#555555;" vertex="1" parent="1">
+      <mxGeometry x="232" y="652" width="80" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="31" value="&#x3b8; = 0&#176;" style="text;html=1;align=center;fontSize=10;fontColor=#555555;" vertex="1" parent="1">
+      <mxGeometry x="384" y="652" width="60" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="32" value="&#x3b8; = +15&#176;" style="text;html=1;align=center;fontSize=10;fontColor=#555555;" vertex="1" parent="1">
+      <mxGeometry x="516" y="652" width="80" height="20" as="geometry" />
+    </mxCell>
+
+    <!-- Replicate annotation for D60A0r -->
+    <mxCell id="35" value="(replicate: D60A0r)" style="text;html=1;align=left;fontSize=8;fontColor=#888888;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="458" y="455" width="110" height="14" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>

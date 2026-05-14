@@ -1,20 +1,20 @@
-\section{Proposed Methods}
+\section{Precise-Alignment Pipeline}
 \label{sec:precise-alignment-methodology}
 
-The relocalisation pipeline described in this section refines the coarse initial pose estimate delivered by the SLAM system presented in \cref{chap:SLAM} through point cloud registration against a pre-built 3D Gaussian Splatting reference model. Two independent sensing modalities --- stereo vision and dense LiDAR --- are evaluated within a common architectural framework; both feed into a shared ICP registration backend, the output of which is used to correct the robot's estimated pose in the ROS~2 transform tree. The approach is outlined in \cref{subsec:approach-overview}; the following subsections present each component in detail.
+The relocalisation pipeline described in this section refines the coarse initial pose estimate delivered by the SLAM system presented in \cref{chap:SLAM} through point cloud registration against a pre-built 3D Gaussian Splatting reference model. Two independent sensing modalities --- stereo vision and accumulated LiDAR --- are evaluated within a common architectural framework; both feed into a shared ICP registration backend, the output of which is used to correct the robot's estimated pose in the ROS~2 transform tree. The approach is outlined in \cref{subsec:approach-overview}; the following subsections present each component in detail.
 
 % ---------------------------------------------------------------
 \subsection{System Overview}
 \label{subsec:pa-system-overview}
 % ---------------------------------------------------------------
 
-The precise-alignment pipeline operates as a one-shot refinement: when the robot halts in front of a target vine, a single localisation correction is computed and applied before any manipulation motion is initiated. The pipeline consists of three cooperating components: a sensor-specific preprocessing stage that transforms raw sensor data into a filtered, downsampled point cloud; a GPU-accelerated rendering stage that synthesises a target point cloud from the 3D Gaussian Splatting (3DGS) model at candidate viewpoints near the initial pose; and a shared ICP registration stage that searches for the optimal rigid alignment between the sensor observation and the rendered reference. The corrected pose is subsequently propagated to the robot's transform tree without modifying the SLAM system's own published transforms.
+The precise-alignment pipeline operates as a one-shot refinement: when the robot halts in front of a target vine, a single localisation correction is computed and applied before any manipulation motion is initiated. The pipeline consists of three cooperating components: a sensor-specific preprocessing stage that transforms raw sensor data into a filtered, downsampled point cloud; a target cloud extraction stage that constructs a single reference point cloud directly from the Gaussian mean positions of the 3DGS model; and a shared GICP registration stage that searches for the optimal rigid alignment between the sensor observation and the extracted reference across 35 perturbation hypotheses sampled around the initial pose. The corrected pose is subsequently propagated to the robot's transform tree without modifying the SLAM system's own published transforms.
 
 Two independent sensing modalities are evaluated. The stereo vision pipeline accepts rectified image pairs from one or two ZED stereo cameras, applies the FoundationStereo foundation model~\cite{wenFoundationStereoZeroShot2025}
-to estimate dense disparity maps, and derives coloured 3D point clouds that are segmented to retain vine trunk structure. The LiDAR pipeline operates on dense point clouds accumulated from a Livox solid-state sensor over a commanded interval, using Patchwork++ for ground plane removal, and applying a multi-stage filtering sequence to isolate vine wood. Both pipelines share the same ICP registration module and the same pose correction mechanism; they differ only in their preprocessing steps, which are tailored to the noise characteristics and geometric coverage of the respective sensor.
+to estimate dense disparity maps, and derives coloured 3D point clouds that are segmented to retain vine trunk structure. The LiDAR pipeline operates on dense point clouds accumulated from a Livox solid-state sensor over a commanded interval, using Patchwork++ for ground plane removal, and applying a multi-stage filtering sequence to isolate vine wood. Both pipelines share the same GICP registration module and the same pose correction mechanism; they differ only in their preprocessing steps, which are tailored to the noise characteristics and geometric coverage of the respective sensor.
 
-The initial pose estimate consumed by the pipeline is provided by the ENU-aligned SLAM system described in \cref{sec:slam-methodology}. This pose locates the robot within the global coordinate frame and is used both to select candidate viewpoints for 3DGS rendering and to anchor the final corrected transform in the global frame. The pipeline dataflow for each sensing modality is illustrated in
-\cref{fig:pa-pipeline-stereo,fig:pa-pipeline-lidar}; the shared ICP
+The initial pose estimate consumed by the pipeline is provided by the ENU-aligned SLAM system described in \cref{sec:slam-methodology}. This pose locates the robot within the global coordinate frame and is used both to spatially crop the target cloud extracted from the 3DGS model and to generate perturbation hypotheses for GICP registration, as well as to anchor the final corrected transform in the global frame. The pipeline dataflow for each sensing modality is illustrated in
+\cref{fig:pa-pipeline-stereo,fig:pa-pipeline-lidar}; the shared GICP
 registration stage is shown in \cref{fig:pa-pipeline-icp}.
 
 \begin{figure}[htbp]
@@ -24,7 +24,7 @@ registration stage is shown in \cref{fig:pa-pipeline-icp}.
            Rectified image pairs from the ZED stereo camera(s) are processed
            through FoundationStereo depth estimation, back-projection, radius
            outlier removal, optional dual-camera fusion, and trunk segmentation
-           to produce a filtered source point cloud passed to the shared ICP
+           to produce a filtered source point cloud passed to the shared GICP
            registration stage (\cref{fig:pa-pipeline-icp}).}
   \label{fig:pa-pipeline-stereo}
 \end{figure}
@@ -36,19 +36,19 @@ registration stage is shown in \cref{fig:pa-pipeline-icp}.
            scans from the Livox solid-state LiDAR are filtered through ground
            removal, statistical and angular outlier rejection, and normal-based
            processing to produce a filtered source point cloud passed to the
-           shared ICP registration stage (\cref{fig:pa-pipeline-icp}).}
+           shared GICP registration stage (\cref{fig:pa-pipeline-icp}).}
   \label{fig:pa-pipeline-lidar}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.85\linewidth]{4-precise-alignment/4-methodology/figures/pa-pipeline-icp}
-  \caption{Shared ICP registration stage, common to both sensing modalities.
-           Candidate viewpoints are sampled around the initial SLAM pose and
-           rendered from the 3DGS model; each rendered target cloud is
-           registered against the filtered source cloud from either preprocessing
-           branch, and the best-fitting result is used to correct the robot pose
-           in the ROS~2 TF tree via the mechanism described in
+  \caption{Shared GICP registration stage, common to both sensing modalities.
+           A single target point cloud is extracted from the Gaussian mean
+           positions of the 3DGS model; 35 perturbation hypotheses are sampled
+           around the initial SLAM pose and each is registered via GICP against
+           the extracted target cloud. The best-fitting result is used to correct
+           the robot pose in the ROS~2 TF tree via the mechanism described in
            \cref{subsec:pa-pose-correction}.}
   \label{fig:pa-pipeline-icp}
 \end{figure}
@@ -58,12 +58,13 @@ registration stage is shown in \cref{fig:pa-pipeline-icp}.
 \label{subsec:pa-reference-model}
 % ---------------------------------------------------------------
 
-The localisation target for both sensor modalities is a point cloud synthesised at runtime from the 3DGS model of the target vine. The construction of this model from SfM photogrammetry is described in \cref{subsec:system-context}; the present subsection addresses how it is used during localisation.
+The localisation target for both sensor modalities is a point cloud derived directly from the 3DGS model of the target vine. The construction of this model from SfM photogrammetry is described in \cref{subsec:system-context}; the present subsection addresses how it is used during localisation.
 
-The 3DGS model is loaded once at initialisation and held resident in GPU memory throughout the localisation session. At registration time, the model is rendered at each candidate viewpoint to produce a target point cloud. Rendering is performed using the \textit{taichi-splatting} GPU-accelerated splat rasteriser, which projects the volumetric Gaussian primitives onto a virtual image plane and recovers depth at each pixel; the depth map is then back-projected into a three-dimensional point set in the camera frame of the candidate viewpoint. This per-viewpoint rendering approach avoids pre-computing a single global point cloud, which would require either a fixed viewpoint selection or a coarse global reconstruction that may not capture the local geometry at the resolution required for precise alignment.
+The 3DGS model is loaded once at initialisation. The target point cloud is constructed by extracting the mean positions of all Gaussian primitives stored in the model. Each primitive is parameterised by a mean $\boldsymbol{\mu}_i \in \mathbb{R}^3$, representing the centre of the volumetric Gaussian in world coordinates; collecting these centres across all $N$ primitives yields a single global point cloud $\{\boldsymbol{\mu}_i\}_{i=1}^{N}$ that captures the geometric structure of the reconstructed scene. This extraction is a direct read of the model parameters and requires no rendering pass, making it computationally simpler than viewpoint-dependent depth map synthesis and free of viewpoint-dependent artefacts that arise when projecting volumetric primitives onto an image plane.
 
-After rendering, the point cloud is filtered to retain only points within a specified depth range. Points closer than a near-clip distance are excluded to suppress rendering artefacts on nearby Gaussian primitives, and points beyond a far-clip distance are discarded as their position estimates are less reliable and they correspond to environmental structure unrelated to the vine under registration.
-% TODO: state the near and far clip values used in the 3DGS rendering stage and review justification
+Because the extracted cloud spans the full reconstructed scene, it is spatially cropped to a region of interest centred on the initial pose estimate before registration. This step retains only the local geometry relevant to the current alignment problem and discards distant or structurally irrelevant model points that would otherwise inflate correspondence search cost and introduce spurious matches. Following cropping, the target cloud may optionally be downsampled using a voxel grid filter to reduce point density and match the resolution of the incoming sensor source cloud, further reducing the computational cost of the subsequent registration step.
+
+The resulting target cloud is constructed once per localisation query and reused across all perturbation hypotheses evaluated during ICP registration, as described in \cref{subsec:pa-icp-registration}. This avoids redundant reconstruction overhead and ensures a consistent geometric reference throughout the alignment procedure.
 
 % ---------------------------------------------------------------
 \subsection{Stereo Vision Pipeline}
@@ -97,7 +98,7 @@ Each pixel for which a valid depth estimate is available is back-projected into 
 
 The system supports an optional dual-camera configuration in which a second ZED stereo camera (ZED~2) is mounted alongside the primary camera (ZED~1) on the vine-facing side of the robot platform, approximately 30\,cm laterally offset with no rotation between the two units. Both cameras are directed toward the same face of the vine structure, producing overlapping point clouds from slightly different lateral vantage points.
 
-This configuration serves two complementary purposes. First, the lateral offset provides marginally different viewing angles of the vine surface, yielding a denser and more representative composite point cloud than either camera alone. Second, the substantial overlap between the two clouds enables consistency-based outlier rejection: depth estimates that appear in one cloud but are absent or inconsistent in the other are likely to represent erroneous stereo returns and can be discarded before registration. This stands in contrast to a configuration in which the two cameras view the vine from opposite or widely separated directions, where each cloud would have to be accepted independently, with no means of cross-validation.
+This configuration serves two complementary purposes. First, the lateral offset provides marginally different viewing angles of the vine surface, yielding a denser and more representative composite point cloud than either camera alone. Second, the substantial overlap between the two clouds could in principle enable consistency-based outlier rejection, in which depth estimates present in one cloud but absent or inconsistent in the other are identified as likely erroneous stereo returns; this capability is not exploited in the current implementation, where the two clouds are concatenated without cross-validation, but represents a potential avenue for future improvement. This stands in contrast to a configuration in which the two cameras view the vine from opposite or widely separated directions, where each cloud would have to be accepted independently, with no means of cross-validation.
 
 The extrinsic relationship between the two cameras is expressed as a rigid transform from the secondary camera frame (ZED~2) to the primary camera frame (ZED~1). Given the transform from the primary camera to a common reference frame, $T_{\mathrm{cam1} \to \mathrm{ref}}$, and the corresponding transform from the secondary camera, $T_{\mathrm{cam2} \to \mathrm{ref}}$, the inter-camera transform is computed as:
 %
@@ -117,8 +118,9 @@ The secondary camera point cloud is transformed into the primary camera frame us
            The secondary camera's point cloud is transformed into the primary camera
            frame using $T_{\mathrm{cam2} \to \mathrm{cam1}}$ (\cref{eq:dual-camera-extrinsic}),
            and the two clouds are concatenated (Part~B). The high degree of overlap
-           between the clouds enables consistency-based outlier rejection before the
-           merged cloud is passed to trunk segmentation.}
+           between the clouds could in principle enable consistency-based outlier
+           rejection; in the current implementation the clouds are concatenated
+           directly before passing to trunk segmentation.}
   \label{fig:pa-dual-camera}
 \end{figure}
 
@@ -186,9 +188,7 @@ The LiDAR pipeline converts raw scans from the Livox solid-state sensor into a f
 \subsubsection{Dense Scan Accumulation}
 \label{subsubsec:pa-dense-accumulation}
 
-The Livox sensor employs a non-repetitive scanning pattern in which, unlike a conventional spinning LiDAR, the scan lines do not repeat on a fixed cycle. Consequently, a single frame provides sparse and unevenly distributed coverage of the target. A custom dense-mapper ROS~2 node~\cite{macenskiRobotOperatingSystem2022} developed for this work accumulates multiple consecutive scans over a commanded time interval, concatenating their returns into a single dense point cloud. Over a sufficiently long interval, the non-repetitive pattern achieves high fill-factor coverage of the scene within the sensor's field of view, producing a point cloud with spatial density comparable to that of a multi-return spinning LiDAR.
-% TODO: state the commanded accumulation interval and typical number of scans accumulated (OQ3);
-% also clarify whether motion compensation is applied during accumulation.
+The Livox sensor employs a non-repetitive scanning pattern in which, unlike a conventional spinning LiDAR, the scan lines do not repeat on a fixed cycle. Consequently, a single frame provides sparse and unevenly distributed coverage of the target. A custom dense-mapper ROS~2 node~\cite{macenskiRobotOperatingSystem2022} developed for this work accumulates multiple consecutive scans over a commanded time interval, concatenating their returns into a single dense point cloud. In the present work, the accumulation interval is set to 25\,s, yielding approximately 4.4--4.6 million raw points per acquisition. This raw cloud is subsequently reduced to approximately 100\,000 points by the multi-stage filtering pipeline described in \cref{subsubsec:pa-lidar-processing}. Over the 25\,s interval, the non-repetitive pattern achieves high fill-factor coverage of the scene within the sensor's field of view, producing a point cloud with spatial density comparable to that of a multi-return spinning LiDAR.
 
 \subsubsection{Ground Segmentation}
 \label{subsubsec:pa-ground-segmentation}
@@ -202,7 +202,7 @@ consistent with the physical mounting position of the Livox sensor on the robot 
 % TODO: review: distance threshold chosen to accommodate minor terrain irregularities; review against observed ground surface roughness
 The seed threshold for initialising planar patches is 0.5\,m, and three plane-fitting iterations are applied per patch.
 % TODO: review seed threshold justification
-The processing range is bounded to 0.1--3.0\,m to discard returns either too close to the sensor aperture or beyond the typical vine operating distance. The Ring-wise Normal-based Removal (RNR) and Ring-wise Vertical Point Filtering (RVPF) modules are enabled to suppress scan-line artefacts characteristic of solid-state LiDAR point clouds.
+The processing range is bounded to 0.1--3.0\,m to discard returns either too close to the sensor aperture or beyond the typical vine operating distance. The Ring-wise Normal-based Removal (RNR) and Ring-wise Vertical Point Filtering (RVPF) modules are enabled. Although these modules were originally designed for spinning LiDAR with regular scan rings, Patchwork++ assigns points to virtual concentric rings based on radial distance from the sensor origin regardless of the scan pattern; RNR and RVPF therefore operate on this spatial radial partition and remain applicable to the Livox non-repetitive pattern.
 
 \subsubsection{Point Cloud Processing}
 \label{subsubsec:pa-lidar-processing}
@@ -279,70 +279,144 @@ The parameters for the LiDAR preprocessing pipeline are summarised in \cref{tab:
 \label{subsec:pa-icp-registration}
 % ---------------------------------------------------------------
 
-Both the stereo and LiDAR preprocessing branches deliver a filtered source point cloud to a shared ICP registration module, developed for this work, which aligns the sensor observation against a target point cloud rendered on demand from the 3DGS model. The registration procedure is as follows.
+Both the stereo and LiDAR preprocessing branches deliver a filtered source point cloud to a shared Generalised ICP (GICP) registration module, developed for this work, which aligns the sensor observation against a fixed target point cloud extracted from the 3DGS model. The registration procedure is as follows.
 
 \textbf{(a) Initial pose.} The initial pose estimate, obtained from the SLAM system (\cref{sec:slam-methodology}), is represented as a $4 \times 4$ homogeneous transformation matrix in $SE(3)$, encoding the rotation and translation of the robot base in the global frame.
 
-\textbf{(b) Candidate viewpoint sampling.} $N = 5$ candidate viewpoints are sampled in the neighbourhood of the initial pose.
-% TODO: describe the candidate viewpoint sampling strategy in detail (OQ1): how are the perturbations defined --- in translation, rotation, or both? What is the sampling distribution (grid, random, etc.)?
-Each candidate represents a plausible refined pose from which the 3DGS model is rendered for registration.
+\textbf{(b) Target cloud construction.} A single target point cloud is constructed once from the Gaussian means of the 3DGS model, as described in \cref{subsec:pa-reference-model}. This cloud is fixed for all registration hypotheses within a given pose estimation step, eliminating the need to re-render the model at multiple viewpoints.
 
-\textbf{(c) Reference cloud rendering.} The 3DGS model is rendered at each candidate viewpoint as described in \cref{subsec:pa-reference-model}, yielding $N$ target point clouds. The candidate sampling and selection procedure is illustrated in \cref{fig:pa-icp-candidates}.
+\textbf{(c) Neighbourhood perturbation.} To mitigate sensitivity to the accuracy of the initial SLAM pose, the pipeline generates 35 candidate initial poses by applying small rigid-body perturbations to the initial estimate $T_0$. Each perturbed pose $T_k$ is formed by right-multiplying $T_0$ with a perturbation matrix $\Delta T_k$:
+%
+\begin{equation}
+    T_k = T_0 \cdot \Delta T_k, \qquad k = 0, \ldots, 34.
+    \label{eq:perturbation}
+\end{equation}
+%
+Right-multiplication ensures that perturbations are applied in the body frame of the robot, so that translations and rotations act along the robot's local axes rather than the global frame axes. The 35 hypotheses are organised into five groups according to the structure of $\Delta T_k$, as summarised in \cref{tab:pa-perturbation-groups}. The perturbation magnitudes $\delta_t$ (translation) and $\delta_r$ (rotation) are configurable parameters whose values are reported in \cref{tab:pa-icp-params}. The perturbation scheme and subsequent hypothesis selection are illustrated in \cref{fig:pa-icp-candidates}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Perturbation hypothesis groups. Each group defines a class of rigid-body perturbation applied to the initial pose to generate candidate starting points for GICP registration.}
+  \label{tab:pa-perturbation-groups}
+  \begin{tabularx}{\textwidth}{l l X}
+    \toprule
+    \textbf{Group} & \textbf{Count} & \textbf{Description} \\
+    \midrule
+    Orig & 1  & Nominal (unperturbed) pose; $\Delta T_0 = I_{4\times4}$ \\
+    A    & 6  & Axis-aligned translations along $\pm x$, $\pm y$, $\pm z$ at half the nominal magnitude ($\delta_t / 2$) \\
+    B    & 4  & Cardinal-direction translations in the horizontal plane ($+x$, $-x$, $+y$, $-y$) at the full nominal magnitude ($\delta_t$) \\
+    C    & 12 & Compound perturbations combining a diagonal horizontal translation ($\delta_t$) with a yaw rotation ($\pm \delta_r$), sampling the four diagonal directions (NE, SE, SW, NW) with both positive and negative yaw \\
+    E    & 12 & Rotation-only perturbations sweeping roll, pitch, and yaw about each axis at both half-magnitude ($\delta_r / 2$) and full magnitude ($\delta_r$), with positive and negative signs \\
+    \midrule
+    \textbf{Total} & \textbf{35} & \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\linewidth]{4-precise-alignment/4-methodology/figures/pa-icp-candidates}
-  \caption{ICP candidate viewpoint sampling and selection. $N = 5$ candidate poses are
-           sampled in the neighbourhood of the initial SLAM pose; the 3DGS model is
-           rendered at each candidate to produce a reference point cloud. ICP is run
-           independently for each candidate, and the result with the highest fitness
-           score and lowest RMSE is selected as the final alignment.}
+  \caption{GICP perturbation hypothesis scheme. Thirty-five candidate poses are generated
+           by applying structured rigid-body perturbations (Orig and Groups~A, B, C,~and~E; \cref{tab:pa-perturbation-groups})
+           to the initial SLAM pose; each hypothesis is registered against the single
+           target point cloud extracted from the 3DGS model. The hypothesis whose
+           registration achieves the highest fitness score above the acceptance threshold
+           (and lowest RMSE as a tiebreaker) is selected as the final alignment.
+           }
   \label{fig:pa-icp-candidates}
 \end{figure}
 
-\textbf{(d) Downsampling.} Both the source cloud and each target cloud are independently downsampled using a voxel grid filter with voxel side length $v = 0.0075$\,m. This step reduces the computational cost of each ICP iteration while retaining sufficient geometric detail for convergence.
+\textbf{(d) Downsampling.} Both the source cloud and the target cloud are downsampled using a voxel grid filter with voxel side length $v = 0.0075$\,m. The target cloud may have been pre-downsampled during construction (see \cref{subsec:pa-reference-model}); the additional voxel filter ensures a consistent resolution across registration runs. This step reduces the computational cost of each GICP iteration while retaining sufficient geometric detail for convergence.
 
-\textbf{(e) ICP.} ICP is run between the downsampled source and each downsampled target using the Open3D~\cite{zhouOpen3DModernLibrary2018}
-tensor-based point-to-point implementation. The ICP objective (\cref{eq:icp}) is minimised iteratively until either the maximum iteration count is reached or the relative change in fitness and RMSE falls below the convergence thresholds stated in \cref{tab:pa-icp-params}.
+\textbf{(e) GICP.} GICP~\cite{segalGeneralizedICP2009} is run between the downsampled source cloud and the downsampled target cloud using the \texttt{registration\_generalized\_icp} function from Open3D~\cite{zhouOpen3DModernLibrary2018}. Unlike standard point-to-point ICP, GICP models local surface structure by estimating covariance matrices in the neighbourhood of each point in both the source and target clouds, using a hybrid KD-tree neighbourhood search. The generalised objective incorporates these covariances to perform an effective plane-to-plane alignment, making it more robust to incorrect correspondences than the point-to-point formulation~\cite{segalGeneralizedICP2009}. Each of the 35 perturbed initial poses is used as the starting transformation for an independent GICP run. Each run applies a two-phase graduated loss strategy with an accumulated rotation constraint, as described below; the governing parameters are summarised in \cref{tab:pa-icp-params}.
 
-\textbf{(f) Candidate selection.} The registration result with the highest fitness score --- defined as the ratio of accepted correspondences to total source points --- and the lowest point-to-point RMSE is selected as the final alignment across all $N$ candidates.
+\textbf{(f) Hypothesis selection.} After all 35 GICP runs complete, hypotheses with a fitness score below a threshold of 0.8 are rejected --- where fitness is defined as the ratio of accepted correspondences to total source points. A fitness score of 0.8 requires that at least 80\% of the source points find a geometrically consistent correspondence in the target cloud, ensuring that the accepted alignment is supported by the majority of the observed structure rather than a minority subset. Among the remaining hypotheses, the result with the highest fitness score is selected as the final alignment, with the lowest RMSE used as a tiebreaker when fitness scores are equal.
 
 The output of the registration stage is a result object containing the estimated transformation matrix, the fitness score, the point-to-point RMSE, and the accepted correspondence set.
 
-\subsubsection*{LiDAR-Specific Robust Kernel}
+\subsubsection*{Graduated Loss Strategy and Rotation Constraint}
+\label{subsubsec:pa-graduated-icp}
 
-When the source cloud originates from the LiDAR pipeline, a Cauchy robust loss function is applied to the ICP objective to reduce the influence of outlier correspondences. The Cauchy loss is defined as:
+Applying a single robust loss function throughout an ICP run creates a tension between two competing requirements. In early iterations, the source and target clouds are poorly aligned, so most point correspondences carry large residuals regardless of their geometric validity; aggressive outlier rejection at this stage can discard informative correspondences from thin structures such as branches and support wires, impeding convergence. Once broad alignment is achieved, the residuals that remain large arise from genuinely poor correspondences (edge noise, structural ambiguity), and strong suppression is desirable to lock the solution onto reliable inlier correspondences. A graduated loss strategy addresses this tension by using a permissive loss in the first phase and switching to an aggressive loss in the second. The complete constrained registration loop is illustrated in \cref{fig:pa-graduated-icp}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{4-precise-alignment/4-methodology/figures/pa-graduated-icp}
+  \caption{Graduated GICP registration loop for a single perturbation hypothesis.
+           Phase~1 uses a Huber loss ($k_1 = 1.5$\,m) for broad alignment;
+           Phase~2 switches to a Cauchy loss ($k_2 = 0.5$\,m) for precision
+           refinement. Both phases apply a rotation constraint
+           that clamps the total accumulated pitch and roll correction to $\pm 5^{\circ}$.
+           The final transformation is composed as
+           $T_{\text{ICP}} = T_{\text{p2}} \cdot T_{\text{p1}}$.}
+  \label{fig:pa-graduated-icp}
+\end{figure}
+
+\paragraph{Phase 1 --- Huber loss (broad alignment).}
+The first phase uses a Huber robust loss function:
 %
 \begin{equation}
-    \rho(r) = \frac{k^2}{2} \ln\!\left(1 + \left(\frac{r}{k}\right)^2\right),
+    \rho_H(r) =
+    \begin{cases}
+        \tfrac{1}{2} r^2                       & \text{if } |r| \leq k_1, \\
+        k_1 \!\left(|r| - \tfrac{1}{2} k_1\right) & \text{otherwise,}
+    \end{cases}
+    \label{eq:huber-loss}
+\end{equation}
+%
+where $r$ is the residual distance for a correspondence and $k_1 = 1.5$\,m is the scale parameter. Below $k_1$ the Huber loss is purely quadratic; above $k_1$ it grows linearly rather than being truncated entirely. The large value of $k_1$ means that the transition to linear growth occurs late, so the majority of correspondences --- even those with substantial residuals early in registration --- contribute a non-zero gradient and keep the optimisation from stalling. Phase~1 runs for a maximum of 30 iterations per hypothesis.
+
+\paragraph{Phase 2 --- Cauchy loss (precision refinement).}
+After Phase~1 brings the clouds into approximate alignment, the second phase switches to a Cauchy robust loss:
+%
+\begin{equation}
+    \rho_C(r) = \frac{k_2^2}{2} \ln\!\left(1 + \left(\frac{r}{k_2}\right)^2\right),
     \label{eq:cauchy-loss}
 \end{equation}
 %
-where $r$ is the residual distance between a source point and its corresponding target point, and $k = 0.15$ is the scale parameter that controls the transition from approximately quadratic behaviour near the origin to logarithmic growth in the outlier region.
-% TODO: review rationale for using the Cauchy kernel for LiDAR but not stereo (OQ2): is this because the LiDAR cloud retains more outlier correspondences (e.g., from residual ground returns or structural clutter) than the trunk-segmented stereo cloud, or for another reason?
-The standard point-to-point objective without a robust kernel is used for the stereo modality, where the trunk segmentation pipeline substantially reduces the outlier fraction prior to registration.
+where $k_2 = 0.5$\,m. The Cauchy loss grows logarithmically for large residuals, so correspondences whose residuals exceed $k_2$ by even a modest factor are strongly down-weighted. With $k_2 = 0.5$, a residual of $0.75$\,m (i.e.\ $1.5\,k_2$) is already in the aggressive suppression regime, making Phase~2 sensitive only to the tightest inlier set. The Phase~1 converged transformation $T_{\text{p1}}$ is applied to the source cloud in place before Phase~2 begins, so that Phase~2 refines from the Phase~1 result. Phase~2 runs for a maximum of 20 iterations per hypothesis. The final combined transformation is:
+%
+\begin{equation}
+    T_{\text{ICP}} = T_{\text{p2}} \cdot T_{\text{p1}},
+    \label{eq:icp-combined}
+\end{equation}
+%
+where $T_{\text{p2}}$ is the refinement returned by Phase~2.
 
-The parameters for the ICP registration stage are summarised in \cref{tab:pa-icp-params}.
+\paragraph{Rotation constraint.}
+Open3D's \texttt{registration\_generalized\_icp} provides no built-in mechanism for constraining the per-iteration correction. A custom iterative loop therefore replaces the library's internal iteration for both phases: at each step, a single GICP iteration is executed and the accumulated correction transform $T_{\text{accum}}$ --- the total ICP-introduced change relative to the current phase's starting pose --- is decomposed into ZYX Euler angles. The pitch and roll components of $T_{\text{accum}}$ are clamped to $\pm 5^{\circ}$; yaw and all three translation components remain unconstrained. Because the clamping is applied to $T_{\text{accum}}$ rather than to the absolute pose, it constrains only the correction introduced by ICP and preserves any pitch or roll present in the initial estimate. This is appropriate because the robot operates on approximately level terrain, so large pitch or roll corrections are more likely to be registration artefacts than genuine pose refinements.
+
+Convergence in the constrained loop is declared when the incremental rotation between successive steps falls below $0.01^{\circ}$ and the incremental translation falls below $10^{-4}$\,m, or when the maximum iteration count for that phase is reached. Phase~1 clamps $T_{\text{accum}}$ relative to the initial perturbed pose; Phase~2 clamps $T_{\text{accum}}$ relative to the Phase~1 converged pose.
+
+\paragraph{Note on the stereo modality.}
+The graduated loss strategy and rotation constraint described above are applied only when the source cloud originates from the LiDAR pipeline. Despite the multi-stage filtering described in \cref{subsubsec:pa-lidar-processing}, the LiDAR source cloud retains a higher residual outlier fraction than the stereo cloud because the geometric filtering criteria cannot distinguish vine wood from structurally similar non-vine objects (e.g.\ the mounting frame or nearby surfaces) that fall within the azimuthal and range filters. For the stereo modality, the trunk segmentation pipeline substantially reduces the outlier fraction prior to registration, and the standard GICP objective without a robust kernel is used.
+
+The parameters for the GICP registration stage are summarised in \cref{tab:pa-icp-params}.
 
 \begin{table}[htbp]
   \centering
-  \caption{ICP registration parameters.}
+  \caption{GICP registration parameters.}
   \label{tab:pa-icp-params}
-  \begin{tabularx}{\textwidth}{l l X}
+  \begin{tabularx}{\textwidth}{@{} >{\raggedright}p{0.27\textwidth} >{\raggedright}p{0.20\textwidth} >{\raggedright\arraybackslash}X @{}}
     \toprule
     \textbf{Parameter} & \textbf{Value} & \textbf{Description} \\
     \midrule
-    Candidate viewpoints ($N$)      & 5                   & Number of candidate viewpoints sampled around the initial pose \\
+    Perturbation hypotheses         & 35                  & Total candidate poses: 1 nominal (Orig) + 34 perturbations (Groups~A, B, C, and~E; \cref{tab:pa-perturbation-groups}) \\
+    Translation perturbation ($\delta_t$) & $0.10$\,m & Full magnitude used by Groups~B and~C; Group~A uses $\delta_t / 2 = 0.05$\,m \\
+    Rotation perturbation ($\delta_r$)    & $10^{\circ}$ & Full magnitude used by Group~C (yaw component); Group~E uses both $\delta_r / 2 = 5^{\circ}$ and $\delta_r$ \\
     Voxel grid size ($v$)           & 0.0075\,m           & Downsampling resolution applied to source and target clouds \\
-    ICP backend                     & Open3D \texttt{t}   & Tensor-based point-to-point ICP implementation \\
-    Max iterations                  & \textit{TODO}       & Maximum number of ICP iterations per candidate \\ % TODO: verify value
-    Max correspondence distance     & \textit{TODO}       & Maximum point-pair distance for correspondence acceptance \\ % TODO: verify value
-    Relative fitness                & \textit{TODO}       & Convergence criterion: minimum relative change in fitness \\ % TODO: verify value
-    Relative RMSE                   & \textit{TODO}       & Convergence criterion: minimum relative change in RMSE \\ % TODO: verify value
-    Robust kernel (LiDAR only)      & Cauchy, $k = 0.15$  & Applied to LiDAR source clouds; not used for stereo \\
+    GICP backend                    & Open3D              & \texttt{registration\_generalized\_icp}; generalised ICP implementation from Open3D~\cite{zhouOpen3DModernLibrary2018} \\
+    Phase~1 loss (LiDAR)            & Huber, $k_1 = 1.5$\,m & Broad alignment phase; soft outlier rejection (\cref{eq:huber-loss}) \\
+    Phase~1 max iterations          & 30                  & Per hypothesis \\
+    Phase~2 loss (LiDAR)            & Cauchy, $k_2 = 0.5$\,m & Precision refinement phase; aggressive outlier rejection (\cref{eq:cauchy-loss}) \\
+    Phase~2 max iterations          & 20                  & Per hypothesis \\
+    Max correspondence distance     & 0.15\,m             & Maximum point-pair distance for correspondence acceptance \\
+    Rotation constraint (LiDAR)     & $\pm 5^{\circ}$ pitch/roll & Clamp on total accumulated ICP correction; yaw unconstrained \\
+    Constrained convergence: rotation    & $0.01^{\circ}$ & Inter-step rotation change threshold \\
+    Constrained convergence: translation & $10^{-4}$\,m   & Inter-step translation change threshold \\
+    Fitness threshold               & 0.8                 & Minimum fitness score for hypothesis acceptance \\
     \bottomrule
   \end{tabularx}
-  % TODO: verify all ICP parameter values from the implementation
 \end{table}
 
 % ---------------------------------------------------------------
@@ -393,20 +467,177 @@ Because the correction is published as a static transform, it does not require a
 \label{subsec:pa-execution-model}
 % ---------------------------------------------------------------
 
-Each localisation request is encapsulated as an ordered sequence of command objects following the Command design pattern. Each processing stage --- depth estimation, point cloud preprocessing, 3DGS rendering, ICP registration, and pose correction --- is implemented as an \texttt{AsyncCommand} with a well-defined input contract and output contract. Commands are submitted to an asynchronous task queue, which executes them sequentially within a dedicated worker thread pool. This design decouples the processing pipeline from the ROS~2 executor event loop: computationally intensive operations such as FoundationStereo inference and Open3D ICP run in non-blocking threads, avoiding latency spikes in the ROS~2 message-handling callbacks. The execution architecture is illustrated in \cref{fig:pa-execution-model}.
+Each localisation request is encapsulated as an ordered sequence of command objects following the Command design pattern. Each processing stage --- depth estimation, point cloud preprocessing, target cloud extraction, ICP registration, and pose correction --- is implemented as an \texttt{AsyncCommand} with a well-defined input contract and output contract. Commands are submitted to an asynchronous task queue, which executes them sequentially within a dedicated worker thread pool. This design decouples the processing pipeline from the ROS~2 executor event loop: computationally intensive operations such as FoundationStereo inference and Open3D ICP run in non-blocking threads, avoiding latency spikes in the ROS~2 message-handling callbacks. The execution architecture is illustrated in \cref{fig:pa-execution-model}.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\linewidth]{4-precise-alignment/4-methodology/figures/pa-execution-model}
   \caption{Pipeline execution model. Each localisation request is dispatched as a
            sequence of \texttt{AsyncCommand} objects to an asynchronous task queue,
-           which executes them in a dedicated worker thread pool. GPU-resident stages
-           (FoundationStereo inference and 3DGS rendering) are protected by a semaphore
-           concurrency guard. Incoming requests are queued independently, ensuring each
-           observation is processed in full.}
+           which executes them in a dedicated worker thread pool. The GPU-resident
+           FoundationStereo inference stage is protected by a semaphore concurrency
+           guard; target cloud extraction from the 3DGS model is a CPU-bound read of
+           Gaussian mean positions and does not require GPU access. Incoming requests
+           are queued independently, ensuring each observation is processed in full.}
   \label{fig:pa-execution-model}
 \end{figure}
 
-GPU-resident operations --- specifically FoundationStereo inference and 3DGS rendering --- are governed by a semaphore-based concurrency guard that prevents simultaneous kernel execution from exceeding available GPU memory. When a new localisation request arrives while a prior job is still processing, the new job is queued independently and executes after the in-progress job completes, ensuring that each sensor observation is processed in full without resource contention. This execution model supports both the stereo and LiDAR pipelines without modification, as the modality-specific processing difference is captured entirely within the command sequence submitted for each observation type.
+The GPU-resident FoundationStereo inference stage is governed by a semaphore-based concurrency guard that prevents simultaneous kernel execution from exceeding available GPU memory. Target cloud extraction from the 3DGS model reads Gaussian mean positions on the CPU and is not subject to this guard. When a new localisation request arrives while a prior job is still processing, the new job is queued independently and executes after the in-progress job completes, ensuring that each sensor observation is processed in full without resource contention. This execution model supports both the stereo and LiDAR pipelines without modification, as the modality-specific processing difference is captured entirely within the command sequence submitted for each observation type.
 
-The performance of both sensing modalities across a set of vineyard test cases is evaluated in \cref{sec:precise-alignment-results}.
+The preceding subsections have described the complete localisation pipeline: sensor preprocessing for both stereo and LiDAR observations, target point cloud extraction from the 3DGS model, GICP registration with neighbourhood perturbation, and pose correction. The following subsection describes the experimental setup designed to evaluate the LiDAR pipeline under controlled conditions. The results of these experiments are presented in \cref{sec:precise-alignment-results}.
+
+% ===============================================================
+\subsection{Experimental Setup}
+\label{subsec:pa-experimental-setup}
+% ===============================================================
+
+This section describes the experimental setup used to evaluate the LiDAR precise-alignment pipeline. The stereo experimental setup is addressed in a subsequent section. Six aspects of the evaluation are described: the test environment, the vine specimen and reference model, the trial design, the construction of initial poses, the evaluation protocol, and the metrics used to validate alignment quality.
+
+% ---------------------------------------------------------------
+\subsubsection{Test Environment}
+\label{subsubsec:pa-test-environment}
+% ---------------------------------------------------------------
+
+Trials were conducted in an indoor laboratory environment under controlled conditions. This setting was chosen to isolate the performance of the localisation pipeline from environmental confounders present in outdoor vineyards, such as solar irradiance variation, wind-induced vine motion, and GNSS multipath interference, all of which would introduce additional sources of variability that cannot be independently controlled.
+
+Outdoor validation was not feasible for this evaluation for the following reason. The 3DGS reference model was georeferenced during outdoor data collection at a specific site, encoding the vine's position within the ENU coordinate frame tied to that location. The robot was subsequently relocated to a different facility, creating a spatial mismatch in the global frame that prevents the outdoor model from being used directly for live registration trials without re-georeferencing. The indoor laboratory accordingly served as a controlled proxy environment; outdoor validation under realistic field conditions remains future work.
+
+Several limitations of the indoor evaluation should be noted. First, the laboratory lighting and surface reflectance properties differ from outdoor vineyard conditions; LiDAR return intensity and noise characteristics may therefore not be representative of field operation. Second, only a single vine specimen was present, eliminating inter-vine geometric ambiguity --- a significant simplification relative to a vineyard row containing many structurally similar vines. Third, the 3DGS reference model was reconstructed outdoors and manually re-aligned to the laboratory coordinate system; any residual error in this manual alignment is indistinguishable from pipeline registration error in the reported metrics. The physical arrangement of the laboratory, including the vine specimen, robot platform, and sensor positions, is illustrated in \cref{fig:pa-lab-setup}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{4-precise-alignment/4-methodology/figures/pa-lab-setup}
+  \caption{Physical layout of the indoor laboratory test environment (top-down view).
+           The vine specimen is mounted on a rigid frame at a fixed position; the
+           robot platform is positioned facing the vine with the Livox LiDAR and
+           ZED~Mini stereo camera on its vine-facing side. The distance~$d$ and
+           approach angle~$\theta$ define the operating condition for each trial.
+           The 3DGS reference model, reconstructed from outdoor photogrammetry,
+           was manually re-aligned to the laboratory coordinate frame.}
+  \label{fig:pa-lab-setup}
+\end{figure}
+
+% ---------------------------------------------------------------
+\subsubsection{Vine Specimen and Reference Model}
+\label{subsubsec:pa-vine-specimen}
+% ---------------------------------------------------------------
+
+A dormant vine specimen was sourced and mounted on a rigid physical frame to replicate the vertical trunk structure encountered in a vineyard row. Mounting the specimen on a fixed support ensured that the vine remained stationary throughout all trials, eliminating inter-trial positional drift as a confounding factor.
+
+The 3DGS reference model used for registration was reconstructed from outdoor SfM photogrammetry of the same vine specimen, following the procedure described in \cref{subsec:system-context}. The model is georeferenced in the ENU coordinate frame. For the indoor trials, the model's coordinate system was manually aligned to the laboratory environment to establish a consistent spatial reference between the physical specimen and the model. This alignment provided the common frame of reference required by the registration pipeline.
+
+% ---------------------------------------------------------------
+\subsubsection{Trial Design}
+\label{subsubsec:pa-trial-design}
+% ---------------------------------------------------------------
+
+Trials were organised as a structured evaluation across nine operating conditions defined by two factors: the distance from the sensor to the vine trunk ($d$) and the lateral approach angle ($\theta$) relative to the vine normal. Three levels were selected for each factor: $d \in \{40, 60, 80\}$\,cm and $\theta \in \{-15^{\circ}, 0^{\circ}, {+}15^{\circ}\}$, yielding nine unique conditions that sample the operational envelope at representative points. One additional replicate at the centre condition ($d = 60$\,cm, $\theta = 0^{\circ}$) was included as a repeatability check, resulting in ten trials in total. Because only a single observation is available per non-centre condition, the design is exploratory rather than statistically powered; results are interpreted as characterising pipeline behaviour across the range of expected operating conditions rather than estimating main effects or interactions.
+
+Trials were executed in randomised order to mitigate systematic effects arising from sensor warm-up drift or any time-correlated environmental change. A settling period was observed between consecutive trials --- the operator waited until the robot was visibly stationary and any transient sensor artefacts from the preceding repositioning had subsided before initiating data acquisition.
+
+The full trial matrix is summarised in \cref{tab:pa-trial-matrix}; the corresponding spatial layout is shown in \cref{fig:pa-trial-layout}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{LiDAR experimental trial matrix. Each row defines one trial with its distance and angle factor levels. Trial~D60A0r is a replicate of the centre condition (60\,cm, 0$^{\circ}$).}
+  \label{tab:pa-trial-matrix}
+  \begin{tabularx}{\textwidth}{l c c}
+    \toprule
+    \textbf{Trial ID} & \textbf{Distance (cm)} & \textbf{Angle ($^{\circ}$)} \\
+    \midrule
+    D40A-15 & 40 & $-15$ \\
+    D40A0   & 40 &    $0$ \\
+    D40A15  & 40 & ${+}15$ \\
+    D60A-15 & 60 & $-15$ \\
+    D60A0   & 60 &    $0$ \\
+    D60A15  & 60 & ${+}15$ \\
+    D80A-15 & 80 & $-15$ \\
+    D80A0   & 80 &    $0$ \\
+    D80A15  & 80 & ${+}15$ \\
+    D60A0r  & 60 &    $0$ \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\linewidth]{4-precise-alignment/4-methodology/figures/pa-trial-layout}
+  \caption{Spatial layout of the experimental trial conditions (top-down view).
+           Nine unique operating conditions are defined by crossing three
+           sensor-to-vine distances ($d \in \{40, 60, 80\}$\,cm) with three
+           lateral approach angles ($\theta \in \{-15^{\circ}, 0^{\circ},
+           {+}15^{\circ}\}$). Trial~D60A0r is a replicate of the centre
+           condition. Each blue marker indicates the robot sensor position
+           relative to the vine trunk for the corresponding trial.}
+  \label{fig:pa-trial-layout}
+\end{figure}
+
+% ---------------------------------------------------------------
+\subsubsection{Initial Pose Construction}
+\label{subsubsec:pa-initial-pose}
+% ---------------------------------------------------------------
+
+For each trial, the initial pose was constructed from a manual measurement of the robot's position and orientation relative to the vine specimen. The measurement was encoded as a $4 \times 4$ homogeneous transformation matrix in $SE(3)$ and provided to the localisation pipeline as a substitute for the SLAM-derived initial pose that would be available in a deployed system. This approach allows the registration stage to be evaluated in isolation from the SLAM system, with full control over the initial pose quality.
+
+The distance component was measured with a steel tape measure as the orthogonal distance from a fixed reference point on the vine mounting frame to the LiDAR sensor on the robot. The approach angle was determined by triangulation: from the same reference point, the orthogonal distance to the robot was measured, and a second perpendicular was projected from the robot base back to the vine frame. The distance along the frame between the original reference point and this second intersection point, together with the two perpendicular measurements, defined a triangle from which the approach angle was computed trigonometrically. The measurement geometry is illustrated in \cref{fig:pa-pose-measurement}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.65\linewidth]{4-precise-alignment/4-methodology/figures/pa-pose-measurement}
+  \caption{Initial pose measurement geometry (top-down view). The approach
+           angle~$\theta$ is determined by triangulation from the vine reference
+           point~$P$ on the mounting frame. A perpendicular from the robot sensor
+           position~$R$ back to the frame intersects at~$Q$; the lateral offset~$PQ$
+           along the frame and the perpendicular distance~$QR$ define a right
+           triangle from which $\theta = \arctan(PQ / QR)$ is computed.}
+  \label{fig:pa-pose-measurement}
+\end{figure}
+
+The manual measurement procedure introduces a positioning uncertainty on the order of $\pm 2$--$3$\,cm in translation and $\pm 2$--$3^{\circ}$ in orientation. The translational uncertainty reflects the combined precision of the tape measure ($\pm 1$\,mm) and the difficulty of consistently identifying the reference point on the frame and the sensor centre on the robot; the angular uncertainty reflects the propagation of these linear measurement errors through the trigonometric angle computation. This uncertainty is substantially smaller than the absolute trajectory error (ATE) reported for the GLIM SLAM system~\cite{koideGLIM3DRangeInertial2024} with GNSS fusion, which ranges from 0.07 to 0.17\,m across the outdoor evaluation presented in \cref{sec:slam-results}. The manual measurement therefore represents a \emph{more favourable} initial condition than would be encountered in deployment. As a consequence, any alignment failures observed under these laboratory conditions indicate a fundamental limitation of the registration pipeline itself, rather than an artefact of poor initial pose quality.
+
+% ---------------------------------------------------------------
+\subsubsection{Evaluation Protocol}
+\label{subsubsec:pa-eval-protocol}
+% ---------------------------------------------------------------
+
+The per-trial evaluation workflow is illustrated in \cref{fig:pa-eval-flowchart}. For each trial, the pipeline generated 35 perturbation hypotheses distributed around the initial pose, following the perturbation protocol described in \cref{subsec:pa-icp-registration}. Each hypothesis was registered independently using GICP against the target point cloud extracted from the 3DGS model; convergence criteria for the ICP solver are as specified in \cref{tab:pa-icp-params}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{4-precise-alignment/4-methodology/figures/pa-eval-flowchart}
+  \caption{Per-trial evaluation protocol. The initial pose is perturbed to
+           generate 35 candidate hypotheses (Orig and Groups~A, B, C,~and~E), each registered
+           independently via GICP. Per-hypothesis fitness and RMSE are recorded;
+           hypotheses with fitness below~0.8 are rejected, and the best remaining
+           result is selected. Three complementary validation strategies ---
+           perturbation convergence consistency, inter-trial consistency, and
+           visual overlay --- are applied to the serialised results.}
+  \label{fig:pa-eval-flowchart}
+\end{figure}
+
+The following quantities were recorded for each hypothesis:
+%
+\begin{itemize}
+  \item \textbf{Fitness score}: the ratio of inlier correspondences to the total number of source points;
+  \item \textbf{Inlier RMSE}: the root-mean-square error of the accepted inlier correspondences;
+  \item \textbf{Estimated transformation}: the $4 \times 4$ matrix in $SE(3)$ representing the registration result;
+  \item \textbf{Euler angle decomposition}: a decomposition of the estimated rotation into roll, pitch, and yaw angles, retained for interpretability.
+\end{itemize}
+%
+All per-trial results were serialised to JSON for subsequent analysis. Wall-clock timing was additionally recorded for each trial to assess computational feasibility. The following intervals were measured: total pipeline latency from trigger to corrected pose publication, preprocessing time from raw sensor data to filtered source cloud, and GICP registration time across all 35 hypotheses including hypothesis selection. These timings are reported as mean $\pm$ standard deviation across trials.
+
+% ---------------------------------------------------------------
+\subsubsection{Evaluation Metrics and Validation}
+\label{subsubsec:pa-eval-metrics}
+% ---------------------------------------------------------------
+
+Two primary metrics are used to assess registration quality. The fitness score measures the fraction of source points for which a valid correspondence exists within the maximum correspondence distance threshold; a higher fitness score indicates that a greater proportion of the observed structure is geometrically consistent with the reference model. The inlier RMSE measures the geometric residual of accepted correspondences; lower values indicate tighter point-to-point alignment.
+
+Results are additionally analysed per perturbation group (Orig and Groups~A, B, C, and~E, as defined in \cref{subsec:pa-icp-registration}) to assess whether certain perturbation directions are systematically more or less conducive to convergence. This per-group breakdown reveals whether the pipeline exhibits sensitivity to specific classes of initial pose error.
+
+Three complementary validation strategies are applied. First, \emph{perturbation convergence consistency} assesses whether multiple hypotheses within a single trial converge to similar final poses; large dispersion across hypotheses indicates sensitivity to initialisation rather than a stable registration basin. Second, \emph{inter-trial consistency} examines whether similar factor conditions --- for example, the same distance at different approach angles --- produce comparable fitness and RMSE values, providing evidence that results are not artefacts of a single fortuitous initial pose. Third, \emph{visual overlay} provides qualitative validation by rendering the registered source cloud and target cloud in a common frame for visual inspection of alignment quality. Cross-modal validation, comparing LiDAR and stereo registration outcomes on matched trials, is deferred to the stereo experimental setup section.
+
+Because only a single trial is conducted per non-centre condition, formal statistical tests (e.g.\ ANOVA or interaction-effect estimation) are not applicable. Results are instead presented as a condition-by-condition summary: for each trial, the number of hypotheses exceeding the fitness acceptance threshold, the median and interquartile range (IQR) of fitness and RMSE across accepted hypotheses, and the spread of the recovered transformation components. Cross-condition trends --- for example, whether fitness degrades with increasing distance or whether oblique angles produce higher RMSE variability --- are discussed qualitatively. If the replicate pair (D60A0 and D60A0r) yields consistent results, this is noted as evidence of repeatability; discrepancies are discussed.
+
+\paragraph{Limitations.}
+No external six-degree-of-freedom ground truth was available for these trials. The fitness score and inlier RMSE are \emph{internal} registration metrics: they measure how well the source cloud matches the target cloud, but do not directly measure whether the recovered pose corresponds to the robot's true physical pose. A high fitness score is necessary but not sufficient for correct alignment, since ICP can converge to a local minimum that achieves good geometric consistency without recovering the true transformation. Visual overlay provides a qualitative cross-check against gross misalignment, and the consistency of results across the 35 perturbation hypotheses provides evidence that the registration basin is stable. However, the results should be interpreted as evidence of geometric consistency between the sensor observation and the 3DGS reference model, rather than as a direct measurement of absolute pose accuracy. Outdoor validation with surveyed reference poses or a motion capture system would be required to quantify absolute accuracy and remains future work.

@@ -15,7 +15,7 @@ Compile the LaTeX thesis into a PDF using the repository's standard build sequen
 
 ## Steps
 1. Run the standard build sequence in the terminal:
-   - `pdflatex -interaction=nonstopmode thesis.tex; bibtex thesis; pdflatex -interaction=nonstopmode thesis.tex; pdflatex -interaction=nonstopmode thesis.tex`
+   - `pdflatex -interaction=nonstopmode thesis.tex && bibtex thesis && pdflatex -interaction=nonstopmode thesis.tex && pdflatex -interaction=nonstopmode thesis.tex`
 2. If the build fails:
    - Identify the first LaTeX error and its log context.
    - Propose and apply minimal, local edits to fix the issue (follow the thesis instructions).

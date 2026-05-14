@@ -21,7 +21,7 @@ Modern acquisition pipelines have shifted towards offline Structure from Motion 
 More recently, foundation model approaches have been applied to stereo depth estimation with the goal of achieving reliable zero-shot generalisation across varied imaging conditions. FoundationStereo~\cite{wenFoundationStereoZeroShot2025}
 addresses the sim-to-real transfer problem by training on a curated dataset of one million photorealistic synthetic stereo pairs and employing a Side-Tuning Adapter (STA) to leverage monocular depth priors from DepthAnything V2; cost volumes are subsequently filtered via an Attentive Hybrid Cost Filtering (AHCF) module combining Axial-Planar Convolutions with a Disparity Transformer for long-range disparity reasoning. Evaluated on the Middlebury and ETH3D benchmarks, the model achieves state-of-the-art results and generalises well to in-the-wild data, as illustrated in \cref{fig:zeroShotFS}. In the present work, FoundationStereo is applied to imagery from a ZED Mini stereo camera to produce the depth maps from which the source point cloud is derived prior to registration.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\linewidth]{4-precise-alignment/4-related-work/figures/zeroShotFSImages.png}
     \caption{Zero-shot stereo depth predictions from FoundationStereo across diverse in-the-wild scenes, including indoor and outdoor environments, textureless and reflective surfaces, and challenging illumination conditions. No per-domain fine-tuning is performed \protect\cite{wenFoundationStereoZeroShot2025}.}

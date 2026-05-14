@@ -1,0 +1,202 @@
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- ============================================ -->
+    <!-- Laboratory room boundary                     -->
+    <!-- ============================================ -->
+    <mxCell id="2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#cccccc;dashed=1;dashPattern=8 4;strokeWidth=1.5;" vertex="1" parent="1">
+      <mxGeometry x="80" y="80" width="670" height="500" as="geometry" />
+    </mxCell>
+    <mxCell id="3" value="Indoor Laboratory" style="text;html=1;align=center;fontSize=13;fontColor=#777777;fontStyle=3;" vertex="1" parent="1">
+      <mxGeometry x="310" y="88" width="210" height="24" as="geometry" />
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- Vine mounting frame (vertical structure)      -->
+    <!-- ============================================ -->
+    <!-- Left post -->
+    <mxCell id="4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e0e0e0;strokeColor=#999999;" vertex="1" parent="1">
+      <mxGeometry x="538" y="160" width="8" height="300" as="geometry" />
+    </mxCell>
+    <!-- Right post -->
+    <mxCell id="5" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e0e0e0;strokeColor=#999999;" vertex="1" parent="1">
+      <mxGeometry x="568" y="160" width="8" height="300" as="geometry" />
+    </mxCell>
+    <!-- Top crossbar -->
+    <mxCell id="6" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e0e0e0;strokeColor=#999999;" vertex="1" parent="1">
+      <mxGeometry x="538" y="160" width="38" height="6" as="geometry" />
+    </mxCell>
+    <!-- Bottom crossbar -->
+    <mxCell id="7" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e0e0e0;strokeColor=#999999;" vertex="1" parent="1">
+      <mxGeometry x="538" y="454" width="38" height="6" as="geometry" />
+    </mxCell>
+    <!-- Mounting frame label -->
+    <mxCell id="8" value="Rigid Mounting&lt;br&gt;Frame" style="text;html=1;align=center;fontSize=9;fontColor=#888888;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="590" y="280" width="90" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- Vine trunk (brown ellipse on frame)          -->
+    <!-- ============================================ -->
+    <mxCell id="9" value="Vine&lt;br&gt;Specimen" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d4a373;strokeColor=#8B6914;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="527" y="295" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- Robot platform                               -->
+    <!-- ============================================ -->
+    <mxCell id="10" value="Robot Platform" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="180" y="278" width="160" height="94" as="geometry" />
+    </mxCell>
+
+    <!-- Direction arrow (robot facing right) -->
+    <mxCell id="11" value="" style="endArrow=block;html=1;strokeColor=#6c8ebf;strokeWidth=2;endFill=1;endSize=8;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="340" y="325" as="sourcePoint" />
+        <mxPoint x="370" y="325" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- Sensors on robot (vine-facing side, right)   -->
+    <!-- ============================================ -->
+    <!-- Livox LiDAR -->
+    <mxCell id="12" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+      <mxGeometry x="330" y="290" width="10" height="16" as="geometry" />
+    </mxCell>
+    <!-- ZED Mini camera -->
+    <mxCell id="13" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="330" y="340" width="10" height="16" as="geometry" />
+    </mxCell>
+
+    <!-- Sensor labels -->
+    <mxCell id="14" value="Livox MID-360&lt;br&gt;(solid-state LiDAR)" style="text;html=1;align=left;fontSize=8;fontColor=#d79b00;fontStyle=0;" vertex="1" parent="1">
+      <mxGeometry x="130" y="186" width="115" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="15" value="ZED Mini&lt;br&gt;(stereo camera)" style="text;html=1;align=left;fontSize=8;fontColor=#82b366;fontStyle=0;" vertex="1" parent="1">
+      <mxGeometry x="130" y="410" width="100" height="24" as="geometry" />
+    </mxCell>
+    <!-- Leader lines from labels to sensors -->
+    <mxCell id="16" value="" style="endArrow=classic;html=1;strokeColor=#d79b00;strokeWidth=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="12">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="245" y="206" as="sourcePoint" />
+        <mxPoint x="330" y="298" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="17" value="" style="endArrow=classic;html=1;strokeColor=#82b366;strokeWidth=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="13">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="230" y="422" as="sourcePoint" />
+        <mxPoint x="330" y="348" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- LiDAR FOV cone (dashed)                      -->
+    <!-- ============================================ -->
+    <mxCell id="18" value="" style="endArrow=none;dashed=1;dashPattern=4 4;strokeColor=#d79b00;strokeWidth=1;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="340" y="295" as="sourcePoint" />
+        <mxPoint x="520" y="200" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="19" value="" style="endArrow=none;dashed=1;dashPattern=4 4;strokeColor=#d79b00;strokeWidth=1;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="340" y="300" as="sourcePoint" />
+        <mxPoint x="520" y="420" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Camera FOV cone (dashed, narrower) -->
+    <mxCell id="20" value="" style="endArrow=none;dashed=1;dashPattern=4 4;strokeColor=#82b366;strokeWidth=1;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="340" y="345" as="sourcePoint" />
+        <mxPoint x="520" y="270" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="21" value="" style="endArrow=none;dashed=1;dashPattern=4 4;strokeColor=#82b366;strokeWidth=1;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="340" y="350" as="sourcePoint" />
+        <mxPoint x="520" y="390" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+
+    <!-- FOV label -->
+    <mxCell id="22" value="sensor FOV" style="text;html=1;align=center;fontSize=8;fontColor=#aaaaaa;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="400" y="210" width="65" height="14" as="geometry" />
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- Distance measurement (d)                     -->
+    <!-- ============================================ -->
+    <mxCell id="25" value="" style="endArrow=block;startArrow=block;endFill=1;startFill=1;strokeColor=#333333;strokeWidth=1.5;startSize=5;endSize=5;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="340" y="385" as="sourcePoint" />
+        <mxPoint x="527" y="385" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="26" value="d" style="text;html=1;align=center;fontSize=12;fontStyle=3;fontColor=#333333;" vertex="1" parent="1">
+      <mxGeometry x="415" y="388" width="30" height="20" as="geometry" />
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- Angle measurement (&#x3b8;) annotation               -->
+    <!-- ============================================ -->
+    <!-- Vine normal arrow (horizontal, pointing left from vine) -->
+    <mxCell id="27" value="" style="endArrow=classic;dashed=1;dashPattern=4 4;strokeColor=#555555;strokeWidth=1;endSize=5;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="527" y="325" as="sourcePoint" />
+        <mxPoint x="460" y="325" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="28" value="vine normal" style="text;html=1;align=center;fontSize=8;fontColor=#555555;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="448" y="328" width="70" height="14" as="geometry" />
+    </mxCell>
+
+    <!-- Angle arc indicator -->
+    <mxCell id="29" value="&#x3b8;" style="text;html=1;align=center;fontSize=11;fontStyle=3;fontColor=#333333;" vertex="1" parent="1">
+      <mxGeometry x="455" y="345" width="20" height="18" as="geometry" />
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- Coordinate frame (bottom-left corner)        -->
+    <!-- ============================================ -->
+    <mxCell id="30" value="" style="endArrow=classic;html=1;strokeColor=#cc0000;strokeWidth=2;endFill=1;endSize=5;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="660" y="540" as="sourcePoint" />
+        <mxPoint x="720" y="540" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="31" value="x" style="text;html=1;align=center;fontSize=10;fontColor=#cc0000;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="718" y="530" width="20" height="16" as="geometry" />
+    </mxCell>
+    <mxCell id="32" value="" style="endArrow=classic;html=1;strokeColor=#00aa00;strokeWidth=2;endFill=1;endSize=5;" edge="1" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="660" y="540" as="sourcePoint" />
+        <mxPoint x="660" y="480" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="33" value="y" style="text;html=1;align=center;fontSize=10;fontColor=#00aa00;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="650" y="464" width="20" height="16" as="geometry" />
+    </mxCell>
+    <!-- z into page (circle with cross) -->
+    <mxCell id="34" value="&#x2297; z" style="text;html=1;align=center;fontSize=10;fontColor=#0000cc;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="640" y="544" width="30" height="16" as="geometry" />
+    </mxCell>
+
+    <!-- ============================================ -->
+    <!-- 3DGS model annotation                        -->
+    <!-- ============================================ -->
+    <mxCell id="40" value="3DGS reference model&lt;br&gt;(reconstructed from outdoor&lt;br&gt;photogrammetry, manually&lt;br&gt;re-aligned to lab frame)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=8;fontColor=#666666;align=left;spacingLeft=6;" vertex="1" parent="1">
+      <mxGeometry x="596" y="140" width="145" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="41" value="" style="endArrow=classic;html=1;strokeColor=#d6b656;strokeWidth=1;dashed=1;exitX=0;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="40">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="570" y="240" as="sourcePoint" />
+        <mxPoint x="560" y="295" as="targetPoint" />
+      </mxGeometry>
+    </mxCell>
+
+  </root>
+</mxGraphModel>

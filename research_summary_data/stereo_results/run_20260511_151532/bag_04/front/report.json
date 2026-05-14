@@ -1,0 +1,62 @@
+{
+  "job_id": "79f13d9d-e19b-4c83-a207-84de2ad63048",
+  "camera_source": "FRONT",
+  "status": "COMPLETED",
+  "timestamp": {
+    "sec": 1776050535,
+    "nanosec": 262764604
+  },
+  "stage_timings_seconds": {
+    "StereoDepthCommand": 1.2381,
+    "PointcloudCombine": 4.7351,
+    "StereoPointcloudProcessingCommand": 0.7458,
+    "Stereo ICP Alignment": 7.3467
+  },
+  "total_time_seconds": 14.0658,
+  "pointcloud_statistics": {
+    "raw_depth_points": 93336,
+    "processed_points": 68811
+  },
+  "icp_result": {
+    "fitness": 1.0,
+    "inlier_rmse": 0.01671069059176572,
+    "transformation": [
+      [
+        0.9989661406731501,
+        0.03880746022870318,
+        -0.02367764386904344,
+        -0.6180884726680602
+      ],
+      [
+        -0.03734985530482409,
+        0.9975487311413935,
+        0.05917362002534599,
+        -0.9440834300155523
+      ],
+      [
+        0.025915981503704107,
+        -0.058228086253911425,
+        0.997966859106006,
+        1.6371594191479615
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "stage_results": {
+    "PointcloudCombine": {
+      "front_camera_points": 44138,
+      "back_camera_points": 49198,
+      "combined_points": 93336,
+      "front_job_id": "79f13d9d-e19b-4c83-a207-84de2ad63048",
+      "back_job_id": "e3fce6b5-c8c5-44c2-98bd-ff87c2c4405c",
+      "timestamp_key": 1776050535.2627647,
+      "transform_computed": true
+    }
+  },
+  "error_message": null
+}

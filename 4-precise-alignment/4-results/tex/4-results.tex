@@ -1,4 +1,592 @@
+% ===========================================================================
 \section{Results}
 \label{sec:precise-alignment-results}
+% ===========================================================================
 
-illustrate results
+This section reports quantitative results for both the LiDAR and stereo precise-alignment pipelines across seven experimental trials conducted in the indoor laboratory environment described in \cref{subsubsec:pa-test-environment}. The seven stereo trials (\texttt{stereo\_bag\_02}--\texttt{stereo\_bag\_08}) correspond directly by index to the seven LiDAR trials (\texttt{lidar\_job\_02}--\texttt{lidar\_job\_08}). The LiDAR pipeline generated 35 perturbation hypotheses per trial, yielding 245 hypothesis-level results in total; the stereo pipeline executes a single ICP run per trial and consequently produces one result per trial. LiDAR results are presented first: \cref{subsec:pa-results-registration-summary} summarises per-trial registration outcomes; \cref{subsec:pa-results-perturbation-groups} presents the per-perturbation-group breakdown; \cref{subsec:pa-results-transformation} reports the recovered transformation components; \cref{subsec:pa-results-convergence} analyses convergence consistency; \cref{subsec:pa-results-timing} documents pipeline timing; and \cref{subsec:pa-results-baseline-comparison} compares the graduated strategy against a Huber-only baseline. Stereo results follow in \cref{subsec:pa-results-stereo-summary}--\cref{subsec:pa-results-stereo-timing}, and \cref{subsec:pa-results-cross-modal} presents a cross-modal comparison.
+
+\paragraph{Registration approach.}
+The registration results reported here were produced by a graduated GICP strategy in which the Cauchy loss applied to LiDAR source clouds (described in \cref{subsec:pa-icp-registration}) is preceded by an initial alignment phase using a Huber loss. Specifically, the pipeline executes two sequential GICP phases for each hypothesis: Phase~1 applies a Huber loss ($k = 1.5$) for 30 iterations to achieve broad alignment, and Phase~2 applies a Cauchy loss ($k = 0.5$) for 20 iterations to refine the result. In addition, a rotation constraint clamps corrections to the pitch and roll axes to $\pm 5^{\circ}$ per iteration, whilst yaw and all three translation components remain unconstrained. A Huber-only baseline (Phase~1 only, 50 iterations, no rotation constraint) is included for comparison in \cref{subsec:pa-results-baseline-comparison}.
+
+\paragraph{Evaluation context.}
+As noted in \cref{subsubsec:pa-eval-metrics}, no external six-degree-of-freedom ground truth was available for these trials. All metrics --- fitness score and inlier RMSE --- are internal registration measures that quantify geometric consistency between the sensor observation and the 3DGS reference model, rather than absolute pose accuracy. A high fitness score and low RMSE are necessary but not sufficient for correct alignment; visual overlay (pending, see \cref{subsec:pa-results-visual-overlay}) provides a qualitative cross-check. Furthermore, the mapping between trial identifiers (\texttt{lidar\_job\_02}--\texttt{lidar\_job\_08} and \texttt{stereo\_bag\_02}--\texttt{stereo\_bag\_08}) and the trial conditions defined in \cref{tab:pa-trial-matrix} (D40/D60/D80 $\times$ A$-$15/A0/A$+$15) has not yet been established. Condition-specific analyses for both modalities --- including distance effects, approach-angle effects, and the replicate-pair repeatability check --- are therefore deferred to a future revision of this section.
+
+% ---------------------------------------------------------------------------
+\subsection{Registration Performance Summary}
+\label{subsec:pa-results-registration-summary}
+% ---------------------------------------------------------------------------
+
+\Cref{tab:pa-results-per-job} summarises the registration outcome for each of the seven trials. For each trial the table reports the number of points in the preprocessed source cloud, the number and proportion of the 35 hypotheses that exceeded the fitness acceptance threshold ($F \geq 0.8$, see \cref{subsec:pa-icp-registration}), the median and interquartile range (IQR) of the fitness score and inlier RMSE across all accepted hypotheses, and the fitness and inlier RMSE of the single best-selected hypothesis.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \caption{Per-trial LiDAR registration summary. Median and IQR statistics are computed over accepted hypotheses only. \texttt{lidar\_job\_02} achieved zero accepted hypotheses and its median and IQR values are therefore not defined (---). All inlier RMSE values are in millimetres. $n_\text{acc}$: number of accepted hypotheses; $\tilde{F}$: median fitness; $\tilde{\varepsilon}$: median inlier RMSE.}
+  \label{tab:pa-results-per-job}
+  \begin{tabular}{@{} l r r r r r r r @{}}
+    \toprule
+    \textbf{Job} &
+    \textbf{Proc.\ pts} &
+    \boldmath$n_\text{acc}$\textbf{/35} &
+    \textbf{Accept (\%)} &
+    \boldmath$\tilde{F}$ &
+    \textbf{IQR(}\boldmath$F$\textbf{)} &
+    \boldmath$\tilde{\varepsilon}$ \textbf{(mm)} &
+    \textbf{IQR(}\boldmath$\varepsilon$\textbf{) (mm)} \\
+    \midrule
+    \texttt{lidar\_job\_02} & 349\,663 &  0/35 &   0 &    ---    &   ---    &  ---   &   ---  \\
+    \texttt{lidar\_job\_03} & 116\,892 & 35/35 & 100 & 0.9205 & 0.0000 & 34.93 & 0.68 \\
+    \texttt{lidar\_job\_04} & 108\,707 & 35/35 & 100 & 0.9174 & 0.0000 & 33.25 & 0.00 \\
+    \texttt{lidar\_job\_05} & 121\,350 & 32/35 &  91 & 0.9277 & 0.0000 & 24.41 & 0.00 \\
+    \texttt{lidar\_job\_06} & 112\,312 & 34/35 &  97 & 0.9107 & 0.0059 & 34.77 & 1.72 \\
+    \texttt{lidar\_job\_07} &  97\,358 & 35/35 & 100 & 0.8939 & 0.0079 & 32.30 & 2.36 \\
+    \texttt{lidar\_job\_08} & 116\,750 & 35/35 & 100 & 0.9141 & 0.0001 & 23.38 & 0.02 \\
+    \midrule
+    \textbf{Aggregate} & --- & 206/245 & 84.1 & 0.9141 & 0.0266 & 33.25 & 10.54 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Six of the seven trials reached full or near-full hypothesis acceptance. Of the 245 hypotheses evaluated in total, 206 were accepted (84.1\%). Across the six converging trials, the median fitness score ranged from 0.8939 (\texttt{lidar\_job\_07}) to 0.9277 (\texttt{lidar\_job\_05}), and the median inlier RMSE ranged from 23.38\,mm (\texttt{lidar\_job\_08}) to 34.93\,mm (\texttt{lidar\_job\_03}). The aggregate IQR of the inlier RMSE across all accepted hypotheses is 10.54\,mm, reflecting variability across rather than within trials: within individual converging trials, the per-hypothesis RMSE IQR is at most 2.36\,mm (\cref{tab:pa-results-per-job}).
+
+\texttt{lidar\_job\_02} produced zero accepted hypotheses, with a median fitness of 0.4020 across all 35 runs --- substantially below the acceptance threshold and below the fitness achieved by any other trial. The preprocessed source cloud for this trial contained 349\,663 points, approximately three times the 97\,000--122\,000 points observed in all other trials. This anomaly is attributable to a failure in the Patchwork++ ground segmentation stage (\cref{subsubsec:pa-ground-segmentation}): the ground plane was not correctly identified, leaving a large number of ground-return points in the source cloud after preprocessing. These ground points have no corresponding structure in the 3DGS target cloud, inflating geometric residuals and preventing convergence. All analyses that depend on accepted hypotheses exclude \texttt{lidar\_job\_02}.
+
+% ---------------------------------------------------------------------------
+\subsection{Per-Perturbation-Group Breakdown}
+\label{subsec:pa-results-perturbation-groups}
+% ---------------------------------------------------------------------------
+
+The 35 hypotheses generated per trial are organised into five perturbation groups, described below and summarised in \cref{tab:pa-results-groups}. Statistics in the table are aggregated across all seven trials; group counts therefore reflect the combined 245 hypotheses.
+
+\begin{itemize}
+  \item \emph{Orig} (1 hypothesis per trial): the nominal, unperturbed initial pose.
+  \item \emph{Group~A} (6 per trial): axis-aligned translation-only perturbations at half the nominal translation magnitude ($\delta_t / 2 = 5$\,cm) in the $\pm x$, $\pm y$, and $\pm z$ directions.
+  \item \emph{Group~B} (4 per trial): cardinal-direction translations in the horizontal plane at the full nominal magnitude ($\delta_t = 10$\,cm), covering north, east, south, and west.
+  \item \emph{Group~C} (12 per trial): compound perturbations combining diagonal horizontal translations ($\delta_t$) with yaw rotations ($\pm \delta_r$), sampling the four diagonal directions (NE, SE, SW, NW) in combination with positive and negative yaw perturbations.
+  \item \emph{Group~E} (12 per trial): rotation-only perturbations sweeping roll, pitch, and yaw about each axis at both half-magnitude ($\delta_r / 2$) and full magnitude ($\delta_r$), with both positive and negative signs.
+\end{itemize}
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \caption{Per-perturbation-group registration results, aggregated across all seven trials (245 hypotheses total). Group descriptions refer to the body-frame perturbations applied to the initial pose. $\tilde{F}$: median fitness; $\tilde{\varepsilon}$: median inlier RMSE.}
+  \label{tab:pa-results-groups}
+  \begin{tabularx}{\textwidth}{@{} l >{\raggedright}X r r r r r r @{}}
+    \toprule
+    \textbf{Group} &
+    \textbf{Description} &
+    \boldmath$n_\text{acc}$\textbf{/}\boldmath$n_\text{hyp}$ &
+    \textbf{Accept (\%)} &
+    \boldmath$\tilde{F}$ &
+    \textbf{IQR(}\boldmath$F$\textbf{)} &
+    \boldmath$\tilde{\varepsilon}$ \textbf{(mm)} &
+    \textbf{IQR(}\boldmath$\varepsilon$\textbf{) (mm)} \\
+    \midrule
+    Orig   & Nominal (unperturbed) pose         &  6/7   & 86 & 0.9142 & 0.0127 & 34.64 &  6.22 \\
+    A      & Inner shell translations ($\delta_t/2$, $\pm x/y/z$) & 36/42  & 86 & 0.9141 & 0.0187 & 33.25 & 10.52 \\
+    B      & Outer cardinal translations ($\delta_t$, N/E/S/W)     & 24/28  & 86 & 0.9141 & 0.0187 & 33.25 & 10.52 \\
+    C      & Diagonal translation + yaw ($\delta_t \pm \delta_r$)  & 69/84  & 82 & 0.9107 & 0.0246 & 33.25 &  7.35 \\
+    E      & Roll/pitch/yaw sweeps ($\delta_r/2$ and $\delta_r$)   & 71/84  & 85 & 0.9141 & 0.0266 & 33.25 & 10.54 \\
+    \midrule
+    \textbf{All} & & 206/245 & 84 & 0.9141 & 0.0266 & 33.25 & 10.54 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Acceptance rates are broadly similar across all five groups, ranging from 82\% (Group~C) to 86\% (Orig, A, and B). The slightly lower acceptance rate for Group~C is consistent with the compound nature of those perturbations, which combine a large horizontal displacement with a yaw rotation and therefore represent the most challenging initial poses for the registration solver. Despite this, the difference is small in absolute terms: three additional hypotheses per group would have to be accepted to equalise the rates.
+
+Median fitness is consistent across groups (0.9107--0.9142), and the median inlier RMSE is identical at 33.25\,mm for Groups~A, B, C, and E, with the Orig group at 34.64\,mm. The slight elevation in the Orig group RMSE reflects the contribution of \texttt{lidar\_job\_03}, which has the highest per-trial median RMSE at 34.93\,mm. These results suggest that the registration outcome is not sensitive to the class of initial perturbation applied, provided the hypothesis is accepted.
+
+% ---------------------------------------------------------------------------
+\subsection{Recovered Transformation Components}
+\label{subsec:pa-results-transformation}
+% ---------------------------------------------------------------------------
+
+\Cref{tab:pa-results-translation,tab:pa-results-rotation} report the median and IQR of the recovered translation and rotation components across accepted hypotheses within each trial. The translation components are expressed in the global ENU frame (metres); the rotation components are expressed as ZYX Euler angles --- yaw ($\psi$), pitch ($\theta$), and roll ($\phi$) --- in degrees. \texttt{lidar\_job\_02} produced no accepted hypotheses and is omitted from both tables.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Median and IQR of recovered translation components across accepted hypotheses, per trial. All values in metres. \texttt{lidar\_job\_02} is omitted (zero accepted hypotheses).}
+  \label{tab:pa-results-translation}
+  \begin{tabularx}{\textwidth}{l r r r r r r r}
+    \toprule
+    \textbf{Job} &
+    \boldmath$n_\text{acc}$ &
+    \boldmath$\tilde{t}_x$ \textbf{(m)} &
+    \textbf{IQR} &
+    \boldmath$\tilde{t}_y$ \textbf{(m)} &
+    \textbf{IQR} &
+    \boldmath$\tilde{t}_z$ \textbf{(m)} &
+    \textbf{IQR} \\
+    \midrule
+    \texttt{lidar\_job\_03} & 35 & $-$26.0111 & 0.0001 & 15.5155 & 0.0000 & 1.1255 & 0.0003 \\
+    \texttt{lidar\_job\_04} & 35 & $-$26.1081 & 0.0000 & 15.3781 & 0.0000 & 1.1239 & 0.0000 \\
+    \texttt{lidar\_job\_05} & 32 & $-$26.1926 & 0.0000 & 15.2737 & 0.0000 & 1.1437 & 0.0000 \\
+    \texttt{lidar\_job\_06} & 34 & $-$26.0556 & 0.0038 & 15.4496 & 0.0001 & 1.1409 & 0.0090 \\
+    \texttt{lidar\_job\_07} & 35 & $-$26.0832 & 0.0029 & 15.5395 & 0.0106 & 1.1273 & 0.0072 \\
+    \texttt{lidar\_job\_08} & 35 & $-$26.2030 & 0.0006 & 15.1342 & 0.0006 & 1.1096 & 0.0020 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Median and IQR of recovered ZYX Euler angles across accepted hypotheses, per trial. All values in degrees. \texttt{lidar\_job\_02} is omitted. Yaw ($\psi$): rotation about $z$; pitch ($\theta$): rotation about $y$; roll ($\phi$): rotation about $x$.}
+  \label{tab:pa-results-rotation}
+  \begin{tabularx}{\textwidth}{l r r r r r r r}
+    \toprule
+    \textbf{Job} &
+    \boldmath$n_\text{acc}$ &
+    \boldmath$\tilde{\psi}$ \textbf{(°)} &
+    \textbf{IQR} &
+    \boldmath$\tilde{\theta}$ \textbf{(°)} &
+    \textbf{IQR} &
+    \boldmath$\tilde{\phi}$ \textbf{(°)} &
+    \textbf{IQR} \\
+    \midrule
+    \texttt{lidar\_job\_03} & 35 & 146.652 & 0.007 & $-$0.209 & 0.016 & 36.418 & 0.040 \\
+    \texttt{lidar\_job\_04} & 35 & 147.380 & 0.004 & $-$0.644 & 0.003 & 35.021 & 0.002 \\
+    \texttt{lidar\_job\_05} & 32 & 147.819 & 0.001 &    3.993 & 0.003 & 36.363 & 0.001 \\
+    \texttt{lidar\_job\_06} & 34 & 146.473 & 0.177 &    1.185 & 0.939 & 37.932 & 1.780 \\
+    \texttt{lidar\_job\_07} & 35 & 138.447 & 0.245 &    1.707 & 1.847 & 36.531 & 1.553 \\
+    \texttt{lidar\_job\_08} & 35 & 153.315 & 0.033 &    2.317 & 0.203 & 35.518 & 0.207 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The recovered translations exhibit systematic variation across trials: $\tilde{t}_x$ spans approximately $-26.01$ to $-26.20$\,m and $\tilde{t}_y$ spans 15.13 to 15.54\,m, a range of roughly 19\,cm and 41\,cm respectively. These cross-trial differences are expected, as each trial was conducted from a distinct sensor position relative to the vine (the trial design spans $d \in \{40, 60, 80\}$\,cm and $\theta \in \{-15^{\circ}, 0^{\circ}, +15^{\circ}\}$). The variation in recovered yaw ($\tilde{\psi}$: 138.4° to 153.3°) similarly reflects the different approach angles across trials. The $z$-translation ($\tilde{t}_z$: 1.11 to 1.14\,m) varies by only 33\,mm across trials, consistent with the sensor mounting height remaining constant across conditions.
+
+Within individual converging trials, the IQR of the recovered transformation components is generally very small. Translations exhibit IQRs at or below 10.6\,mm in most trials; rotational IQRs are at or below 0.2° in most cases. \texttt{lidar\_job\_06} and \texttt{lidar\_job\_07} show elevated IQRs in pitch and roll (up to 1.85° for pitch in \texttt{lidar\_job\_07}), indicating slightly higher variability in angular recovery for those trials.
+
+% ---------------------------------------------------------------------------
+\subsection{Convergence Consistency}
+\label{subsec:pa-results-convergence}
+% ---------------------------------------------------------------------------
+
+\subsubsection*{Within-Trial Perturbation Convergence}
+
+\Cref{tab:pa-results-within-job-sigma} reports the standard deviation ($\sigma$) of the recovered transformation components across accepted hypotheses within each trial. Low values indicate that multiple initial perturbations converge to the same final pose, providing evidence of a stable and unique registration basin. High values indicate sensitivity to initialisation, which may reflect multiple local minima or a flat registration landscape.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Standard deviation of recovered transformation components across accepted hypotheses within each trial. Translation values in metres; rotation values in degrees. \texttt{lidar\_job\_02} is omitted.}
+  \label{tab:pa-results-within-job-sigma}
+  \begin{tabularx}{\textwidth}{l r r r r r r r}
+    \toprule
+    \textbf{Job} &
+    \boldmath$n_\text{acc}$ &
+    \boldmath$\sigma_{t_x}$ \textbf{(m)} &
+    \boldmath$\sigma_{t_y}$ \textbf{(m)} &
+    \boldmath$\sigma_{t_z}$ \textbf{(m)} &
+    \boldmath$\sigma_{\psi}$ \textbf{(°)} &
+    \boldmath$\sigma_{\theta}$ \textbf{(°)} &
+    \boldmath$\sigma_{\phi}$ \textbf{(°)} \\
+    \midrule
+    \texttt{lidar\_job\_03} & 35 & 0.0241 & 0.0050 & 0.0056 & 0.97 & 1.45 & 3.43 \\
+    \texttt{lidar\_job\_04} & 35 & 0.1317 & 0.0772 & 0.0145 & 0.25 & 1.19 & 0.48 \\
+    \texttt{lidar\_job\_05} & 32 & 0.0000 & 0.0000 & 0.0000 & 0.00 & 0.00 & 0.00 \\
+    \texttt{lidar\_job\_06} & 34 & 0.0026 & 0.0035 & 0.0044 & 0.11 & 1.00 & 1.18 \\
+    \texttt{lidar\_job\_07} & 35 & 0.0023 & 0.0101 & 0.0247 & 1.08 & 2.26 & 4.02 \\
+    \texttt{lidar\_job\_08} & 35 & 0.0724 & 0.0043 & 0.0889 & 0.57 & 1.57 & 6.59 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\texttt{lidar\_job\_05} achieves near-zero spread across all components (all $\sigma < 0.1$\,mm and $< 0.01^{\circ}$), indicating that all 32 accepted hypotheses converge to a single pose to within numerical precision. \texttt{lidar\_job\_04} and \texttt{lidar\_job\_08} show elevated translational spread ($\sigma_{t_x} > 0.07$\,m), whilst \texttt{lidar\_job\_07} and \texttt{lidar\_job\_08} exhibit the largest rotational spread in roll ($\sigma_\phi > 4^{\circ}$). In \texttt{lidar\_job\_03}, the roll spread ($\sigma_\phi = 3.43^{\circ}$) is also elevated. The presence of non-negligible spread in roll in several trials may be attributable to the inherent symmetry of the vine trunk geometry along its vertical axis, which reduces the uniqueness of the roll alignment. It may also reflect the interaction between the per-iteration $\pm 5^{\circ}$ rotation clamp and Group~E perturbations that initialise with large roll offsets.
+
+\subsubsection*{Inter-Trial Consistency}
+
+Excluding the non-converging \texttt{lidar\_job\_02}, 6 of 7 trials produced at least 32 accepted hypotheses. Across these six converging trials, the best-hypothesis fitness scores range from 0.9018 (\texttt{lidar\_job\_07}) to 0.9277 (\texttt{lidar\_job\_05}), with a mean of 0.9161 and standard deviation of 0.0086. The corresponding best-hypothesis inlier RMSE values range from 23.41\,mm (\texttt{lidar\_job\_08}) to 36.27\,mm (\texttt{lidar\_job\_03}), with a mean of 31.19\,mm and standard deviation of 5.23\,mm. The consistency of the fitness score across trials (coefficient of variation $< 1\%$) indicates that the pipeline reliably achieves a similar quality of geometric correspondence regardless of the initial sensor pose, for the range of conditions tested. The larger relative variation in RMSE (coefficient of variation $\approx 17\%$) likely reflects condition-specific factors such as viewing angle and sensor-to-target distance.
+
+\subsubsection*{Cross-Job Trend: Perturbation Benefit}
+
+For most converging trials, the original (unperturbed) hypothesis achieves the same fitness and RMSE as the best-selected hypothesis across all 35 perturbations, with the fitness improvement due to perturbation ranging from 0.0000 to 0.0042. In no trial does neighbourhood perturbation produce a reduction in RMSE relative to the unperturbed result. This indicates that, for the conditions evaluated, the initial poses constructed from manual measurement (\cref{subsubsec:pa-initial-pose}) were already within the convergence basin of the global optimum; the perturbation strategy provides robustness against larger initial pose errors without degrading the result when the initial estimate is accurate. Quantitative analysis of the perturbation benefit as a function of initial pose error magnitude requires the replicate-pair consistency check and cross-condition trend analysis, both of which are deferred pending condition-label mapping.
+
+\subsubsection*{Replicate-Pair Consistency}
+
+The trial design includes one replicate of the centre condition (D60A0 and D60A0r, see \cref{tab:pa-trial-matrix}) as a repeatability check. This analysis is deferred because the mapping between job identifiers and trial condition labels has not yet been established.
+
+% ---------------------------------------------------------------------------
+\subsection{Pipeline Timing}
+\label{subsec:pa-results-timing}
+% ---------------------------------------------------------------------------
+
+Wall-clock timing was recorded for each trial, covering three intervals: the preprocessing time from raw sensor data to filtered source cloud, the total GICP registration time across all 35 hypotheses (including hypothesis selection), and the total pipeline latency from the point at which the processed source cloud is available to final pose publication. These three intervals are reported in \cref{tab:pa-results-timing}. The 25\,s scan accumulation interval (see \cref{subsubsec:pa-dense-accumulation}) precedes the pipeline and is not reflected in the preprocessing or total pipeline figures, because accumulation for the next vine can be performed concurrently while the manipulator executes cuts on the current vine.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Per-trial pipeline timing. Preprocessing time covers sensor data filtering to source cloud output; ICP time covers all 35 hypothesis registrations and hypothesis selection; total pipeline covers preprocessing through pose publication. The 25\,s LiDAR accumulation interval is excluded: accumulation for the next vine is performed concurrently with pruning of the current vine and does not contribute to the per-vine alignment latency.}
+  \label{tab:pa-results-timing}
+  \begin{tabularx}{\textwidth}{l r r r}
+    \toprule
+    \textbf{Job} &
+    \textbf{Preprocess (s)} &
+    \textbf{ICP / trial (s)} &
+    \textbf{Total pipeline (s)} \\
+    \midrule
+    \texttt{lidar\_job\_02} & 2.44 & 1.57 & 75.9 \\
+    \texttt{lidar\_job\_03} & 0.76 & 1.06 & 50.9 \\
+    \texttt{lidar\_job\_04} & 0.70 & 1.04 & 50.0 \\
+    \texttt{lidar\_job\_05} & 0.80 & 0.93 & 46.8 \\
+    \texttt{lidar\_job\_06} & 0.71 & 0.98 & 48.1 \\
+    \texttt{lidar\_job\_07} & 0.63 & 0.98 & 48.0 \\
+    \texttt{lidar\_job\_08} & 0.75 & 0.98 & 48.0 \\
+    \midrule
+    \textbf{Mean $\pm$ std} & $0.97 \pm 0.60$ & $1.08 \pm 0.20$ & $52.5 \pm 9.6$ \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+For the six converging trials (\texttt{lidar\_job\_03}--\texttt{lidar\_job\_08}), preprocessing requires 0.63--0.80\,s and per-hypothesis ICP registration requires 0.93--1.06\,s, with a total pipeline latency of 46.8--50.9\,s. Including \texttt{lidar\_job\_02} increases the mean preprocessing time to $0.97 \pm 0.60$\,s and the mean per-hypothesis ICP time to $1.08 \pm 0.20$\,s, due to the anomalously large source cloud processed in that trial (349\,663 points versus approximately 97\,000--122\,000 for the converging trials). The total pipeline latency for \texttt{lidar\_job\_02} is 75.9\,s, compared to approximately 48\,s for the converging trials; the additional overhead is attributable to the larger cloud size, which increases both correspondence search cost and per-hypothesis registration time.
+
+The per-hypothesis registration time of approximately 1\,s is consistent with the two-phase graduated GICP strategy applied here: Phase~1 executes 30 Huber iterations and Phase~2 executes 20 Cauchy iterations, for a combined 50 iterations per hypothesis, matching the maximum iteration count specified for the single-phase baseline in \cref{tab:pa-icp-params}. The total registration time of approximately 35\,s across 35 hypotheses provides scope for parallelisation, which the current sequential implementation does not exploit; parallel hypothesis evaluation would reduce total pipeline latency to approximately the per-hypothesis registration time plus preprocessing overhead.
+
+% ---------------------------------------------------------------------------
+\subsection{Comparison with the Huber-Only Baseline}
+\label{subsec:pa-results-baseline-comparison}
+% ---------------------------------------------------------------------------
+
+To assess the benefit of the two-phase graduated strategy over the Phase~1 loss alone, the Huber-only baseline (50 iterations of Huber loss, $k = 1.5$, without the Cauchy refinement phase and without the rotation clamp) was evaluated on the same trials. \Cref{tab:pa-results-baseline} compares the best-hypothesis fitness and inlier RMSE for both approaches. Results for \texttt{lidar\_job\_07} are not available for the Huber-only baseline and that trial is excluded from aggregate statistics.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \caption{Best-hypothesis fitness and inlier RMSE for the Huber-only baseline and the graduated (Huber + Cauchy) strategy. $\Delta\varepsilon$: graduated RMSE minus Huber RMSE; negative values indicate improvement from the Cauchy refinement phase. \texttt{lidar\_job\_07} is excluded (Huber baseline result not available).}
+  \label{tab:pa-results-baseline}
+  \begin{tabular}{@{} l r r r r r @{}}
+    \toprule
+    \textbf{Job} &
+    \textbf{Huber $F$} &
+    \textbf{Grad.\ $F$} &
+    \textbf{Huber RMSE (mm)} &
+    \textbf{Grad.\ RMSE (mm)} &
+    \boldmath$\Delta\varepsilon$ \textbf{(mm)} \\
+    \midrule
+    \texttt{lidar\_job\_02} & 0.4033 & 0.4031 & 46.45 & 46.22 & $-$0.23 \\
+    \texttt{lidar\_job\_03} & 0.9240 & 0.9247 & 36.58 & 36.27 & $-$0.31 \\
+    \texttt{lidar\_job\_04} & 0.9177 & 0.9174 & 33.94 & 33.25 & $-$0.69 \\
+    \texttt{lidar\_job\_05} & 0.9277 & 0.9277 & 24.49 & 24.41 & $-$0.08 \\
+    \texttt{lidar\_job\_06} & 0.9107 & 0.9107 & 35.56 & 35.17 & $-$0.39 \\
+    \texttt{lidar\_job\_08} & 0.9143 & 0.9143 & 23.36 & 23.41 & $+$0.05 \\
+    \midrule
+    \textbf{Mean (excl.\ \texttt{job\_02})} & 0.9189 & 0.9190 & 30.79 & 30.50 & $-$0.28 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Best-hypothesis fitness scores are identical or near-identical between the two strategies for all trials: the Cauchy refinement phase does not alter which hypotheses are accepted or which is ranked best. In terms of inlier RMSE, the graduated strategy reduces the best-hypothesis error in 5 of 6 comparable trials, with reductions ranging from 0.08\,mm (\texttt{lidar\_job\_05}) to 0.69\,mm (\texttt{lidar\_job\_04}). In one trial (\texttt{lidar\_job\_08}), the graduated RMSE is 0.05\,mm higher than the Huber baseline. The mean RMSE improvement across the five trials where a reduction is observed is 0.34\,mm; the mean improvement across all six comparable trials is 0.28\,mm. These differences are modest relative to the absolute RMSE values (23--36\,mm) and may not exceed the repeatability of the underlying registration. The graduated strategy nonetheless provides a consistent reduction in the majority of trials at no additional computational cost beyond the 20 Cauchy iterations of Phase~2.
+
+% ---------------------------------------------------------------------------
+\subsection{Visual Overlay Validation}
+\label{subsec:pa-results-visual-overlay}
+% ---------------------------------------------------------------------------
+
+Visual overlay --- rendering the registered source cloud and reference target cloud in a common frame for qualitative alignment inspection --- is planned as a complementary validation for each converging trial, as described in \cref{subsubsec:pa-eval-metrics}. These visualisations have not yet been generated and will be incorporated in a future revision of this section. Placeholder figure positions are indicated below for completeness.
+
+% TODO: Replace the following placeholder with actual overlay figures once generated.
+\begin{figure}[htbp]
+  \centering
+  \fbox{\parbox{0.9\linewidth}{\centering\vspace{3cm}%
+    \textit{[Placeholder: registered source cloud (coloured by trial) overlaid on the 3DGS target cloud,\\
+    shown for each converging trial. To be added.]}\vspace{3cm}}}
+  \caption{Visual overlay of the registered LiDAR source clouds against the 3DGS reference target cloud for converging trials (\texttt{lidar\_job\_03}--\texttt{lidar\_job\_08}). Each panel shows the best-selected hypothesis. Source points are rendered in a distinct colour per trial; target points are shown in grey. \emph{[Figure pending.]}}
+  \label{fig:pa-results-overlay}
+\end{figure}
+
+% ---------------------------------------------------------------------------
+\subsection{Stereo Registration Performance Summary}
+\label{subsec:pa-results-stereo-summary}
+% ---------------------------------------------------------------------------
+
+\Cref{tab:pa-results-stereo-per-bag} summarises the registration outcome for each of the seven stereo trials. Unlike the LiDAR pipeline, which evaluates 35 perturbation hypotheses per trial and reports statistics over accepted hypotheses, the stereo pipeline executes a single ICP run per trial. Consequently, each trial produces exactly one fitness value and one inlier RMSE. The stereo fitness metric takes a binary value: 1.0 if all processed source points found a correspondence within the registration radius, and 0.0 if no correspondences were found --- reflecting the all-or-nothing behaviour of a single-hypothesis ICP when the initial pose estimate is either within or outside the convergence basin.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \caption{Per-trial stereo registration summary. The fitness metric takes a binary value (1.0 or 0.0) because the stereo pipeline executes a single ICP run per trial. Failed trials are listed with dashes for RMSE. Inlier RMSE values are in millimetres.}
+  \label{tab:pa-results-stereo-per-bag}
+  \begin{tabular}{@{} l r r r r r @{}}
+    \toprule
+    \textbf{Trial} &
+    \textbf{Raw pts} &
+    \textbf{Proc.\ pts} &
+    \boldmath$F$ &
+    \boldmath$\varepsilon$ \textbf{(mm)} &
+    \textbf{Total time (s)} \\
+    \midrule
+    \texttt{stereo\_bag\_02} &   3\,484 &    456 & 0.0 &     --- &  8.06 \\
+    \texttt{stereo\_bag\_03} & 107\,944 & 91\,952 & 1.0 & 16.65 & 12.90 \\
+    \texttt{stereo\_bag\_04} &  93\,336 & 68\,811 & 1.0 & 16.71 & 14.07 \\
+    \texttt{stereo\_bag\_05} &  84\,748 & 42\,307 & 1.0 & 13.08 & 15.83 \\
+    \texttt{stereo\_bag\_06} &  97\,181 & 83\,163 & 0.0 &     --- & 10.81 \\
+    \texttt{stereo\_bag\_07} &  99\,661 & 87\,772 & 1.0 & 16.80 & 11.34 \\
+    \texttt{stereo\_bag\_08} &  81\,464 & 23\,980 & 0.0 &     --- & 10.27 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Four of the seven trials converged successfully (57\%), compared to six of seven for the LiDAR pipeline (86\%). The three failing trials exhibit distinct failure modes. \texttt{Stereo\_bag\_02} processed only 456 points after the trunk segmentation pipeline (\cref{subsubsec:pa-trunk-segmentation}) collapsed the dual-camera point cloud, most likely because the DBSCAN minimum cluster size ($m_\mathrm{min} = 200$) was not satisfied in this trial; this is the stereo analogue of the Patchwork++ ground segmentation failure observed in \texttt{lidar\_job\_02}. \texttt{Stereo\_bag\_06} processed a large cloud (83\,163 points) but produced $F = 0.0$, indicating that the single ICP run diverged completely despite adequate point coverage --- a failure mode attributable to the absence of perturbation hypotheses and the sensitivity of single-run ICP to the initial pose estimate. \texttt{Stereo\_bag\_08} processed only 23\,980 points, the lowest non-trivial count across all trials, suggesting that trunk segmentation discarded an excessive proportion of the combined cloud in that trial, leaving insufficient geometric structure for successful registration. The two qualitatively distinct failure modes are illustrated in \cref{fig:stereo-failure-cases}.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag02_processed}
+    \caption{\texttt{Stereo\_bag\_02}: trunk segmentation collapse producing only 456 points.}
+    \label{fig:stereo-bag02-processed}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag06_icp_final_side}
+    \caption{\texttt{Stereo\_bag\_06}: ICP divergence --- source cloud (red) entirely separated from reference (green).}
+    \label{fig:stereo-bag06-icp-final}
+  \end{subfigure}
+  \caption{Stereo pipeline failure cases. \emph{Left}: the trunk segmentation stage for \texttt{stereo\_bag\_02} reduced an 83\,163-point combined cloud to only 456 points, leaving no coherent geometric structure for registration. \emph{Right}: \texttt{stereo\_bag\_06} had adequate point coverage (83\,163 processed points) but the single-hypothesis ICP run diverged completely, placing the source cloud (red) far from the 3DGS reference structure (green) and yielding a fitness score of zero. Green: 3DGS reference cloud; red: stereo source cloud.}
+  \label{fig:stereo-failure-cases}
+\end{figure}
+
+Across the four converging trials, the inlier RMSE ranges from 13.08\,mm (\texttt{stereo\_bag\_05}) to 16.80\,mm (\texttt{stereo\_bag\_07}), with a mean of 15.81\,mm. Three of the four converging trials cluster tightly at approximately 16.7\,mm; \texttt{stereo\_bag\_05} achieves a notably lower RMSE of 13.08\,mm. As with the LiDAR results, the condition-label mapping has not been established, so it is not currently possible to attribute this RMSE variation to specific distance or approach-angle factors. A representative before-and-after alignment comparison for \texttt{stereo\_bag\_05} is shown in \cref{fig:stereo-bag05-icp-comparison}.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag05_icp_initial_top}
+    \caption{Top-down, before registration.}
+    \label{fig:stereo-bag05-icp-initial-top}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag05_icp_final_top}
+    \caption{Top-down, after registration.}
+    \label{fig:stereo-bag05-icp-final-top}
+  \end{subfigure}
+
+  \vspace{0.5em}
+
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag05_icp_initial_side}
+    \caption{Vine face, before registration.}
+    \label{fig:stereo-bag05-icp-initial-side}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag05_icp_final_side}
+    \caption{Vine face, after registration ($\varepsilon = 13.08$\,mm).}
+    \label{fig:stereo-bag05-icp-final-side}
+  \end{subfigure}
+  \caption{Stereo ICP alignment for \texttt{stereo\_bag\_05} before (\emph{left column}) and after (\emph{right column}) GICP registration. Top row: top-down projection, which reveals alignment in the depth axis (distance from sensor to vine). Bottom row: vine-face projection, which shows lateral and vertical alignment of the cane and trunk structure. Green: 3DGS reference cloud; red: preprocessed stereo source cloud. After registration the source cloud converges onto the reference structure in both projections, achieving an inlier RMSE of 13.08\,mm.}
+  \label{fig:stereo-bag05-icp-comparison}
+\end{figure}
+
+% ---------------------------------------------------------------------------
+\subsection{Stereo: Recovered Transformation Components}
+\label{subsec:pa-results-stereo-transformation}
+% ---------------------------------------------------------------------------
+
+\Cref{tab:pa-results-stereo-transformation} reports the translation and rotation components of the transformation recovered by the stereo ICP for each of the four converging trials. The translation components ($t_x$, $t_y$, $t_z$ in metres) and ZYX Euler angles --- yaw ($\psi$), pitch ($\theta$), and roll ($\phi$) in degrees --- are extracted from the $4 \times 4$ homogeneous transformation matrix returned by the GICP solver. The stereo ICP transformation is expressed in the stereo pipeline's local registration frame, which differs from the global ENU frame used to report the LiDAR transformation components in \cref{subsec:pa-results-transformation}; direct numerical comparison of translation magnitudes between the two modalities is therefore not meaningful.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Recovered transformation components for converging stereo trials. Translations in metres; ZYX Euler angles in degrees. Values are expressed in the stereo registration frame (not the global ENU frame). \texttt{Stereo\_bag\_02}, \texttt{stereo\_bag\_06}, and \texttt{stereo\_bag\_08} did not converge and are omitted.}
+  \label{tab:pa-results-stereo-transformation}
+  \begin{tabularx}{\textwidth}{l r r r r r r}
+    \toprule
+    \textbf{Trial} &
+    \boldmath$t_x$ \textbf{(m)} &
+    \boldmath$t_y$ \textbf{(m)} &
+    \boldmath$t_z$ \textbf{(m)} &
+    \boldmath$\psi$ \textbf{(°)} &
+    \boldmath$\theta$ \textbf{(°)} &
+    \boldmath$\phi$ \textbf{(°)} \\
+    \midrule
+    \texttt{stereo\_bag\_03} & $-$0.970 & $-$1.579 & 1.423 & $-$3.47 &    0.38 & $-$5.56 \\
+    \texttt{stereo\_bag\_04} & $-$0.618 & $-$0.944 & 1.637 & $-$2.14 & $-$1.49 & $-$3.34 \\
+    \texttt{stereo\_bag\_05} & $-$0.479 & $-$0.653 & 2.524 & $-$1.65 & $-$5.58 &    0.18 \\
+    \texttt{stereo\_bag\_07} & $-$0.240 & $-$0.500 & 0.896 & $-$1.05 &    1.16 & $-$4.97 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+All recovered rotation components are below 6° in magnitude across the four converging trials, indicating alignment corrections consistent with small angular offsets from the initial pose estimate. The $t_z$ component varies from 0.896\,m (\texttt{stereo\_bag\_07}) to 2.524\,m (\texttt{stereo\_bag\_05}), a range of 1.63\,m across trials that is qualitatively consistent with variation in the sensor-to-vine geometry arising from the different distance and approach-angle conditions in the trial design. A definitive cross-trial trend analysis requires the condition-label mapping, which is currently unavailable.
+
+% ---------------------------------------------------------------------------
+\subsection{Stereo Pipeline Timing}
+\label{subsec:pa-results-stereo-timing}
+% ---------------------------------------------------------------------------
+
+\Cref{tab:pa-results-stereo-timing} reports wall-clock timing for each of the seven stereo trials, decomposed into four stages: depth estimation (FoundationStereo inference and back-projection), dual-camera point cloud combination, preprocessing (morphological closing, DBSCAN clustering, and voxel density filtering), and ICP alignment. Unlike the LiDAR pipeline, the stereo pipeline does not require a preceding scan accumulation interval; the ZED cameras provide instantaneous depth estimates, and the full stereo pipeline commences as soon as the image pair is captured.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \caption{Per-trial stereo pipeline timing. The depth column covers FoundationStereo inference and back-projection; combine covers dual-camera point cloud fusion; process covers morphological closing, DBSCAN clustering, and voxel density filtering; ICP covers GICP alignment and pose publication. No scan accumulation interval precedes the pipeline. All values in seconds.}
+  \label{tab:pa-results-stereo-timing}
+  \begin{tabular}{@{} l r r r r r @{}}
+    \toprule
+    \textbf{Trial} &
+    \textbf{Depth (s)} &
+    \textbf{Combine (s)} &
+    \textbf{Process (s)} &
+    \textbf{ICP (s)} &
+    \textbf{Total (s)} \\
+    \midrule
+    \texttt{stereo\_bag\_02} & 1.73 & 2.70 & 0.03 & 3.59 &  8.06 \\
+    \texttt{stereo\_bag\_03} & 1.29 & 4.48 & 1.01 & 6.12 & 12.90 \\
+    \texttt{stereo\_bag\_04} & 1.24 & 4.74 & 0.75 & 7.35 & 14.07 \\
+    \texttt{stereo\_bag\_05} & 1.23 & 4.92 & 0.67 & 9.01 & 15.83 \\
+    \texttt{stereo\_bag\_06} & 1.28 & 4.52 & 1.03 & 3.98 & 10.81 \\
+    \texttt{stereo\_bag\_07} & 1.29 & 4.50 & 0.97 & 4.57 & 11.34 \\
+    \texttt{stereo\_bag\_08} & 1.25 & 4.68 & 0.85 & 3.49 & 10.27 \\
+    \midrule
+    \textbf{Mean $\pm$ std} & $1.33 \pm 0.16$ & $4.36 \pm 0.69$ & $0.76 \pm 0.32$ & $5.44 \pm 1.96$ & $11.90 \pm 2.39$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Across all seven trials, total pipeline latency ranges from 8.06\,s (\texttt{stereo\_bag\_02}, which has an anomalously small source cloud) to 15.83\,s (\texttt{stereo\_bag\_05}), with a mean of $11.90 \pm 2.39$\,s. The dominant timing components are dual-camera combination ($4.36 \pm 0.69$\,s) and ICP alignment ($5.44 \pm 1.96$\,s); depth estimation is consistent across trials at approximately 1.3\,s. The ICP time correlates broadly with the number of processed points: \texttt{stereo\_bag\_05} (42\,307 points, 9.01\,s) and \texttt{stereo\_bag\_04} (68\,811 points, 7.35\,s) require substantially more ICP time than \texttt{stereo\_bag\_08} (23\,980 points, 3.49\,s) and the two diverging trials (\texttt{stereo\_bag\_06} at 3.98\,s and \texttt{stereo\_bag\_08}), which incur less ICP time consistent with early termination upon detecting no correspondences. The \texttt{stereo\_bag\_02} outlier (0.03\,s preprocessing) reflects its collapsed 456-point cloud, which bypasses the computationally significant stages of the segmentation pipeline.
+
+The stereo pipeline does not require the 25\,s scan accumulation interval that precedes the LiDAR pipeline, and evaluates only a single ICP hypothesis per trial rather than 35. The total stereo latency of approximately 12\,s is therefore substantially lower than the LiDAR total pipeline latency of approximately 48\,s. This latency advantage comes at the cost of reduced robustness: a single-hypothesis strategy has no fallback if the initial pose estimate lies outside the ICP convergence basin, whereas the LiDAR perturbation strategy provides coverage across a range of initial pose errors.
+
+% ---------------------------------------------------------------------------
+\subsection{Stereo: Visual Overlay Validation}
+\label{subsec:pa-results-stereo-overlay}
+% ---------------------------------------------------------------------------
+
+\Cref{fig:stereo-visual-overlay} presents front-face visual overlays of the registered stereo source clouds against the 3DGS reference target for all four converging trials. Green points are the 3DGS reference cloud; red points are the stereo source cloud after GICP registration. The degree of colour interleaving indicates geometric correspondence between the measured vine surface and the reference model.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag03_icp_final_side}
+    \caption{\texttt{Stereo\_bag\_03}: $\varepsilon = 16.65$\,mm}
+    \label{fig:stereo-overlay-bag03}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag04_icp_final_side}
+    \caption{\texttt{Stereo\_bag\_04}: $\varepsilon = 16.71$\,mm}
+    \label{fig:stereo-overlay-bag04}
+  \end{subfigure}
+
+  \vspace{0.5em}
+
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag05_icp_final_side}
+    \caption{\texttt{Stereo\_bag\_05}: $\varepsilon = 13.08$\,mm}
+    \label{fig:stereo-overlay-bag05}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag07_icp_final_side}
+    \caption{\texttt{Stereo\_bag\_07}: $\varepsilon = 16.80$\,mm}
+    \label{fig:stereo-overlay-bag07}
+  \end{subfigure}
+  \caption{Visual overlay of the registered stereo source clouds (red) against the 3DGS reference target cloud (green) for all four converging trials, viewed from the vine face. Each panel shows the GICP result for the corresponding trial; the inlier RMSE $\varepsilon$ is indicated in each subcaption. Tighter interleaving of red and green indicates better geometric correspondence. \texttt{Stereo\_bag\_05} achieves the lowest RMSE and shows the tightest visual alignment.}
+  \label{fig:stereo-visual-overlay}
+\end{figure}
+
+All four converging trials show substantial overlap between the source and reference clouds in the cane and trunk region, consistent with the low inlier RMSE values reported in \cref{subsec:pa-results-stereo-summary}. The degree of visible residual red reflects the portion of the source cloud that does not precisely coincide with the green reference surface. \texttt{Stereo\_bag\_05} shows the tightest correspondence, consistent with its lower RMSE of 13.08\,mm relative to the 16.65--16.80\,mm observed in the remaining three trials.
+
+\Cref{fig:stereo-visual-overlay-top} presents the corresponding top-down projections, which expose alignment in the depth axis (sensor-to-vine distance) that the vine-face view does not reveal.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag03_icp_final_top}
+    \caption{\texttt{Stereo\_bag\_03}: $\varepsilon = 16.65$\,mm}
+    \label{fig:stereo-overlay-top-bag03}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag04_icp_final_top}
+    \caption{\texttt{Stereo\_bag\_04}: $\varepsilon = 16.71$\,mm}
+    \label{fig:stereo-overlay-top-bag04}
+  \end{subfigure}
+
+  \vspace{0.5em}
+
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag05_icp_final_top}
+    \caption{\texttt{Stereo\_bag\_05}: $\varepsilon = 13.08$\,mm}
+    \label{fig:stereo-overlay-top-bag05}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{4-precise-alignment/4-results/figures/stereo_bag07_icp_final_top}
+    \caption{\texttt{Stereo\_bag\_07}: $\varepsilon = 16.80$\,mm}
+    \label{fig:stereo-overlay-top-bag07}
+  \end{subfigure}
+  \caption{Top-down visual overlay of the registered stereo source clouds (red) against the 3DGS reference target cloud (green) for all four converging trials. This projection complements \cref{fig:stereo-visual-overlay} by exposing alignment in the depth axis (sensor-to-vine distance). Overlap in this view indicates that the registration has correctly resolved the range component of the transformation, not only its lateral and vertical components.}
+  \label{fig:stereo-visual-overlay-top}
+\end{figure}
+
+% ---------------------------------------------------------------------------
+\subsection{Cross-Modal Comparison: Stereo and LiDAR}
+\label{subsec:pa-results-cross-modal}
+% ---------------------------------------------------------------------------
+
+\Cref{tab:pa-results-cross-modal} presents a matched-trial comparison of the LiDAR and stereo registration outcomes. Each row corresponds to one trial pair, identified by the shared trial index (\texttt{02}--\texttt{08}). For LiDAR, the number of accepted hypotheses and the median inlier RMSE across accepted hypotheses are reported; for stereo, the convergence status and the single-run inlier RMSE are reported. Condition labels are not yet available; the comparison is therefore restricted to trial-level registration quality metrics.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \caption{Matched-trial comparison of LiDAR and stereo registration outcomes. LiDAR $n_\text{acc}$: accepted hypotheses out of 35; $\tilde{\varepsilon}$: median inlier RMSE across accepted hypotheses. Stereo $\varepsilon$: single-run inlier RMSE for converging trials. All RMSE values in millimetres. The aggregate row covers the four trials where both pipelines converged (indices 03, 04, 05, 07).}
+  \label{tab:pa-results-cross-modal}
+  \begin{tabular}{@{} l r r r r @{}}
+    \toprule
+    \textbf{Trial} &
+    \textbf{LiDAR} \boldmath$n_\text{acc}$\textbf{/35} &
+    \textbf{LiDAR} \boldmath$\tilde{\varepsilon}$ \textbf{(mm)} &
+    \textbf{Stereo conv.} &
+    \textbf{Stereo} \boldmath$\varepsilon$ \textbf{(mm)} \\
+    \midrule
+    02 &  0/35 &    --- & No  &    --- \\
+    03 & 35/35 & 34.93  & Yes & 16.65  \\
+    04 & 35/35 & 33.25  & Yes & 16.71  \\
+    05 & 32/35 & 24.41  & Yes & 13.08  \\
+    06 & 34/35 & 34.77  & No  &    --- \\
+    07 & 35/35 & 32.30  & Yes & 16.80  \\
+    08 & 35/35 & 23.38  & No  &    --- \\
+    \midrule
+    \textbf{Both converged (mean)} & --- & 31.22 & --- & 15.81 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Several observations emerge from the matched comparison.
+
+\paragraph{Convergence reliability.} LiDAR achieved full or near-full hypothesis acceptance in six of seven trials (86\%), whereas the stereo pipeline converged in only four of seven (57\%). Trial~02 failed for both modalities --- LiDAR due to a ground segmentation failure (Patchwork++) and stereo due to an analogous trunk segmentation collapse --- suggesting a common scene-level difficulty in that trial. Trials~06 and 08 converged for LiDAR but failed for stereo; in both cases the LiDAR pipeline's 35-hypothesis perturbation strategy provided recovery from initial pose errors that exceeded the convergence basin of the single-hypothesis stereo ICP. No trial that failed for LiDAR succeeded for stereo.
+
+\paragraph{Registration quality.} On the four trials where both pipelines converged (03, 04, 05, 07), the stereo inlier RMSE is consistently and substantially lower than the LiDAR median RMSE: 15.81\,mm versus 31.22\,mm on average, a reduction of approximately 49\%. This difference reflects several factors that are difficult to fully disentangle. The stereo source cloud, clipped at $z_\mathrm{far} = 1.0$\,m, captures only the near-field portion of the vine surface, within which FoundationStereo depth estimation achieves high spatial accuracy. The LiDAR source cloud, accumulated over 25\,s across a wider angular extent, captures a larger fraction of the vine structure but incorporates returns from surface orientations and distances that carry higher geometric uncertainty. Since the inlier RMSE quantifies geometric consistency only within the region of matched correspondences, the spatially restricted stereo cloud may produce a systematically lower RMSE without implying superior global pose accuracy.
+
+\paragraph{Pipeline latency.} The stereo pipeline completes in approximately 12\,s per trial (mean $11.90 \pm 2.39$\,s) with no preceding accumulation phase, compared to approximately 48\,s total latency for the LiDAR pipeline. The stereo pipeline is therefore markedly faster per alignment event, though the LiDAR pipeline provides substantially greater robustness through its multi-hypothesis perturbation strategy.
+
+% ---------------------------------------------------------------------------
+\subsection{Scope and Pending Analyses}
+\label{subsec:pa-results-scope}
+% ---------------------------------------------------------------------------
+
+The results presented in this section are limited in two respects, which constrain the conclusions that can be drawn at this stage.
+
+\textbf{Condition-label mapping.} The trial identifiers used throughout this section (\texttt{lidar\_job\_02}--\texttt{lidar\_job\_08} and \texttt{stereo\_bag\_02}--\texttt{stereo\_bag\_08}) have not yet been mapped to the trial conditions defined in \cref{tab:pa-trial-matrix}. Consequently, condition-specific analyses for both modalities --- distance effects, approach-angle effects, the replicate-pair repeatability check (D60A0 vs.\ D60A0r), and cross-modal per-condition comparison --- cannot yet be reported. These analyses will be incorporated once the mapping is established.
+
+\textbf{Visual overlay.} Qualitative registration quality assessment via visual overlay (\cref{subsec:pa-results-visual-overlay}) is pending for both modalities and will be added in a future revision.
